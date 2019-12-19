@@ -718,7 +718,7 @@ namespace Harry.LabTools.LabMcuFunc
 		/// </summary>
 		/// <param name="flash"></param>
 		/// <returns></returns>
-		public virtual int CMcuFunc_WriteChipEeprom(byte[] chipEeprom, RichTextBox msg, ToolStripLabel workState = null, ToolStripLabel workTime = null, ToolStripProgressBar workBar = null,string str = "编程Eeprom")
+		public virtual int CMcuFunc_WriteChipEeprom(byte[] chipEeprom, RichTextBox msg, bool isAuto = false, ToolStripLabel workState = null, ToolStripLabel workTime = null, ToolStripProgressBar workBar = null,string str = "编程Eeprom")
 		{
 			return -1;
 		}
@@ -729,9 +729,9 @@ namespace Harry.LabTools.LabMcuFunc
 		/// <param name="chipEeprom"></param>
 		/// <param name="msg"></param>
 		/// <returns></returns>
-		public virtual int CMcuFunc_WriteChipEeprom(byte[] chipEeprom, RichTextBox msg)
+		public virtual int CMcuFunc_WriteChipEeprom(byte[] chipEeprom, RichTextBox msg, bool isAuto = false)
 		{
-			return this.CMcuFunc_WriteChipEeprom(chipEeprom,msg,null,null,null);
+			return this.CMcuFunc_WriteChipEeprom(chipEeprom,msg,isAuto,null,null,null);
 		}
 
 		/// <summary>
@@ -739,9 +739,9 @@ namespace Harry.LabTools.LabMcuFunc
 		/// </summary>
 		/// <param name="chb">Hex编辑器控件</param>
 		/// <returns></returns>
-		public virtual int CMcuFunc_WriteChipEeprom(CHexBox chb, RichTextBox msg, ToolStripLabel workState = null, ToolStripLabel workTime = null, ToolStripProgressBar workBar = null, string str = "编程Eeprom")
+		public virtual int CMcuFunc_WriteChipEeprom(CHexBox chb, RichTextBox msg, bool isAuto = false, ToolStripLabel workState = null, ToolStripLabel workTime = null, ToolStripProgressBar workBar = null, string str = "编程Eeprom")
 		{
-			return this.CMcuFunc_WriteChipEeprom(chb.mDataMap, msg,workState,workTime,workBar,str);
+			return this.CMcuFunc_WriteChipEeprom(chb.mDataMap, msg,isAuto,workState,workTime,workBar,str);
 		}
 
 		/// <summary>
@@ -750,9 +750,9 @@ namespace Harry.LabTools.LabMcuFunc
 		/// <param name="chb"></param>
 		/// <param name="msg"></param>
 		/// <returns></returns>
-		public virtual int CMcuFunc_WriteChipEeprom(CHexBox chb, RichTextBox msg)
+		public virtual int CMcuFunc_WriteChipEeprom(CHexBox chb, RichTextBox msg,bool isAuto = false)
 		{
-			return this.CMcuFunc_WriteChipEeprom(chb, msg, null,null,null);
+			return this.CMcuFunc_WriteChipEeprom(chb, msg,isAuto, null,null,null);
 		}
 
 

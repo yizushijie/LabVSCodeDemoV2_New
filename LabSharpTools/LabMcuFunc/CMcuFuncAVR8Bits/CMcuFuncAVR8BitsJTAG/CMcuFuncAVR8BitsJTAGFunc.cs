@@ -143,7 +143,7 @@ namespace Harry.LabTools.LabMcuFunc
 		/// </summary>
 		/// <param name="flash"></param>
 		/// <returns></returns>
-		public override int CMcuFunc_WriteChipEeprom(byte[] chipEeprom, RichTextBox msg)
+		public override int CMcuFunc_WriteChipEeprom(byte[] chipEeprom, RichTextBox msg, bool isAuto = false)
 		{
 			return -1;
 		}

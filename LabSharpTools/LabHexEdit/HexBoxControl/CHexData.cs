@@ -222,6 +222,8 @@ namespace Harry.LabTools.LabHexEdit
 		/// <param name="length"></param>
 		public bool AddData(long length)
 		{
+			//---获取焦点
+			this.Focus();
 			//----数据赋初值为0xFF
 			CGenFuncMem.GenFuncMemset(ref this.defaultNowData, length, 0xFF);
 			CGenFuncMem.GenFuncMemset(ref this.defaultLastData, length, 0xFF);
@@ -272,6 +274,8 @@ namespace Harry.LabTools.LabHexEdit
 			}
 			else
 			{
+				//---获取焦点
+				this.Focus();
 				//---重新置位缓存区的大小
 				Array.Resize<byte>(ref this.defaultNowData, dat.Length);
 				Array.Resize<byte>(ref this.defaultLastData, dat.Length);
@@ -324,6 +328,8 @@ namespace Harry.LabTools.LabHexEdit
 			}
 			else
 			{
+				//---获取焦点
+				this.Focus();
 				if (this.defaultNowData.Length != dat.Length)
 				{
 					//---重新置位缓存区的大小
@@ -391,6 +397,8 @@ namespace Harry.LabTools.LabHexEdit
 			{
 				return false;
 			}
+			//---获取焦点
+			this.Focus();
 			//---数据拷贝
 			Array.Copy(dat, 0, this.defaultNowData, index, length);
 			Array.Copy(this.defaultNowData, this.defaultLastData, this.defaultNowData.Length);
@@ -424,6 +432,8 @@ namespace Harry.LabTools.LabHexEdit
 			}
 			else
 			{
+				//---获取焦点
+				this.Focus();
 				if ((this.defaultNowData == null) || (this.defaultNowData.Length != length))
 				{
 					//---重新置位缓存区的大小

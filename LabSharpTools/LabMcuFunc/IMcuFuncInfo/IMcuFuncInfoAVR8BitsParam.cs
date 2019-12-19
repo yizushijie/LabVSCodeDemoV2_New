@@ -403,6 +403,14 @@ namespace Harry.LabTools.LabMcuFunc
 		}
 
 		/// <summary>
+		/// Eeprom支持页编程模式，true---支持，flase---不支持
+		/// </summary>
+		bool mChipEepromPageMode
+		{
+			get;
+		}
+
+		/// <summary>
 		/// 设备的校准字
 		/// </summary>
 		CMcuFuncAVR8BitsParam mChipOSCCalibration

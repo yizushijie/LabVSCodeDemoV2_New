@@ -82,9 +82,14 @@ namespace Harry.LabTools.LabMcuFunc
 		private int defaultChipEepromPageNum = 0;//128;
 
 		/// <summary>
-		/// 芯片Flash的每页字节数
+		/// 芯片Eeprom的每页字节数
 		/// </summary>
 		private int defaultChipEepromPerPageByteNum = 0;// 4;
+
+		/// <summary>
+		/// eeprom是否支持页编程模式，true---支持，false---不支持
+		/// </summary>
+		private bool defaultChipEepromPageMode = false;
 
 		/// <summary>
 		/// 设备的校准字
@@ -458,6 +463,17 @@ namespace Harry.LabTools.LabMcuFunc
 			get
 			{
 				return ((long)this.defaultChipEepromPageNum) * this.defaultChipEepromPerPageByteNum;
+			}
+		}
+
+		/// <summary>
+		/// Eeprom支持页编程模式
+		/// </summary>
+		public virtual bool mChipEepromPageMode
+		{
+			get
+			{
+				return this.defaultChipEepromPageMode;
 			}
 		}
 
@@ -1578,6 +1594,10 @@ namespace Harry.LabTools.LabMcuFunc
 						break;
 					case "POLLREADY":
 						this.defaultChipPollReady = (Convert.ToUInt16(xn.InnerText, 16)==0)?false:true;
+						_return += 1;
+						break;
+					case "EEPROMPAGE":
+						this.defaultChipEepromPageMode = (Convert.ToUInt16(xn.InnerText, 16) == 0) ? false : true;
 						_return += 1;
 						break;
 					default:

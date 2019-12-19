@@ -67,7 +67,8 @@ namespace Harry.LabTools.LabMcuFunc
 				byte[] cmd = new byte[] {	(byte)CMCUFUNC_CMD_ISP.CMD_ISP_OPEN_CLOSE, 0x01,
 											(byte)((this.mMcuInfoParam.mPollReady==true)?1:0),
 											(byte)(this.mMcuInfoParam.mChipFlashPerPageWordNum>>8),(byte)(this.mMcuInfoParam.mChipFlashPerPageWordNum),
-											(byte)(this.mMcuInfoParam.mChipEepromPerPageByteNum>>8),(byte)(this.mMcuInfoParam.mChipEepromPerPageByteNum)
+											(byte)(this.mMcuInfoParam.mChipEepromPerPageByteNum>>8),(byte)(this.mMcuInfoParam.mChipEepromPerPageByteNum),
+											(byte)((this.mMcuInfoParam.mChipEepromPageMode==true)?1:0)
 										};
 				//---读取命令
 				byte[] res = null;
@@ -235,7 +236,7 @@ namespace Harry.LabTools.LabMcuFunc
 				else
 				{
 					//---小数据包长度
-					cmd= new byte[] { (byte)CMCUFUNC_CMD_ISP.CMD_ISP_FLASH_PAGE_READ, 0x00, 0x00, 0x00, 0x00, };
+					cmd= new byte[] { (byte)CMCUFUNC_CMD_ISP.CMD_ISP_FLASH_PAGE_READ, 0x00, 0x00, 0x00, 0x00 };
 				}
 				//---计算数据包的大小
 				packageMaxSize = this.mCCOMM.mPerPackageMaxSize - length-cmd.Length;
@@ -736,128 +737,150 @@ namespace Harry.LabTools.LabMcuFunc
 		/// </summary>
 		/// <param name="flash"></param>
 		/// <returns></returns>
-		public override int CMcuFunc_WriteChipEeprom(byte[] chipEeprom, RichTextBox msg, ToolStripLabel workState = null, ToolStripLabel workTime = null, ToolStripProgressBar workBar = null,string str= "编程Eeprom")
+		public override int CMcuFunc_WriteChipEeprom(byte[] chipEeprom, RichTextBox msg, bool isAuto = false, ToolStripLabel workState = null, ToolStripLabel workTime = null, ToolStripProgressBar workBar = null,string str= "编程Eeprom")
 		{
 			int _return = -1;
 			//---校验通讯端口
 			if ((this.mCCOMM != null) && (this.mCCOMM.mIsOpen == true))
 			{
-				//---工作状态
-				if (workState != null)
+				//---校验是否需要进入编程模式
+				if (isAuto == true)
 				{
-					workState.Text = str;// "编程Flash";
+					_return = this.CMcuFunc_OpenConnect(null);
 				}
-				//---计算耗时
-				DateTime nowTime = DateTime.Now;
-				//---保存读取的数据
-				byte[][] eeprom = null;
-				//---发送命令
-				byte[] cmd = null;
-				//---数据接收
-				byte[] res = null;
-				//---
-				int length = 2;
-				//---每包数据最大数量
-				int packageMaxSize = 0;
-				//---数据的地址
-				long addr = 0;
-				//---校验最大数据传输量
-				if (this.mCCOMM.mPerPackageMaxSize > 0xFF)
+				//---校验编程模式，进入Flash编程任务
+				if (_return == 0)
 				{
-					cmd = new byte[] { (byte)CMCUFUNC_CMD_ISP.CMD_ISP_EEPROM_PAGE_WRITE, 0x00, 0x00, 0x00, 0x00 };
-					length += 1;
-				}
-				else
-				{
-					cmd = new byte[] { (byte)CMCUFUNC_CMD_ISP.CMD_ISP_EEPROM_PAGE_WRITE, 0x00, 0x00, 0x00 };
-				}
-				//---计算数据包的大小
-				packageMaxSize = this.mCCOMM.mPerPackageMaxSize - length - cmd.Length;
-				//---数据长度必须是偶数
-				if ((packageMaxSize & 0x01) != 0)
-				{
-					packageMaxSize -= 1;
-				}
-				//---命令数据的偏移
-				int cmdDataOffset = cmd.Length;
-				//---将数据进行打包处理
-				eeprom = CGenFuncPackage.GenFuncPackage(chipEeprom, packageMaxSize);
-				//---进度条
-				if ((workBar != null) && (eeprom != null))
-				{
-					workBar.Maximum = eeprom.Length;
-					workBar.Step = 1;
-					workBar.Value = 0;
-				}
-				//---大包数据处理
-				for (int i = 0; i < eeprom.Length; i++)
-				{
-					//---计算页地址
-					cmd[1] = (byte)(addr >> 8);
-					cmd[2] = (byte)(addr);
-					length = eeprom[i].Length;
-					//---重置发送数据缓存区的大小
-					Array.Resize<byte>(ref cmd, (length + cmdDataOffset));
-					//---将数据拷贝到指定位置
-					Array.Copy(eeprom[i], 0, cmd, cmdDataOffset, length);
-					//---计算数据的长度
+
+					//---工作状态
+					if (workState != null)
+					{
+						workState.Text = str;// "编程Flash";
+					}
+					//---计算耗时
+					DateTime nowTime = DateTime.Now;
+					//---保存读取的数据
+					byte[][] eeprom = null;
+					//---发送命令
+					byte[] cmd = null;
+					//---数据接收
+					byte[] res = null;
+					//---
+					int length = 2;
+					//---每包数据最大数量
+					int packageMaxSize = 0;
+					//---数据的地址
+					long addr = 0;
+					//---校验最大数据传输量
 					if (this.mCCOMM.mPerPackageMaxSize > 0xFF)
 					{
-						cmd[3] = (byte)(length >> 8);
-						cmd[4] = (byte)(length);
+						cmd = new byte[] { (byte)CMCUFUNC_CMD_ISP.CMD_ISP_EEPROM_PAGE_WRITE, 0x00, 0x00, 0x00, 0x00 };
+						length += 1;
 					}
 					else
 					{
-						cmd[3] = (byte)(length);
+						cmd = new byte[] { (byte)CMCUFUNC_CMD_ISP.CMD_ISP_EEPROM_PAGE_WRITE, 0x00, 0x00, 0x00 };
 					}
-					//---发送并读取命令
-					_return = this.mCCOMM.SendCmdAndReadResponse(cmd, ref res,(length<15)?200:(length*15));
-					//---校验结果
-					if (_return == 0)
+					//---计算数据包的大小
+					packageMaxSize = this.mCCOMM.mPerPackageMaxSize - length - cmd.Length;
+					//---数据长度必须是偶数
+					if ((packageMaxSize & 0x01) != 0)
 					{
-						if (this.mCCOMM.mReceCheckPass == false)
+						packageMaxSize -= 1;
+					}
+					//---校验支持页编程模式
+					if (this.mMcuInfoParam.mChipEepromPageMode==true)
+					{
+						//---校验数据个数必须是页字节数的整数倍
+						if ((packageMaxSize % (this.mMcuInfoParam.mChipEepromPerPageByteNum)) != 0)
 						{
-							_return = 1;
-							this.mMsgText = "ISP编程：Eeprom编程命令校验错误!";
+							//---计算页数
+							packageMaxSize /= (this.mMcuInfoParam.mChipEepromPerPageByteNum);
+							//---计算每包字节数
+							packageMaxSize *= (this.mMcuInfoParam.mChipEepromPerPageByteNum);
+						}
+					}					
+					//---命令数据的偏移
+					int cmdDataOffset = cmd.Length;
+					//---将数据进行打包处理
+					eeprom = CGenFuncPackage.GenFuncPackage(chipEeprom, packageMaxSize);
+					//---进度条
+					if ((workBar != null) && (eeprom != null))
+					{
+						workBar.Maximum = eeprom.Length;
+						workBar.Step = 1;
+						workBar.Value = 0;
+					}
+					//---大包数据处理
+					for (int i = 0; i < eeprom.Length; i++)
+					{
+						//---计算页地址
+						cmd[1] = (byte)(addr >> 8);
+						cmd[2] = (byte)(addr);
+						length = eeprom[i].Length;
+						//---重置发送数据缓存区的大小
+						Array.Resize<byte>(ref cmd, (length + cmdDataOffset));
+						//---将数据拷贝到指定位置
+						Array.Copy(eeprom[i], 0, cmd, cmdDataOffset, length);
+						//---计算数据的长度
+						if (this.mCCOMM.mPerPackageMaxSize > 0xFF)
+						{
+							cmd[3] = (byte)(length >> 8);
+							cmd[4] = (byte)(length);
+						}
+						else
+						{
+							cmd[3] = (byte)(length);
+						}
+						//---发送并读取命令
+						_return = this.mCCOMM.SendCmdAndReadResponse(cmd, ref res, (length < 15) ? 200 : (length * 15));
+						//---校验结果
+						if (_return == 0)
+						{
+							if (this.mCCOMM.mReceCheckPass == false)
+							{
+								_return = 1;
+								this.mMsgText = "ISP编程：Eeprom编程命令校验错误!";
+								//---退出循环
+								break;
+							}
+						}
+						else
+						{
+							this.mMsgText = this.mCCOMM.mLogMsg;
 							//---退出循环
 							break;
 						}
+						//---加载进度条
+						if (workBar != null)
+						{
+							workBar.Value += 1;
+						}
+						//---地址进行偏移
+						addr += packageMaxSize;
+						//---校验编程是否出错
+						if (_return != 0)
+						{
+							break;
+						}
 					}
-					else
+					if (_return == 0)
 					{
-						this.mMsgText = this.mCCOMM.mLogMsg;
-						//---退出循环
-						break;
+						this.mMsgText = "ISP编程：Eeprom编程成功!";
+						TimeSpan timeSpan = DateTime.Now - nowTime;
+						if (workTime != null)
+						{
+							workTime.Text = timeSpan.Hours.ToString("#00") + ":" + timeSpan.Minutes.ToString("#00") + ":" + timeSpan.Seconds.ToString("#00");
+						}
 					}
-					//---加载进度条
+					if (workState != null)
+					{
+						workState.Text = "空闲";
+					}
 					if (workBar != null)
 					{
-						workBar.Value += 1;
+						workBar.Value = 0;
 					}
-					//---地址进行偏移
-					addr += packageMaxSize;
-					//---校验编程是否出错
-					if (_return != 0)
-					{
-						break;
-					}
-				}
-				if (_return == 0)
-				{
-					this.mMsgText = "ISP编程：Eeprom编程成功!";
-					TimeSpan timeSpan = DateTime.Now - nowTime;
-					if (workTime != null)
-					{
-						workTime.Text = timeSpan.Hours.ToString("#00") + ":" + timeSpan.Minutes.ToString("#00") + ":" + timeSpan.Seconds.ToString("#00");
-					}
-				}
-				if (workState != null)
-				{
-					workState.Text = "空闲";
-				}
-				if (workBar != null)
-				{
-					workBar.Value = 0;
 				}
 			}
 			else
@@ -1274,7 +1297,112 @@ namespace Harry.LabTools.LabMcuFunc
 		/// <returns></returns>
 		public override int CMcuFunc_ReadChipRom(ref byte[] chipRom, RichTextBox msg)
 		{
-			return -1;
+			int _return = -1;
+			//---校验通讯端口
+			if ((this.mCCOMM != null) && (this.mCCOMM.mIsOpen == true))
+			{
+				if (chipRom == null)
+				{
+					//---申请缓存区
+					chipRom = new byte[this.mMcuInfoParam.mChipFlashPerPageByteNum];
+				}
+				//---计算耗时
+				DateTime nowTime = DateTime.Now;
+				//---长度大小
+				int length = 2;
+				//---每包数据最大数量
+				int packageMaxSize = 0;
+				//---最大包数
+				int packageMaxNum = 0;
+				//---数据的地址
+				long addr = 0;
+				//---发送命令
+				byte[] cmd = null;
+				//---命令定义解析
+				if (this.mCCOMM.mPerPackageMaxSize > 0xFF)
+				{
+					//---大数据长度数据传输
+					cmd = new byte[] { (byte)CMCUFUNC_CMD_ISP.CMD_ISP_ROM_PAGE_READ, 0x00, 0x00, 0x00 };
+					length += 1;
+				}
+				else
+				{
+					//---小数据包长度
+					cmd = new byte[] { (byte)CMCUFUNC_CMD_ISP.CMD_ISP_ROM_PAGE_READ, 0x00, 0x00 };
+				}
+				//---计算数据包的大小
+				packageMaxSize = this.mCCOMM.mPerPackageMaxSize - length - cmd.Length;
+				//---数据长度必须是偶数
+				if ((packageMaxSize & 0x01) != 0)
+				{
+					packageMaxSize -= 1;
+				}
+				//---计算读取的包数
+				packageMaxNum = (int)(this.mMcuInfoParam.mChipFlashPerPageByteNum / packageMaxSize);
+				//---校验是不是整数包
+				if ((this.mMcuInfoParam.mChipFlashPerPageByteNum % packageMaxSize) != 0)
+				{
+					packageMaxNum += 1;
+				}
+				//---读取命令
+				byte[] res = null;
+				//---循环读取数据
+				for (int i = 0; i < packageMaxNum; i++)
+				{
+					//---每包的数据长度
+					length = ((this.mMcuInfoParam.mChipFlashPerPageByteNum - i * packageMaxSize) > packageMaxSize) ? packageMaxSize : (int)(this.mMcuInfoParam.mChipFlashPerPageByteNum - i * packageMaxSize);
+					//---校验是不是大包数据传输
+					if (this.mCCOMM.mPerPackageMaxSize > 0xFF)
+					{
+						//---大数据长度数据传输
+						cmd = new byte[] { (byte)CMCUFUNC_CMD_ISP.CMD_ISP_ROM_PAGE_READ, (byte)(addr), (byte)(length >> 8), (byte)(length) };
+					}
+					else
+					{
+						//---小数据包长度
+						cmd = new byte[] { (byte)CMCUFUNC_CMD_ISP.CMD_ISP_ROM_PAGE_READ, (byte)(addr), (byte)(length) };
+					}
+					//---发送并读取命令
+					_return = this.mCCOMM.SendCmdAndReadResponse(cmd, ref res);
+					//---校验结果
+					if (_return == 0)
+					{
+						if (this.mCCOMM.mReceCheckPass)
+						{
+							//---将读取的数据拷贝到数据缓存区
+							Array.Copy(this.mCCOMM.mReceData.mArray, this.mCCOMM.mReceData.mIndexOffset, chipRom, (addr * 2), length);
+							//---地址进行偏移，准备下次读取
+							addr += (length / 2);
+						}
+						else
+						{
+							_return = 1;
+							this.mMsgText = "ISP编程：ROM读取命令校验错误!";
+							//---退出循环
+							break;
+						}
+					}
+					else
+					{
+						this.mMsgText = this.mCCOMM.mLogMsg;
+						//---退出循环
+						break;
+					}
+				}
+				if (_return == 0)
+				{
+					this.mMsgText = "ISP编程：ROM读取成功!";
+				}
+			}
+			else
+			{
+				this.mMsgText = "通讯端口初始化失败!";
+			}
+			if (msg != null)
+			{
+				CRichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, this.mMsgText, (_return == 0 ? Color.Black : Color.Red));
+			}
+			return _return;
 		}
 
 		/// <summary>

@@ -136,7 +136,7 @@ namespace Harry.LabTools.LabHexEdit
 
 			//强制设置输入法为英文输入模式
 			this.ImeMode=ImeMode.Disable;
-			this.AddData(512);
+			this.AddData(256);
 		}
 
 		#endregion
@@ -365,12 +365,18 @@ namespace Harry.LabTools.LabHexEdit
 		/// </summary>
 		private void OnCreateCaret()
 		{
+			//---获取焦点
+			this.Focus();
 			//float size = 0.0f;
 			//如果没有创建Caret，则创建
 			if (!this.defaultIsCreateCaret)
 			{
-				this.defaultIsCreateCaret=true;
+				this.defaultIsCreateCaret = true;
 				CWinAPICaret.CreateCaret(this.Handle, IntPtr.Zero, (int)(this.defaultFont.Size), this.defaultFont.Height + this.defaultColStaffWidth);
+			}
+			if (this.Visible == false)
+			{
+				this.defaultIsCreateCaret = false;
 			}
 		}
 
@@ -664,10 +670,8 @@ namespace Harry.LabTools.LabHexEdit
 							{
 								//---设置光标
 								CWinAPICaret.SetCaretPos((nowRectangle.X-this.defaultCaretXOffset), (nowRectangle.Y+this.defaultCaretYOffset/2));
-
 								//---显示光标
 								CWinAPICaret.ShowCaret(this.Handle);
-
 								this.defaultIsHideCaret=false;
 								this.defaultMousePos.iPos=(this.defaultRowNowNum+this.defaultRowSelectedNum)*this.defaultRowShowNum+iy;
 								this.defaultMousePos.iArea=1;
@@ -692,7 +696,6 @@ namespace Harry.LabTools.LabHexEdit
 					{
 						this.OnHideCaret();
 					}
-
 					#endregion
 				}
 			}

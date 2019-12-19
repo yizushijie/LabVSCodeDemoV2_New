@@ -31,59 +31,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabFuncForm", "LabFuncForm\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabToVisualStudio", "LabToVisualStudio\LabToVisualStudio.csproj", "{80362684-4FF9-4A5D-815E-DE9AA8C7BF57}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SeeSharpTools", "SeeSharpTools", "{CBFF4859-2D1A-44B3-8C8B-8622D757751F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JY.ArrayUtility", "..\SeeSharpTools\JY.ArrayUtility\JY.ArrayUtility.csproj", "{ACE70850-CF35-46FE-964F-67DE1CBCD7A7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JY.Audio", "..\SeeSharpTools\JY.Audio\JY.Audio.csproj", "{F0842CA7-9BF0-426F-96FA-387D718491CA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JY.Database", "..\SeeSharpTools\JY.Database\JY.Database.csproj", "{D5E2A756-0C0B-4A1C-AEB0-6EF2C0290354}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JY.DSP.FilteringMCR", "..\SeeSharpTools\JY.DSP.FilteringMCR\JY.DSP.FilteringMCR.csproj", "{488BE77D-C011-4A2A-9AA2-44C7597870BE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JY.DSP.Fundamental", "..\SeeSharpTools\JY.DSP.Fundamental\JY.DSP.Fundamental.csproj", "{DF51E595-D154-4838-BA34-44820E6B0A7D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JY.DSP.SoundVibration", "..\SeeSharpTools\JY.DSP.SoundVibration\JY.DSP.SoundVibration.csproj", "{B9D53FD4-E9C2-4099-B101-5EA0864FCE21}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JY.DSP.Utility", "..\SeeSharpTools\JY.DSP.Utility\JY.DSP.Utility.csproj", "{3138963B-2590-463F-9D64-1ACB6ACB6186}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JY.DSP.Utility.Fundamental", "..\SeeSharpTools\JY.DSP.Utility.Fundamental\JY.DSP.Utility.Fundamental.csproj", "{2B1CC08D-EE8B-46AC-8DD3-BDBE7F508EEA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JY.File", "..\SeeSharpTools\JY.File\JY.File.csproj", "{E9A78956-52E1-4A71-94FF-FEFA7B2155A5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JY.Graph3D", "..\SeeSharpTools\JY.Graph3D\JY.Graph3D.csproj", "{FF7EB99A-AE19-4886-9776-860A9E45FBB5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JY.GUI", "..\SeeSharpTools\JY.GUI\JY.GUI.csproj", "{32E3B3E9-24A7-43A7-80CF-AFCE6A2F7FC1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JY.Localization", "..\SeeSharpTools\JY.Localization\JY.Localization.csproj", "{20012951-09DA-4822-AE7F-8D97159195CA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JY.Mathematics", "..\SeeSharpTools\JY.Mathematics\JY.Mathematics.csproj", "{872E01FA-95CD-41C8-9B9C-C09FE142F324}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JY.ThreadSafeQueue", "..\SeeSharpTools\JY.Queue\JY.ThreadSafeQueue.csproj", "{ED1DEA61-0842-4C92-9133-50AEAE9A5F92}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JY.Report", "..\SeeSharpTools\JY.Report\JY.Report.csproj", "{7E875F92-BDFE-4CFA-BABF-8C82DBC51EC7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JY.Sensors", "..\SeeSharpTools\JY.Sensors\JY.Sensors.csproj", "{637B6404-B806-476D-9B54-846C0B08380B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JY.Statistics", "..\SeeSharpTools\JY.Statistics\JY.Statistics.csproj", "{9796DF64-0180-4251-B65B-39D4EB542421}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JY.TCP", "..\SeeSharpTools\JY.TCP\JY.TCP.csproj", "{E57315EB-7DAA-42B2-A541-9573D97B36F9}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ZedGraph", "ZedGraph", "{42C1ADB3-6FF5-4F84-8064-FC643F2736C8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZedGraph", "..\ZedGraph\ZedGraph.csproj", "{B99650EE-AF46-47B4-A4A9-212ADE7809B7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabHexEdit", "LabHexEdit\LabHexEdit.csproj", "{72D5A1AE-5BD4-4DC1-AF94-D760DB573C10}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabMcuFunc", "LabMcuFunc\LabMcuFunc.csproj", "{22AE2121-9EBB-4772-9C2B-10BB545B4D2F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabMcuForm", "LabMcuForm\LabMcuForm.csproj", "{D43876D1-CAC9-4D5D-8041-2B5C67643128}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HZH_Controls", "HZH_Controls", "{970D16E5-FBC6-4753-8A07-85C42E6FBA7E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HZH_Controls", "..\HZH_Controls\HZH_Controls\HZH_Controls.csproj", "{AF32E163-C577-4CBC-A072-0DC1CE0E1DA3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "..\HZH_Controls\Test\Test.csproj", "{53CCD007-AA85-4CCF-AE81-BBB8B1CBEB1F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LabSharpTools", "LabSharpTools", "{2E33275D-CB89-4750-8C7E-A4DBF1DC25BF}"
 EndProject

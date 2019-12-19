@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Harry.LabTools.LabCommType;
 using Harry.LabTools.LabMcuFunc;
 using Harry.LabTools.LabGenFunc;
+using System.Threading;
 
 namespace LabMcuForm.CMcuFormAVR8Bits
 {
@@ -260,9 +261,111 @@ namespace LabMcuForm.CMcuFormAVR8Bits
 
 			this.button_ReadChipLock.Click += new EventHandler(this.Button_Click);
 			this.button_WriteChipLock.Click += new EventHandler(this.Button_Click);
-
 		}
 
+		#region UI处理事件
+		
+		/// <summary>
+		/// 事件处理函数
+		/// </summary>
+		/// <param name="clb"></param>
+		private void UI_CheckedListBox_SelectedIndexChanged(CheckedListBox clb)
+		{
+			switch (clb.Name)
+			{
+				case "cCheckedListBoxEx_LowFuseBits":
+					this.defaultIsRefreshFuseText = true;
+					this.defaultCMcuFunc.mMcuInfoParam.FuseCheckedListBoxRefresh(this.cCheckedListBoxEx_LowFuseBits, this.cCheckedListBoxEx_FuseText, this.textBox_LowFuseValue, 0);
+					break;
+				case "cCheckedListBoxEx_HighFuseBits":
+					this.defaultIsRefreshFuseText = true;
+					this.defaultCMcuFunc.mMcuInfoParam.FuseCheckedListBoxRefresh(this.cCheckedListBoxEx_HighFuseBits, this.cCheckedListBoxEx_FuseText, this.textBox_HighFuseValue, 1);
+					break;
+				case "cCheckedListBoxEx_ExternFuseBits":
+					this.defaultIsRefreshFuseText = true;
+					this.defaultCMcuFunc.mMcuInfoParam.FuseCheckedListBoxRefresh(this.cCheckedListBoxEx_ExternFuseBits, this.cCheckedListBoxEx_FuseText, this.textBox_ExternFuseValue, 2);
+					break;
+				case "cCheckedListBoxEx_LockFuseBits":
+					this.defaultIsRefreshFuseText = true;
+					this.defaultCMcuFunc.mMcuInfoParam.FuseCheckedListBoxRefresh(this.cCheckedListBoxEx_LockFuseBits, this.cCheckedListBoxEx_FuseText, this.textBox_LockFuseValue, 3);
+					break;
+				case "cCheckedListBoxEx_FuseText":
+					this.defaultIsRefreshFuseText = false;
+					this.defaultCMcuFunc.mMcuInfoParam.FuseCheckedListBoxRefresh(this.cCheckedListBoxEx_FuseText, this.textBox_LowFuseValue, this.textBox_HighFuseValue, this.textBox_ExternFuseValue, this.textBox_LockFuseValue);
+					break;
+				default:
+					break;
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="tb"></param>
+		private void UI_TextBox_TextChanged(TextBox tb)
+		{
+			switch (tb.Name)
+			{
+				case "textBox_LowFuseValue":
+					this.defaultCMcuFunc.mMcuInfoParam.FuseCheckedListBoxRefresh(this.cCheckedListBoxEx_LowFuseBits, (this.defaultIsRefreshFuseText == false) ? this.cCheckedListBoxEx_FuseText : null, Convert.ToByte(this.textBox_LowFuseValue.Text, 16), 0);
+					this.defaultIsRefreshFuseText = false;
+					break;
+				case "textBox_HighFuseValue":
+					this.defaultCMcuFunc.mMcuInfoParam.FuseCheckedListBoxRefresh(this.cCheckedListBoxEx_HighFuseBits, (this.defaultIsRefreshFuseText == false) ? this.cCheckedListBoxEx_FuseText : null, Convert.ToByte(this.textBox_HighFuseValue.Text, 16), 1);
+					this.defaultIsRefreshFuseText = false;
+					break;
+				case "textBox_ExternFuseValue":
+					this.defaultCMcuFunc.mMcuInfoParam.FuseCheckedListBoxRefresh(this.cCheckedListBoxEx_ExternFuseBits, (this.defaultIsRefreshFuseText == false) ? this.cCheckedListBoxEx_FuseText : null, Convert.ToByte(this.textBox_ExternFuseValue.Text, 16), 2);
+					this.defaultIsRefreshFuseText = false;
+					break;
+				case "textBox_LockFuseValue":
+					this.defaultCMcuFunc.mMcuInfoParam.FuseCheckedListBoxRefresh(this.cCheckedListBoxEx_LockFuseBits, (this.defaultIsRefreshFuseText == false) ? this.cCheckedListBoxEx_FuseText : null, Convert.ToByte(this.textBox_LockFuseValue.Text, 16), 3);
+					this.defaultIsRefreshFuseText = false;
+					break;
+				default:
+					break;
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="bt"></param>
+		private void UI_Button_Click(Button bt)
+		{
+			switch (bt.Name)
+			{
+				//---读取校准字
+				case "button_ReadChipCalibration":
+					this.defaultCMcuFunc.CMcuFunc_ReadChipCalibration(this.textBox_OSCValue1, this.textBox_OSCValue2, this.textBox_OSCValue3, this.textBox_OSCValue4,
+																		this.defaultRichTextBoxMsg);
+					break;
+				//---读取熔丝位
+				case "button_ReadChipFuse":
+					this.defaultCMcuFunc.CMcuFunc_ReadChipFuse(this.textBox_LowFuseValue, this.textBox_HighFuseValue, this.textBox_ExternFuseValue, this.defaultRichTextBoxMsg);
+					break;
+				//---默认熔丝位
+				case "button_DefaultChipFuse":
+					this.defaultCMcuFunc.CMcuFunc_DefaultChipFuse(this.textBox_LowFuseValue, this.textBox_HighFuseValue, this.textBox_ExternFuseValue, this.defaultRichTextBoxMsg);
+					break;
+				//---写入熔丝位
+				case "button_WriteChipFuse":
+					this.defaultCMcuFunc.CMcuFunc_WriteChipFuse(this.textBox_LowFuseValue, this.textBox_HighFuseValue, this.textBox_ExternFuseValue, this.defaultRichTextBoxMsg);
+					break;
+				//---读取加密位
+				case "button_ReadChipLock":
+					this.defaultCMcuFunc.CMcuFunc_ReadChipLock(this.textBox_LockFuseValue, this.defaultRichTextBoxMsg);
+					break;
+				//---写入加密位
+				case "button_WriteChipLock":
+					this.defaultCMcuFunc.CMcuFunc_WriteChipLock(this.textBox_LockFuseValue, this.defaultRichTextBoxMsg);
+					break;
+				default:
+					break;
+			}
+		}
+		#endregion
+		
 		#endregion
 
 		#region 事件定义
@@ -289,35 +392,30 @@ namespace LabMcuForm.CMcuFormAVR8Bits
 			}
 			else
 			{
-				switch (clb.Name)
-				{
-					case "cCheckedListBoxEx_LowFuseBits":
-						this.defaultIsRefreshFuseText = true;
-						this.defaultCMcuFunc.mMcuInfoParam.FuseCheckedListBoxRefresh(this.cCheckedListBoxEx_LowFuseBits, this.cCheckedListBoxEx_FuseText, this.textBox_LowFuseValue, 0);
-						break;
-					case "cCheckedListBoxEx_HighFuseBits":
-						this.defaultIsRefreshFuseText = true;
-						this.defaultCMcuFunc.mMcuInfoParam.FuseCheckedListBoxRefresh(this.cCheckedListBoxEx_HighFuseBits, this.cCheckedListBoxEx_FuseText, this.textBox_HighFuseValue, 1);
-						break;
-					case "cCheckedListBoxEx_ExternFuseBits":
-						this.defaultIsRefreshFuseText = true;
-						this.defaultCMcuFunc.mMcuInfoParam.FuseCheckedListBoxRefresh(this.cCheckedListBoxEx_ExternFuseBits, this.cCheckedListBoxEx_FuseText, this.textBox_ExternFuseValue, 2);
-						break;
-					case "cCheckedListBoxEx_LockFuseBits":
-						this.defaultIsRefreshFuseText = true;
-						this.defaultCMcuFunc.mMcuInfoParam.FuseCheckedListBoxRefresh(this.cCheckedListBoxEx_LockFuseBits, this.cCheckedListBoxEx_FuseText, this.textBox_LockFuseValue, 3);
-						break;
-					case "cCheckedListBoxEx_FuseText":
-						this.defaultIsRefreshFuseText = false;
-						this.defaultCMcuFunc.mMcuInfoParam.FuseCheckedListBoxRefresh(this.cCheckedListBoxEx_FuseText, this.textBox_LowFuseValue, this.textBox_HighFuseValue, this.textBox_ExternFuseValue, this.textBox_LockFuseValue);
-						break;
-					default:
-						break;
-				}
+				Thread t = new Thread
+				(delegate ()
+					{
+						if (clb.InvokeRequired)
+						{
+							clb.BeginInvoke((EventHandler)
+								 (delegate
+								 {
+									 this.UI_CheckedListBox_SelectedIndexChanged(clb);
+								 }));
+						}
+						else
+						{
+							this.UI_CheckedListBox_SelectedIndexChanged(clb);
+						}
+
+					}
+				);
+				t.IsBackground = true;
+				t.Start();
 			}
 			//clb.Enabled = true;
 			//设置输入焦点
-			clb.Focus();
+			//clb.Focus();
 		}
 
 		/// <summary>
@@ -333,29 +431,28 @@ namespace LabMcuForm.CMcuFormAVR8Bits
 			}
 			TextBox tb = (TextBox)sender;
 			//tb.Enabled = false;
-			switch (tb.Name)
-			{
-				case "textBox_LowFuseValue":
-					this.defaultCMcuFunc.mMcuInfoParam.FuseCheckedListBoxRefresh(this.cCheckedListBoxEx_LowFuseBits, (this.defaultIsRefreshFuseText == false)?this.cCheckedListBoxEx_FuseText:null,Convert.ToByte(this.textBox_LowFuseValue.Text,16), 0);
-					this.defaultIsRefreshFuseText = false;
-					break;
-				case "textBox_HighFuseValue":
-					this.defaultCMcuFunc.mMcuInfoParam.FuseCheckedListBoxRefresh(this.cCheckedListBoxEx_HighFuseBits, (this.defaultIsRefreshFuseText == false) ? this.cCheckedListBoxEx_FuseText : null, Convert.ToByte(this.textBox_HighFuseValue.Text, 16), 1);
-					this.defaultIsRefreshFuseText = false;
-					break;
-				case "textBox_ExternFuseValue":
-					this.defaultCMcuFunc.mMcuInfoParam.FuseCheckedListBoxRefresh(this.cCheckedListBoxEx_ExternFuseBits, (this.defaultIsRefreshFuseText == false) ? this.cCheckedListBoxEx_FuseText : null, Convert.ToByte(this.textBox_ExternFuseValue.Text, 16),2);
-					this.defaultIsRefreshFuseText = false;
-					break;
-				case "textBox_LockFuseValue":
-					this.defaultCMcuFunc.mMcuInfoParam.FuseCheckedListBoxRefresh(this.cCheckedListBoxEx_LockFuseBits, (this.defaultIsRefreshFuseText == false) ? this.cCheckedListBoxEx_FuseText : null, Convert.ToByte(this.textBox_LockFuseValue.Text, 16), 3);
-					this.defaultIsRefreshFuseText = false;
-					break;
-				default:
-					break;
-			}
+			Thread t = new Thread
+			(delegate ()
+				{
+					if (tb.InvokeRequired)
+					{
+						tb.BeginInvoke((EventHandler)
+							 (delegate
+							 {
+								 this.UI_TextBox_TextChanged(tb);
+							 }));
+					}
+					else
+					{
+						this.UI_TextBox_TextChanged(tb);
+					}
+			
+				}
+			);
+			t.IsBackground = true;
+			t.Start();
 			//tb.Enabled = true;
-			tb.Focus();
+			//tb.Focus();
 		}
 
 		/// <summary>
@@ -377,42 +474,30 @@ namespace LabMcuForm.CMcuFormAVR8Bits
 			}
 			Button bt = (Button)sender;
 			//bt.Enabled = false;
-			switch (bt.Name)
-			{
-				//---读取校准字
-				case "button_ReadChipCalibration":
-					this.defaultCMcuFunc.CMcuFunc_ReadChipCalibration(	this.textBox_OSCValue1, this.textBox_OSCValue2, this.textBox_OSCValue3, this.textBox_OSCValue4, 
-																		this.defaultRichTextBoxMsg);
-					break;
-				//---读取熔丝位
-				case "button_ReadChipFuse":
-					this.defaultCMcuFunc.CMcuFunc_ReadChipFuse(this.textBox_LowFuseValue, this.textBox_HighFuseValue, this.textBox_ExternFuseValue, this.defaultRichTextBoxMsg);
-					break;
-				//---默认熔丝位
-				case "button_DefaultChipFuse":
-					this.defaultCMcuFunc.CMcuFunc_DefaultChipFuse(this.textBox_LowFuseValue, this.textBox_HighFuseValue, this.textBox_ExternFuseValue,this.defaultRichTextBoxMsg);
-					break;
-				//---写入熔丝位
-				case "button_WriteChipFuse":
-					this.defaultCMcuFunc.CMcuFunc_WriteChipFuse(this.textBox_LowFuseValue, this.textBox_HighFuseValue, this.textBox_ExternFuseValue, this.defaultRichTextBoxMsg);
-					break;
-				//---读取加密位
-				case "button_ReadChipLock":
-					this.defaultCMcuFunc.CMcuFunc_ReadChipLock(this.textBox_LockFuseValue, this.defaultRichTextBoxMsg);
-					break;
-				//---写入加密位
-				case "button_WriteChipLock":
-					this.defaultCMcuFunc.CMcuFunc_WriteChipLock(this.textBox_LockFuseValue, this.defaultRichTextBoxMsg);
-					break;
-				default:
-					break;
-			}
+			Thread t = new Thread
+			(delegate ()
+				{
+					if (bt.InvokeRequired)
+					{
+						bt.BeginInvoke((EventHandler)
+							 (delegate
+							 {
+								 this.UI_Button_Click(bt);
+							 }));
+					}
+					else
+					{
+						this.UI_Button_Click(bt);
+					}
+
+				}
+			);
+			t.IsBackground = true;
+			t.Start();
 			//bt.Enabled = true;
-			bt.Focus();
+			//bt.Focus();
 		}
 
 		#endregion
-
-
 	}
 }

@@ -8,8 +8,10 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Timer = System.Windows.Forms.Timer;
 
 namespace LabMcuForm
 {
@@ -369,6 +371,141 @@ namespace LabMcuForm
 			this.EventHandlerCCommSynchronized?.Invoke();
 		}
 
+		#region UI处理函数
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="bt"></param>
+		private void UI_Button_Click(Button bt)
+		{
+			switch (bt.Name)
+			{
+				//---设备接口发生变化
+				case "button_SetChipInterface":
+					if (!string.IsNullOrEmpty(this.comboBox_ChipInterface.Text))
+					{
+						switch (this.comboBox_ChipInterface.Text.ToUpper())
+						{
+							case "ISP":
+								if (this.defaultCMcuFunc.GetType() != typeof(CMcuFuncAVR8BitsISP))
+								{
+									this.defaultCMcuFunc = new CMcuFuncAVR8BitsISP(this.defaultCMcuFunc);
+								}
+								break;
+							case "JTAG":
+								if (this.defaultCMcuFunc.GetType() != typeof(CMcuFuncAVR8BitsJTAG))
+								{
+									this.defaultCMcuFunc = new CMcuFuncAVR8BitsJTAG(this.defaultCMcuFunc);
+								}
+								break;
+							case "HVPP":
+								if (this.defaultCMcuFunc.GetType() != typeof(CMcuFuncAVR8BitsHVPP))
+								{
+									this.defaultCMcuFunc = new CMcuFuncAVR8BitsHVPP(this.defaultCMcuFunc);
+								}
+								break;
+							case "HVSP":
+								if (this.defaultCMcuFunc.GetType() != typeof(CMcuFuncAVR8BitsHVSP))
+								{
+									this.defaultCMcuFunc = new CMcuFuncAVR8BitsHVSP(this.defaultCMcuFunc);
+								}
+								break;
+							default:
+								break;
+						}
+						this.cMcuFormAVR8BitsFuseAndLockControl_ChipFuse.mCMcuFunc = this.defaultCMcuFunc;
+					}
+					else
+					{
+						CMessageBoxPlus.Show(this, "？？？不识别的编程接口", "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+					break;
+				//---读取外部供电电压
+				case "button_ReadChipRefPWR":
+				//---读取当前供电电压
+				case "button_ReadChipPWR":
+					break;
+				//---设置供电电压
+				case "button_SetChipPWR":
+					break;
+				//---设置编程时钟
+				case "button_SetChipClock":
+					break;
+				//---加载Flash数据
+				case "button_LoadFlashFile":
+					this.defaultCMcuFunc.CMcuFunc_LoadFlashHexFile(this.cHexBox_Flash, this.label_FlashSize, cRichTextBoxEx_ChipMsg);
+					break;
+				//---加载Eeprom
+				case "button_LoadEepromFile":
+					this.defaultCMcuFunc.CMcuFunc_LoadEepromHexFile(this.cHexBox_Eeprom, this.label_EepromSize, cRichTextBoxEx_ChipMsg);
+					break;
+				//---保存Flash
+				case "button_SaveFlashFile":
+					this.defaultCMcuFunc.CMcuFunc_SaveFlashHexFile(this.cHexBox_Flash, cRichTextBoxEx_ChipMsg);
+					break;
+				//---保存EEPROM文件
+				case "button_SaveEepromFile":
+					this.defaultCMcuFunc.CMcuFunc_SaveEepromHexFile(this.cHexBox_Eeprom, this.cRichTextBoxEx_ChipMsg);
+					break;
+				//---自动
+				case "button_AutoChip":
+				case "button_ChipAuto":
+					break;
+				//---擦除
+				case "button_Erase":
+				case "button_EraseChip":
+					this.defaultCMcuFunc.CMcuFunc_EraseChip(this.mLockFuse, this.cRichTextBoxEx_ChipMsg);
+					break;
+				case "button_CheckEmpty":
+					break;
+				//---读取识别字
+				case "button_ReadIDChip":
+				case "button_ReadChipID":
+					this.defaultCMcuFunc.CMcuFunc_ReadChipID(this.cRichTextBoxEx_ChipMsg, this);
+					break;
+				//---读取Flash
+				case "button_ReadChipFlash":
+					this.defaultCMcuFunc.CMcuFunc_ReadChipFlash(this.cHexBox_Flash, this.cRichTextBoxEx_ChipMsg, this.toolStripLabel_ChipState, this.toolStripLabel_ChipTime, this.toolStripProgressBar_ChipBar);
+					break;
+				//---编程Flash
+				case "button_WriteChipFlash":
+					this.defaultCMcuFunc.CMcuFunc_WriteChipFlash(this.cHexBox_Flash, this.cRichTextBoxEx_ChipMsg, true, this.toolStripLabel_ChipState, this.toolStripLabel_ChipTime, this.toolStripProgressBar_ChipBar);
+					break;
+				//---校验Flash
+				case "button_CheckChipFlash":
+					this.defaultCMcuFunc.CMcuFunc_CheckChipFlash(this.cHexBox_Flash, this.cRichTextBoxEx_ChipMsg, this.toolStripLabel_ChipState, this.toolStripLabel_ChipTime, this.toolStripProgressBar_ChipBar);
+					break;
+				//---读取Eeprom
+				case "button_ReadChipEeprom":
+					this.defaultCMcuFunc.CMcuFunc_ReadChipEeprom(this.cHexBox_Eeprom, this.cRichTextBoxEx_ChipMsg, this.toolStripLabel_ChipState, this.toolStripLabel_ChipTime, this.toolStripProgressBar_ChipBar);
+					break;
+				//---编程Eeprom
+				case "button_WriteChipEeprom":
+					this.defaultCMcuFunc.CMcuFunc_WriteChipEeprom(this.cHexBox_Eeprom, this.cRichTextBoxEx_ChipMsg, this.toolStripLabel_ChipState, this.toolStripLabel_ChipTime, this.toolStripProgressBar_ChipBar);
+					break;
+				//---校验Eeprom
+				case "button_CheckChipEeprom":
+					this.defaultCMcuFunc.CMcuFunc_CheckChipEeprom(this.cHexBox_Eeprom, this.cRichTextBoxEx_ChipMsg, this.toolStripLabel_ChipState, this.toolStripLabel_ChipTime, this.toolStripProgressBar_ChipBar);
+					break;
+				//---编程熔丝位
+				case "button_WriteChipFuse":
+					this.defaultCMcuFunc.CMcuFunc_WriteChipFuse(this.cMcuFormAVR8BitsFuseAndLockControl_ChipFuse.mCMcuFunc.mMcuInfoParam.mChipFuse, this.cRichTextBoxEx_ChipMsg);
+					break;
+				//---编程加密位
+				case "button_WriteChipLock":
+					this.defaultCMcuFunc.CMcuFunc_WriteChipLock(this.mLockFuse, this.cRichTextBoxEx_ChipMsg);
+					break;
+				//---读取ROM信息
+				case "button_ReadChipROM":
+					this.defaultCMcuFunc.CMcuFunc_ReadChipRom(this.cHexBox_ROM, this.cRichTextBoxEx_ChipMsg);
+					break;
+				default:
+					break;
+			}
+		}
+		#endregion
+
 		#endregion
 
 		#region 事件函数
@@ -553,132 +690,28 @@ namespace LabMcuForm
 			}
 			Button bt = (Button)sender;
 			//bt.Enabled = false;
-			switch (bt.Name)
-			{
-				//---设备接口发生变化
-				case "button_SetChipInterface":
-					if (!string.IsNullOrEmpty(this.comboBox_ChipInterface.Text))
+			Thread t = new Thread
+			(delegate ()
+				{
+					if (bt.InvokeRequired)
 					{
-						switch (this.comboBox_ChipInterface.Text.ToUpper())
-						{
-							case "ISP":
-								if (this.defaultCMcuFunc.GetType() != typeof(CMcuFuncAVR8BitsISP))
-								{
-									this.defaultCMcuFunc = new CMcuFuncAVR8BitsISP(this.defaultCMcuFunc);
-								}
-								break;
-							case "JTAG":
-								if (this.defaultCMcuFunc.GetType() != typeof(CMcuFuncAVR8BitsJTAG))
-								{
-									this.defaultCMcuFunc = new CMcuFuncAVR8BitsJTAG(this.defaultCMcuFunc);
-								}
-								break;
-							case "HVPP":
-								if (this.defaultCMcuFunc.GetType() != typeof(CMcuFuncAVR8BitsHVPP))
-								{
-									this.defaultCMcuFunc = new CMcuFuncAVR8BitsHVPP(this.defaultCMcuFunc);
-								}
-								break;
-							case "HVSP":
-								if (this.defaultCMcuFunc.GetType() != typeof(CMcuFuncAVR8BitsHVSP))
-								{
-									this.defaultCMcuFunc = new CMcuFuncAVR8BitsHVSP(this.defaultCMcuFunc);
-								}
-								break;
-							default:
-								break;
-						}
-						this.cMcuFormAVR8BitsFuseAndLockControl_ChipFuse.mCMcuFunc = this.defaultCMcuFunc;
+						bt.BeginInvoke((EventHandler)
+							 (delegate
+							 {
+								 this.UI_Button_Click(bt);
+							 }));
 					}
 					else
 					{
-						CMessageBoxPlus.Show(this, "？？？不识别的编程接口", "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						this.UI_Button_Click(bt);
 					}
-					break;
-				//---读取外部供电电压
-				case "button_ReadChipRefPWR":
-				//---读取当前供电电压
-				case "button_ReadChipPWR":
-					break;
-				//---设置供电电压
-				case "button_SetChipPWR":
-					break;
-				//---设置编程时钟
-				case "button_SetChipClock":
-					break;
-				//---加载Flash数据
-				case "button_LoadFlashFile":
-					this.defaultCMcuFunc.CMcuFunc_LoadFlashHexFile(this.cHexBox_Flash,this.label_FlashSize, cRichTextBoxEx_ChipMsg);
-					break;
-				//---加载Eeprom
-				case "button_LoadEepromFile":
-					this.defaultCMcuFunc.CMcuFunc_LoadEepromHexFile(this.cHexBox_Eeprom, this.label_EepromSize, cRichTextBoxEx_ChipMsg);
-					break;
-				//---保存Flash
-				case "button_SaveFlashFile":
-					this.defaultCMcuFunc.CMcuFunc_SaveFlashHexFile(this.cHexBox_Flash, cRichTextBoxEx_ChipMsg);
-					break;
-				//---保存EEPROM文件
-				case "button_SaveEepromFile":
-					this.defaultCMcuFunc.CMcuFunc_SaveEepromHexFile(this.cHexBox_Eeprom, this.cRichTextBoxEx_ChipMsg);
-					break;
-				//---自动
-				case "button_AutoChip":
-				case "button_ChipAuto":
-					break;
-				//---擦除
-				case "button_Erase":
-				case "button_EraseChip":
-					this.defaultCMcuFunc.CMcuFunc_EraseChip(this.mLockFuse, this.cRichTextBoxEx_ChipMsg);
-					break;
-				case "button_CheckEmpty":
-					break;
-				//---读取识别字
-				case "button_ReadIDChip":
-				case "button_ReadChipID":
-					this.defaultCMcuFunc.CMcuFunc_ReadChipID(this.cRichTextBoxEx_ChipMsg,this);
-					break;
-				//---读取Flash
-				case "button_ReadChipFlash":
-					this.defaultCMcuFunc.CMcuFunc_ReadChipFlash(this.cHexBox_Flash, this.cRichTextBoxEx_ChipMsg,this.toolStripLabel_ChipState, this.toolStripLabel_ChipTime, this.toolStripProgressBar_ChipBar);
-					break;
-				//---编程Flash
-				case "button_WriteChipFlash":
-					this.defaultCMcuFunc.CMcuFunc_WriteChipFlash(this.cHexBox_Flash, this.cRichTextBoxEx_ChipMsg,true,this.toolStripLabel_ChipState,this.toolStripLabel_ChipTime,this.toolStripProgressBar_ChipBar);
-					break;
-				//---校验Flash
-				case "button_CheckChipFlash":
-					this.defaultCMcuFunc.CMcuFunc_CheckChipFlash(this.cHexBox_Flash, this.cRichTextBoxEx_ChipMsg,this.toolStripLabel_ChipState, this.toolStripLabel_ChipTime, this.toolStripProgressBar_ChipBar);
-					break;
-				//---读取Eeprom
-				case "button_ReadChipEeprom":
-					this.defaultCMcuFunc.CMcuFunc_ReadChipEeprom(this.cHexBox_Eeprom, this.cRichTextBoxEx_ChipMsg,this.toolStripLabel_ChipState, this.toolStripLabel_ChipTime, this.toolStripProgressBar_ChipBar);
-					break;
-				//---编程Eeprom
-				case "button_WriteChipEeprom":
-					this.defaultCMcuFunc.CMcuFunc_WriteChipEeprom(this.cHexBox_Eeprom, this.cRichTextBoxEx_ChipMsg,this.toolStripLabel_ChipState, this.toolStripLabel_ChipTime, this.toolStripProgressBar_ChipBar);
-					break;
-				//---校验Eeprom
-				case "button_CheckChipEeprom":
-					this.defaultCMcuFunc.CMcuFunc_CheckChipEeprom(this.cHexBox_Eeprom, this.cRichTextBoxEx_ChipMsg,this.toolStripLabel_ChipState, this.toolStripLabel_ChipTime, this.toolStripProgressBar_ChipBar);
-					break;
-				//---编程熔丝位
-				case "button_WriteChipFuse":
-					this.defaultCMcuFunc.CMcuFunc_WriteChipFuse(this.cMcuFormAVR8BitsFuseAndLockControl_ChipFuse.mCMcuFunc.mMcuInfoParam.mChipFuse,this.cRichTextBoxEx_ChipMsg);
-					break;
-				//---编程加密位
-				case "button_WriteChipLock":
-					this.defaultCMcuFunc.CMcuFunc_WriteChipLock(this.mLockFuse, this.cRichTextBoxEx_ChipMsg);
-					break;
-				//---读取ROM信息
-				case "button_ReadChipROM":
-					this.defaultCMcuFunc.CMcuFunc_ReadChipRom(this.cHexBox_ROM, this.cRichTextBoxEx_ChipMsg);
-					break;
-				default:
-					break;
-			}
+
+				}
+			);
+			t.IsBackground = true;
+			t.Start();
 			//bt.Enabled = true;
-			bt.Focus();
+			//bt.Focus();
 		}
 		#endregion
 	}
