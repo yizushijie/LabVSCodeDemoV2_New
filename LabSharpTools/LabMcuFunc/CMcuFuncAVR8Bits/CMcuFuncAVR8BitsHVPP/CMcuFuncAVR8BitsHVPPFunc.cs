@@ -267,7 +267,7 @@ namespace Harry.LabTools.LabMcuFunc
 		/// </summary>
 		/// <param name="chipClock"></param>
 		/// <returns></returns>
-		public override int CMcuFunc_SetProg(byte chipClock, RichTextBox msg)
+		public override int CMcuFunc_SetProgClock(byte chipClock, RichTextBox msg)
 		{
 			return -1;
 		}

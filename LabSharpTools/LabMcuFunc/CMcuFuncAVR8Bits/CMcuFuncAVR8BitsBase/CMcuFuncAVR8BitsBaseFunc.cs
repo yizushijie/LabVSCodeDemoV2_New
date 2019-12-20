@@ -812,6 +812,23 @@ namespace Harry.LabTools.LabMcuFunc
 			return -1;
 		}
 
+
+		/// <summary>
+		/// 校验存储器是否为空
+		/// </summary>
+		/// <param name="msg"></param>
+		/// <param name="isCheckEeprom"></param>
+		/// <returns></returns>
+		public virtual int CMcuFunc_CheckChipMemeryEmpty(RichTextBox msg,bool isCheckEeprom=false)
+		{
+			int _return = this.CMcuFunc_CheckChipFlashEmpty(msg);
+			if ((_return==0)&&(isCheckEeprom==true))
+			{
+				_return = this.CMcuFunc_CheckChipEepromEmpty(msg);
+			}
+			return _return;
+		}
+
 		/// <summary>
 		/// 读取熔丝位
 		/// </summary>
@@ -1259,7 +1276,99 @@ namespace Harry.LabTools.LabMcuFunc
 		/// </summary>
 		/// <param name="chipClock"></param>
 		/// <returns></returns>
-		public virtual int CMcuFunc_SetProg(byte chipClock, RichTextBox msg)
+		public virtual int CMcuFunc_SetProgClock(byte chipClock, RichTextBox msg)
+		{
+			return -1;
+		}
+
+		/// <summary>
+		/// 使能Eeprom的页编程模式
+		/// </summary>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public virtual int CMcuFunc_EnableEepromPageMode(RichTextBox msg)
+		{
+			return -1;
+		}
+
+		/// <summary>
+		/// 不使能Eeprom的页编程模式
+		/// </summary>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public virtual int CMcuFunc_DisableEepromPageMode(RichTextBox msg)
+		{
+			return -1;
+		}
+
+		/// <summary>
+		/// 读取设备的供电电压
+		/// </summary>
+		/// <param name="pwr"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public virtual int CMcuFunc_ReadChipPower(ref int chipPWR, RichTextBox msg)
+		{
+			return -1;
+		}
+
+		/// <summary>
+		/// 读取设备的供电电压
+		/// </summary>
+		/// <param name="pwr"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public virtual int CMcuFunc_ReadChipPower(TextBox chipPWR, RichTextBox msg)
+		{
+			int _return = -1;
+			int tempPWR = 0;
+			_return = this.CMcuFunc_ReadChipPower(ref tempPWR, msg);
+			if (_return == 0)
+			{
+				if (chipPWR.InvokeRequired)
+				{
+					chipPWR.BeginInvoke((EventHandler)
+										(delegate
+										{
+											chipPWR.Text = (((float)tempPWR) / 1000.0).ToString();
+										}));
+				}
+				else
+				{
+					chipPWR.Text = (((float)tempPWR) / 1000.0).ToString();
+				}
+			}
+			return _return;
+		}
+
+		/// <summary>
+		/// 写入设备的供电电压
+		/// </summary>
+		/// <param name="pwr"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public virtual int CMcuFunc_WriteChipPower(int chipPWR, RichTextBox msg)
+		{
+			return -1;
+		}
+
+		/// <summary>
+		/// 写入设备的供电电压
+		/// </summary>
+		/// <param name="pwr"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public virtual int CMcuFunc_WriteChipPower(TextBox chipPWR, RichTextBox msg)
+		{
+			return this.CMcuFunc_WriteChipPower((int)(Convert.ToDouble(chipPWR.Text) * 1000), msg);
+		}
+
+
+		/// <summary>
+		/// 一键执行所有的任务函数
+		/// </summary>
+		/// <returns></returns>
+		public virtual int CMcuFunc_DoChipTask(byte[] chipFuse,byte chipLock,CHexBox chipFlash,CHexBox chipEeprom, RichTextBox msg,ToolStripLabel workState, ToolStripLabel workTime , ToolStripProgressBar workBar)
 		{
 			return -1;
 		}

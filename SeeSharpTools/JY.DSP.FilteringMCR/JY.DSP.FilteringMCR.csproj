@@ -57,10 +57,10 @@
       <HintPath>..\..\LabSharpTools\packages\CSharp.Xml.1.1.1.0\lib\net40\CSharp.Xml.dll</HintPath>
     </Reference>
     <Reference Include="DSAPI, Version=2.0.8.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\LabSharpTools\packages\DSAPI.2.0.8.62\lib\net40\DSAPI.dll</HintPath>
+      <HintPath>..\..\packages\DSAPI.2.0.8.63\lib\net40\DSAPI.dll</HintPath>
     </Reference>
-    <Reference Include="DSControls, Version=1.0.7289.16472, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\LabSharpTools\packages\DSControls.1.0.3.40\lib\net20\DSControls.dll</HintPath>
+    <Reference Include="DSControls, Version=1.0.7289.30604, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DSControls.1.0.3.41\lib\net20\DSControls.dll</HintPath>
     </Reference>
     <Reference Include="DSPMatlab, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

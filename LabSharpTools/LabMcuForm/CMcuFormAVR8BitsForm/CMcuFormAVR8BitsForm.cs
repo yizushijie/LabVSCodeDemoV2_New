@@ -308,9 +308,8 @@ namespace LabMcuForm
 			this.button_SetChipInterface.Click += new EventHandler(this.Button_Click);
 			//---Buton事件
 			this.button_ReadChipID.Click += new EventHandler(this.Button_Click);
-			this.button_ReadChipRefPWR.Click += new EventHandler(this.Button_Click);
-			this.button_SetChipPWR.Click += new EventHandler(this.Button_Click);
 			this.button_ReadChipPWR.Click += new EventHandler(this.Button_Click);
+			this.button_SetChipPWR.Click += new EventHandler(this.Button_Click);
 			this.button_SetChipClock.Click += new EventHandler(this.Button_Click);
 
 			this.button_Erase.Click += new EventHandler(this.Button_Click);
@@ -333,6 +332,17 @@ namespace LabMcuForm
 			this.button_WriteChipFuse.Click += new EventHandler(this.Button_Click);
 			this.button_WriteChipLock.Click += new EventHandler(this.Button_Click);
 			this.button_ReadChipROM.Click += new EventHandler(this.Button_Click);
+
+			//---菜单Tab页发生变化
+			this.tabControl_ChipMenu.SelectedIndexChanged += new System.EventHandler(this.TabControl_SelectedIndexChanged);
+			//---菜单Tab页选择
+			this.tabControl_ChipMenu.Selected += new System.Windows.Forms.TabControlEventHandler(this.TabControl_Selected);
+			//---Memery的Tab页发生变化
+			this.tabControl_ChipMemery.SelectedIndexChanged += new System.EventHandler(this.TabControl_SelectedIndexChanged);
+
+			//---编程的时钟的变化
+			this.trackBar_ChipClock.MouseHover += new System.EventHandler(this.TrackBar_MouseHover);
+			this.trackBar_ChipClock.Scroll += new System.EventHandler(this.TrackBar_Scroll);
 
 		}
 
@@ -372,6 +382,48 @@ namespace LabMcuForm
 		}
 
 		#region UI处理函数
+
+		/// <summary>
+		/// 窗体显示
+		/// </summary>
+		/// <param name="fm"></param>
+		private void UI_Form_Shown(Form fm)
+		{
+			switch (fm.Name)
+			{
+				case "CMcuFormAVR8BitsForm":
+					this.StartupInit();
+					break;
+				default:
+					break;
+			}
+		}
+
+		/// <summary>
+		/// ComboBox控件发生变化
+		/// </summary>
+		/// <param name="cbb"></param>
+		private void UI_ComboBox_SelectedIndexChanged(ComboBox cbb)
+		{
+			switch (cbb.Name)
+			{
+				//---芯片类型发生变化
+				case "comboBox_ChipType":
+					if (!string.IsNullOrEmpty(this.comboBox_ChipType.Text))
+					{
+						if (this.comboBox_ChipType.Text != this.defaultCMcuFunc.mMcuInfoParam.mTypeName)
+						{
+							this.McuTypeChanged(this.comboBox_ChipType.Text);
+						}
+					}
+					break;
+				//---芯片接口发生变化
+				case "comboBox_ChipInterface":
+					break;
+				default:
+					break;
+			}
+		}
 
 		/// <summary>
 		/// 
@@ -421,28 +473,29 @@ namespace LabMcuForm
 						CMessageBoxPlus.Show(this, "？？？不识别的编程接口", "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					}
 					break;
-				//---读取外部供电电压
-				case "button_ReadChipRefPWR":
-				//---读取当前供电电压
+				//---读取供电电压
 				case "button_ReadChipPWR":
+					this.defaultCMcuFunc.CMcuFunc_ReadChipPower(this.textBox_ChipPWR, this.cRichTextBoxEx_ChipMsg);
 					break;
 				//---设置供电电压
 				case "button_SetChipPWR":
+					this.defaultCMcuFunc.CMcuFunc_WriteChipPower(this.textBox_ChipPWR, this.cRichTextBoxEx_ChipMsg);
 					break;
 				//---设置编程时钟
 				case "button_SetChipClock":
+					this.defaultCMcuFunc.CMcuFunc_SetProgClock((byte)this.trackBar_ChipClock.Value, this.cRichTextBoxEx_ChipMsg);
 					break;
 				//---加载Flash数据
 				case "button_LoadFlashFile":
-					this.defaultCMcuFunc.CMcuFunc_LoadFlashHexFile(this.cHexBox_Flash, this.label_FlashSize, cRichTextBoxEx_ChipMsg);
+					this.defaultCMcuFunc.CMcuFunc_LoadFlashHexFile(this.cHexBox_Flash, this.label_FlashSize, this.cRichTextBoxEx_ChipMsg);
 					break;
 				//---加载Eeprom
 				case "button_LoadEepromFile":
-					this.defaultCMcuFunc.CMcuFunc_LoadEepromHexFile(this.cHexBox_Eeprom, this.label_EepromSize, cRichTextBoxEx_ChipMsg);
+					this.defaultCMcuFunc.CMcuFunc_LoadEepromHexFile(this.cHexBox_Eeprom, this.label_EepromSize, this.cRichTextBoxEx_ChipMsg);
 					break;
 				//---保存Flash
 				case "button_SaveFlashFile":
-					this.defaultCMcuFunc.CMcuFunc_SaveFlashHexFile(this.cHexBox_Flash, cRichTextBoxEx_ChipMsg);
+					this.defaultCMcuFunc.CMcuFunc_SaveFlashHexFile(this.cHexBox_Flash, this.cRichTextBoxEx_ChipMsg);
 					break;
 				//---保存EEPROM文件
 				case "button_SaveEepromFile":
@@ -451,13 +504,16 @@ namespace LabMcuForm
 				//---自动
 				case "button_AutoChip":
 				case "button_ChipAuto":
+					this.defaultCMcuFunc.CMcuFunc_DoChipTask(this.defaultCMcuFunc.mMcuInfoParam.mChipFuse,Convert.ToByte(this.mLockFuse.Text,16),this.cHexBox_Flash, this.cHexBox_Eeprom, this.cRichTextBoxEx_ChipMsg, this.toolStripLabel_ChipState, this.toolStripLabel_ChipTime, this.toolStripProgressBar_ChipBar);
 					break;
 				//---擦除
 				case "button_Erase":
 				case "button_EraseChip":
 					this.defaultCMcuFunc.CMcuFunc_EraseChip(this.mLockFuse, this.cRichTextBoxEx_ChipMsg);
 					break;
+				//---存储器查空操作
 				case "button_CheckEmpty":
+					this.defaultCMcuFunc.CMcuFunc_CheckChipMemeryEmpty(this.cRichTextBoxEx_ChipMsg, false);
 					break;
 				//---读取识别字
 				case "button_ReadIDChip":
@@ -482,7 +538,7 @@ namespace LabMcuForm
 					break;
 				//---编程Eeprom
 				case "button_WriteChipEeprom":
-					this.defaultCMcuFunc.CMcuFunc_WriteChipEeprom(this.cHexBox_Eeprom, this.cRichTextBoxEx_ChipMsg, this.toolStripLabel_ChipState, this.toolStripLabel_ChipTime, this.toolStripProgressBar_ChipBar);
+					this.defaultCMcuFunc.CMcuFunc_WriteChipEeprom(this.cHexBox_Eeprom, this.cRichTextBoxEx_ChipMsg, true,this.toolStripLabel_ChipState, this.toolStripLabel_ChipTime, this.toolStripProgressBar_ChipBar);
 					break;
 				//---校验Eeprom
 				case "button_CheckChipEeprom":
@@ -518,15 +574,28 @@ namespace LabMcuForm
 		private void Form_Shown(Object sender, EventArgs e)
 		{
 			Form fm = (Form)sender;
-			switch (fm.Name)
+			//---后台线程执行函数
+			Thread t = new Thread
+			(delegate ()
 			{
-				case "CMcuFormAVR8BitsForm":
-					this.StartupInit();
-					break;
-				default:
-					break;
+				if (fm.InvokeRequired)
+				{
+					fm.BeginInvoke((EventHandler)
+						 (delegate
+						 {
+							 this.UI_Form_Shown(fm);
+						 }));
+				}
+				else
+				{
+					this.UI_Form_Shown(fm);
+				}
+
 			}
-			fm.Focus();
+			);
+			t.IsBackground = true;
+			t.Start();
+			//fm.Focus();
 		}
 
 		/// <summary>
@@ -638,6 +707,57 @@ namespace LabMcuForm
 		}
 
 		/// <summary>
+		/// 鼠标悬停事件
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void TrackBar_MouseHover(object sender, EventArgs e)
+		{
+			if (sender==null)
+			{
+				return;
+			}
+			TrackBar tb = (TrackBar)sender;
+			//---获取输入点
+			//tb.Focus();
+			//---校验控件
+			switch (tb.Name)
+			{
+				case "trackBar_ChipClock":
+					this.toolTip_ChipClock.SetToolTip(this.trackBar_ChipClock, this.defaultCMcuFunc.mChipClock[this.trackBar_ChipClock.Value] + "KHz");
+					break;
+				default:
+					break;
+			}
+		}
+
+		/// <summary>
+		/// 滑块滑动
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void TrackBar_Scroll(object sender, EventArgs e)
+		{
+			if (sender == null)
+			{
+				return;
+			}
+			TrackBar tb = (TrackBar)sender;
+			//---获取输入点
+			//tb.Focus();
+			//---校验控件
+			switch (tb.Name)
+			{
+				case "trackBar_ChipClock":
+					this.toolTip_ChipClock.SetToolTip(this.trackBar_ChipClock, this.defaultCMcuFunc.mChipClock[this.trackBar_ChipClock.Value]+"KHz");
+					this.textBox_ChipClock.Text = this.defaultCMcuFunc.mChipClock[this.trackBar_ChipClock.Value];
+					break;
+				default:
+					break;
+			}
+		}
+
+		/// <summary>
 		/// ComboBox事件
 		/// </summary>
 		/// <param name="sender"></param>
@@ -650,26 +770,29 @@ namespace LabMcuForm
 			}
 			ComboBox cbb = (ComboBox)sender;
 			//cbb.Enabled = false;
-			switch (cbb.Name)
+			//cbb.Focus();
+			//---后台线程执行函数
+			Thread t = new Thread
+			(delegate ()
 			{
-				//---芯片类型发生变化
-				case "comboBox_ChipType":
-					if (!string.IsNullOrEmpty(this.comboBox_ChipType.Text))
-					{
-						if (this.comboBox_ChipType.Text!=this.defaultCMcuFunc.mMcuInfoParam.mTypeName)
-						{
-							this.McuTypeChanged(this.comboBox_ChipType.Text);
-						}
-					}
-					break;
-				//---芯片接口发生变化
-				case "comboBox_ChipInterface":
-					break;
-				default:
-					break;
+				if (cbb.InvokeRequired)
+				{
+					cbb.BeginInvoke((EventHandler)
+						 (delegate
+						 {
+							 this.UI_ComboBox_SelectedIndexChanged(cbb);
+						 }));
+				}
+				else
+				{
+					this.UI_ComboBox_SelectedIndexChanged(cbb);
+				}
+
 			}
+			);
+			t.IsBackground = true;
+			t.Start();
 			//cbb.Enabled = true;
-			cbb.Focus();
 		}
 
 		/// <summary>
@@ -690,6 +813,8 @@ namespace LabMcuForm
 			}
 			Button bt = (Button)sender;
 			//bt.Enabled = false;
+			//bt.Focus();
+			//---后台线程执行函数
 			Thread t = new Thread
 			(delegate ()
 				{
@@ -711,8 +836,127 @@ namespace LabMcuForm
 			t.IsBackground = true;
 			t.Start();
 			//bt.Enabled = true;
-			//bt.Focus();
 		}
+
+		/// <summary>
+		/// TabControl页选择事件
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (sender == null)
+			{
+				return;
+			}
+			//---转化为TabControl控件
+			TabControl tcl = (TabControl)sender;
+			//tcl.Focus();
+			//---判断控件
+			switch (tcl.SelectedTab.Text)
+			{
+				case "编程":
+					break;
+				case "编辑":
+					if (this.tabControl_ChipMemery.SelectedTab.Text.ToUpper() == "FLASH")
+					{
+						//---重新锁定光标
+						this.cHexBox_Flash.OnFindCaret();
+					}
+					else if (this.tabControl_ChipMemery.SelectedTab.Text.ToUpper() == "EEPROM")
+					{
+						//---重新锁定光标
+						this.cHexBox_Eeprom.OnFindCaret();
+					}
+					else if (this.tabControl_ChipMemery.SelectedTab.Text.ToUpper() == "ROM")
+					{
+						//---重新锁定光标
+						this.cHexBox_ROM.OnFindCaret();
+					}
+					break;
+				case "FLASH":
+					//---将光标锁定在Flash编辑框
+					this.cHexBox_Flash.OnFindCaret();
+					break;
+				case "EEPROM":
+					//---将光标锁定在Eeprom编辑框
+					this.cHexBox_Eeprom.OnFindCaret();
+					break;
+				case "ROM":
+					//---将光标锁定在Eeprom编辑框
+					this.cHexBox_ROM.OnFindCaret();
+					break;
+				default:
+					break;
+
+			}
+		}
+
+		/// <summary>
+		/// TabControl页切换事件
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void TabControl_Selected(object sender, TabControlEventArgs e)
+		{
+			if (sender==null)
+			{
+				return;
+			}
+			//---转化为TabControl控件
+			TabControl tcl = (TabControl)sender;
+			//tcl.Focus();
+			//---判断控件
+			switch (tcl.Name)
+			{
+				case "tabControl_ChipMenu":
+					if (tcl.SelectedTab.Text == "编程")
+					{
+						if (this.cHexBox_Flash.mNewDataChange || (this.cHexBox_Eeprom.mNewDataChange))
+						{
+							if (DialogResult.OK == CMessageBoxPlus.Show(this, "是否更新数据缓存区？", "问题提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question))
+							{
+								//---Flash数据发生变化
+								if (this.cHexBox_Flash.mNewDataChange)
+								{
+									this.cHexBox_Flash.mNewDataChange = false;
+									this.cHexBox_Flash.AddData(this.cHexBox_Flash.mNowData);
+								}
+
+								//---Eeprom数据发生变化
+								if (this.cHexBox_Eeprom.mNewDataChange)
+								{
+									this.cHexBox_Eeprom.mNewDataChange = false;
+									this.cHexBox_Eeprom.AddData(this.cHexBox_Eeprom.mNowData);
+								}
+							}
+							else
+							{
+								//---Flash数据发生变化
+								if (this.cHexBox_Flash.mNewDataChange)
+								{
+									this.cHexBox_Flash.mNewDataChange = false;
+									this.cHexBox_Flash.AddData(this.cHexBox_Flash.mLastData);
+								}
+
+								//---Eeprom数据发生变化
+								if (this.cHexBox_Eeprom.mNewDataChange)
+								{
+									this.cHexBox_Eeprom.mNewDataChange = false;
+									this.cHexBox_Eeprom.AddData(this.cHexBox_Eeprom.mLastData);
+								}
+							}
+						}
+					}
+					break;
+				case "tabControl_ChipMemery":
+					break;
+				default:
+					break;
+			}
+			
+		}
+
 		#endregion
 	}
 }

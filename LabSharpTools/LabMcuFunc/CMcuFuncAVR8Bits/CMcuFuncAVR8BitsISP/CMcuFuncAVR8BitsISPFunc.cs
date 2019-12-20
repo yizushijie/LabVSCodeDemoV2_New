@@ -1410,7 +1410,167 @@ namespace Harry.LabTools.LabMcuFunc
 		/// </summary>
 		/// <param name="chipClock"></param>
 		/// <returns></returns>
-		public override int CMcuFunc_SetProg(byte chipClock, RichTextBox msg)
+		public override int CMcuFunc_SetProgClock(byte chipClock, RichTextBox msg)
+		{
+			int _return = -1;
+			//---校验通讯接口
+			if ((this.mCCOMM != null) && (this.mCCOMM.mIsOpen == true))
+			{
+				//---发送命令
+				byte[] cmd = new byte[] { (byte)CMCUFUNC_CMD_ISP.CMD_ISP_PROG_CLOCK_SET,0x00,chipClock };
+				//---读取命令
+				byte[] res = null;
+				//---发送并读取命令
+				_return = this.mCCOMM.SendCmdAndReadResponse(cmd, ref res);
+				//---校验结果
+				if (_return == 0)
+				{
+					if (this.mCCOMM.mReceCheckPass)
+					{
+						this.mMsgText = "ISP编程：编程时钟设置成功!";
+					}
+					else
+					{
+						_return = 2;
+						this.mMsgText = "ISP编程：编程时钟设置命令校验错误!";
+					}
+				}
+				else
+				{
+					this.mMsgText = this.mCCOMM.mLogMsg;
+				}
+			}
+			else
+			{
+				this.mMsgText = "通讯端口初始化失败!";
+			}
+			if (msg != null)
+			{
+				CRichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, this.mMsgText, (_return == 0 ? Color.Black : Color.Red));
+			}
+			return _return;
+		}
+
+		/// <summary>
+		/// 使能Eeprom的页编程模式
+		/// </summary>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int CMcuFunc_EnableEepromPageMode(RichTextBox msg)
+		{
+			int _return = -1;
+			//---校验通讯端口
+			if ((this.mCCOMM != null) && (this.mCCOMM.mIsOpen == true))
+			{
+				//---发送命令
+				byte[] cmd = new byte[] {   (byte)CMCUFUNC_CMD_ISP.CMD_ISP_OPEN_CLOSE, 0x02,
+											(byte)((this.mMcuInfoParam.mPollReady==true)?1:0),
+											(byte)(this.mMcuInfoParam.mChipFlashPerPageWordNum>>8),(byte)(this.mMcuInfoParam.mChipFlashPerPageWordNum),
+											(byte)(this.mMcuInfoParam.mChipEepromPerPageByteNum>>8),(byte)(this.mMcuInfoParam.mChipEepromPerPageByteNum),
+											(byte)((this.mMcuInfoParam.mChipEepromPageMode==true)?1:0)
+										};
+				//---读取命令
+				byte[] res = null;
+				//---发送并读取命令
+				_return = this.mCCOMM.SendCmdAndReadResponse(cmd, ref res);
+				//---校验结果
+				if (_return == 0)
+				{
+					if (this.mCCOMM.mReceCheckPass)
+					{
+						this.mMsgText = "ISP编程：EEPROM页编程模式打开!";
+					}
+					else
+					{
+						_return = 1;
+						this.mMsgText = "ISP编程：EEPROM页编程打开命令校验错误!";
+					}
+				}
+				else
+				{
+					this.mMsgText = this.mCCOMM.mLogMsg;
+				}
+			}
+			else
+			{
+				this.mMsgText = "通讯端口初始化失败!";
+			}
+			if (msg != null)
+			{
+				CRichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, this.mMsgText, (_return == 0 ? Color.Black : Color.Red));
+			}
+			return _return;
+		}
+
+		/// <summary>
+		/// 不使能Eeprom的页编程模式
+		/// </summary>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int CMcuFunc_DisableEepromPageMode(RichTextBox msg)
+		{
+			int _return = -1;
+			//---校验通讯端口
+			if ((this.mCCOMM != null) && (this.mCCOMM.mIsOpen == true))
+			{
+				//---发送命令
+				byte[] cmd = new byte[] {   (byte)CMCUFUNC_CMD_ISP.CMD_ISP_OPEN_CLOSE, 0x02,
+											(byte)((this.mMcuInfoParam.mPollReady==true)?1:0),
+											(byte)(this.mMcuInfoParam.mChipFlashPerPageWordNum>>8),(byte)(this.mMcuInfoParam.mChipFlashPerPageWordNum),
+											(byte)(this.mMcuInfoParam.mChipEepromPerPageByteNum>>8),(byte)(this.mMcuInfoParam.mChipEepromPerPageByteNum),
+											0
+										};
+				//---读取命令
+				byte[] res = null;
+				//---发送并读取命令
+				_return = this.mCCOMM.SendCmdAndReadResponse(cmd, ref res);
+				//---校验结果
+				if (_return == 0)
+				{
+					if (this.mCCOMM.mReceCheckPass)
+					{
+						this.mMsgText = "ISP编程：EEPROM页编程模式关闭!";
+					}
+					else
+					{
+						_return = 1;
+						this.mMsgText = "ISP编程：EEPROM页编程关闭命令校验错误!";
+					}
+				}
+				else
+				{
+					this.mMsgText = this.mCCOMM.mLogMsg;
+				}
+			}
+			else
+			{
+				this.mMsgText = "通讯端口初始化失败!";
+			}
+			if (msg != null)
+			{
+				CRichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, this.mMsgText, (_return == 0 ? Color.Black : Color.Red));
+			}
+			return _return;
+		}
+
+		/// <summary>
+		/// 写入设备的供电电压
+		/// </summary>
+		/// <param name="pwr"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int CMcuFunc_WriteChipPower(int chipPWR, RichTextBox msg)
+		{
+			return -1;
+		}
+
+		/// <summary>
+		/// 读取设备的供电电压
+		/// </summary>
+		/// <param name="pwr"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int CMcuFunc_ReadChipPower(ref int chipPWR, RichTextBox msg)
 		{
 			return -1;
 		}

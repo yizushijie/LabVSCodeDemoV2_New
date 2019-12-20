@@ -626,6 +626,11 @@ namespace Harry.LabTools.LabCommType
 			//---校验上一次的接收状态
 			if (this.defaultLastReceIsOK == false)
 			{
+				//---读取接收缓存区的数据
+				if (this.defaultSerialPort.BytesToRead>0)
+				{
+					this.defaultSerialPort.ReadExisting();
+				}
 				//---清空接收缓存区
 				this.defaultSerialPort.DiscardInBuffer();
 				//---清空发送缓存区
@@ -661,6 +666,11 @@ namespace Harry.LabTools.LabCommType
 			//---校验上一次的接收状态
 			if (this.defaultLastReceIsOK == false)
 			{
+				//---读取接收缓存区的数据
+				if (this.defaultSerialPort.BytesToRead > 0)
+				{
+					this.defaultSerialPort.ReadExisting();
+				}
 				//---清空接收缓存区
 				this.defaultSerialPort.DiscardInBuffer();
 				//---清空发送缓存区

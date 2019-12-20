@@ -1543,6 +1543,11 @@ namespace Harry.LabTools.LabMcuFunc
 		private bool AnalyseChipAVR8BitsMcuChipXml(string chipName,XmlNode xmlNode)
 		{
 			XmlNodeList xmlNodeList = xmlNode.ChildNodes;
+			//---设置芯片不支持轮训
+			this.defaultChipPollReady = false;
+			//---设置芯片不支持eeprom的页编程模式
+			this.defaultChipEepromPageMode = false;
+			//---返回结果
 			int _return = 0;
 			//---轮询获取数据
 			foreach (XmlNode xn in xmlNodeList)

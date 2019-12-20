@@ -32,3 +32,6 @@ dotnet_diagnostic.CA1305.severity = none
 
 # CA1816: Dispose 方法应调用 SuppressFinalize
 dotnet_diagnostic.CA1816.severity = none
+
+# CA1063: 正确实现 IDisposable
+dotnet_diagnostic.CA1063.severity = none

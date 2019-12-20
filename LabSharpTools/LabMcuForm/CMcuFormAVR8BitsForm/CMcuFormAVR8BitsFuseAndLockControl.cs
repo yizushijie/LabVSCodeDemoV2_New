@@ -382,9 +382,11 @@ namespace LabMcuForm.CMcuFormAVR8Bits
 				return;
 			}
 			CheckedListBox clb = (CheckedListBox)sender;
-			//---这里是为防止双击效果
+			//---这里是为防止双击操作，如果没有，快速双击会导致状态解析错误
 			CGenFuncDelay.GenFuncDelayms(150);
 			//clb.Enabled = false;
+			//---设置输入焦点
+			//clb.Focus();
 			if (clb.SelectedItem.ToString() == "NC")
 			{
 				clb.SetItemCheckState(clb.SelectedIndex, CheckState.Checked);
@@ -392,6 +394,7 @@ namespace LabMcuForm.CMcuFormAVR8Bits
 			}
 			else
 			{
+				//---后台线程执行函数
 				Thread t = new Thread
 				(delegate ()
 					{
@@ -414,8 +417,6 @@ namespace LabMcuForm.CMcuFormAVR8Bits
 				t.Start();
 			}
 			//clb.Enabled = true;
-			//设置输入焦点
-			//clb.Focus();
 		}
 
 		/// <summary>
@@ -431,6 +432,9 @@ namespace LabMcuForm.CMcuFormAVR8Bits
 			}
 			TextBox tb = (TextBox)sender;
 			//tb.Enabled = false;
+			//---设置输入焦点
+			//tb.Focus();
+			//---后台线程执行函数
 			Thread t = new Thread
 			(delegate ()
 				{
@@ -474,6 +478,9 @@ namespace LabMcuForm.CMcuFormAVR8Bits
 			}
 			Button bt = (Button)sender;
 			//bt.Enabled = false;
+			//---设置输入焦点
+			//bt.Focus();
+			//---后台线程执行函数
 			Thread t = new Thread
 			(delegate ()
 				{
