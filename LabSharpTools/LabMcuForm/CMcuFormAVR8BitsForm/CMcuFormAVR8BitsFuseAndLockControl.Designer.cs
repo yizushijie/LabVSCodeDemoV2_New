@@ -34,7 +34,7 @@
 			this.label_HighFuseText = new System.Windows.Forms.Label();
 			this.textBox_LowFuseValue = new System.Windows.Forms.TextBox();
 			this.label_LowFuseText = new System.Windows.Forms.Label();
-			this.tabControl_ChipInfo =new Harry.LabTools.LabControlPlus.CTabControlEx();//new System.Windows.Forms.TabControl();
+			this.tabControl_ChipInfo = new Harry.LabTools.LabControlPlus.CTabControlEx();
 			this.tabPage_ChipBits = new System.Windows.Forms.TabPage();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
 			this.button_ReadChipCalibration = new System.Windows.Forms.Button();

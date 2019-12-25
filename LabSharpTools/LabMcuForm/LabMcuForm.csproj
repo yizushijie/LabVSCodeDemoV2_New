@@ -69,10 +69,10 @@
       <HintPath>..\packages\Device.Net.LibUsb.3.1.0\lib\netstandard2.0\Device.Net.LibUsb.dll</HintPath>
     </Reference>
     <Reference Include="DSAPI, Version=2.0.8.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\DSAPI.2.0.8.63\lib\net40\DSAPI.dll</HintPath>
+      <HintPath>..\..\packages\DSAPI.2.0.8.64\lib\net40\DSAPI.DLL</HintPath>
     </Reference>
-    <Reference Include="DSControls, Version=1.0.7289.30604, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\DSControls.1.0.3.41\lib\net20\DSControls.dll</HintPath>
+    <Reference Include="DSControls, Version=1.0.7297.41457, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DSControls.1.0.3.44\lib\net20\DSControls.dll</HintPath>
     </Reference>
     <Reference Include="ExcelLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelLibrary.1.2011.7.31\lib\ExcelLibrary.dll</HintPath>
@@ -163,12 +163,6 @@
     <Compile Include="CMcuFormAVR8BitsForm\CMcuFormAVR8BitsFuseAndLockControl.Designer.cs">
       <DependentUpon>CMcuFormAVR8BitsFuseAndLockControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="CMcuFormAVR8BitsForm\CMcuFormAVR8BitsFuseAndLockForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CMcuFormAVR8BitsForm\CMcuFormAVR8BitsFuseAndLockForm.Designer.cs">
-      <DependentUpon>CMcuFormAVR8BitsFuseAndLockForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="CMcuFormBaseForm\CMcuFormBaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,9 +176,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CMcuFormAVR8BitsForm\CMcuFormAVR8BitsFuseAndLockControl.resx">
       <DependentUpon>CMcuFormAVR8BitsFuseAndLockControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CMcuFormAVR8BitsForm\CMcuFormAVR8BitsFuseAndLockForm.resx">
-      <DependentUpon>CMcuFormAVR8BitsFuseAndLockForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

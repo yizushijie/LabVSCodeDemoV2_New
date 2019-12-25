@@ -14,29 +14,11 @@ namespace Harry.LabTools.LabMcuFunc
 	public partial class CMcuFuncAVR8BitsBase
 	{
 		#region 变量定义
-
+	
 		#endregion
 
 		#region 属性定义
-
-		/// <summary>
-		/// 功能函数的执行步序1
-		/// </summary>
-		public virtual int mFuncStep1Mask
-		{
-			get;
-			set;
-		}
-
-		/// <summary>
-		/// 功能函数的执行步序2
-		/// </summary>
-		public virtual int mFuncStep2Mask
-		{
-			get;
-			set;
-		}
-
+		
 		#endregion
 
 		#region 构造函数
@@ -1330,12 +1312,12 @@ namespace Harry.LabTools.LabMcuFunc
 					chipPWR.BeginInvoke((EventHandler)
 										(delegate
 										{
-											chipPWR.Text = (((float)tempPWR) / 1000.0).ToString();
+											chipPWR.Text = (((float)tempPWR) / 1000.0).ToString("F2").ToUpper();
 										}));
 				}
 				else
 				{
-					chipPWR.Text = (((float)tempPWR) / 1000.0).ToString();
+					chipPWR.Text = (((float)tempPWR) / 1000.0).ToString("F2").ToUpper();
 				}
 			}
 			return _return;
@@ -1347,7 +1329,7 @@ namespace Harry.LabTools.LabMcuFunc
 		/// <param name="pwr"></param>
 		/// <param name="msg"></param>
 		/// <returns></returns>
-		public virtual int CMcuFunc_WriteChipPower(int chipPWR, RichTextBox msg)
+		public virtual int CMcuFunc_WriteChipPower(int chipPWR, RichTextBox msg, bool isOpen = true)
 		{
 			return -1;
 		}
@@ -1358,9 +1340,30 @@ namespace Harry.LabTools.LabMcuFunc
 		/// <param name="pwr"></param>
 		/// <param name="msg"></param>
 		/// <returns></returns>
-		public virtual int CMcuFunc_WriteChipPower(TextBox chipPWR, RichTextBox msg)
+		public virtual int CMcuFunc_WriteChipPower(TextBox chipPWR, RichTextBox msg, bool isOpen = true)
 		{
-			return this.CMcuFunc_WriteChipPower((int)(Convert.ToDouble(chipPWR.Text) * 1000), msg);
+			float tempPower = Convert.ToSingle(chipPWR.Text);
+			if (tempPower>6.00f)
+			{
+				tempPower = 6.00f;
+			}
+			else if (tempPower<1.50f)
+			{
+				tempPower = 1.50f;
+			}
+			if (chipPWR.InvokeRequired)
+			{
+				chipPWR.BeginInvoke((EventHandler)
+							(delegate
+							{
+								chipPWR.Text = tempPower.ToString("F2").ToUpper();
+							}));
+			}
+			else
+			{
+				chipPWR.Text = tempPower.ToString("F2").ToUpper();
+			}
+			return this.CMcuFunc_WriteChipPower((int)(tempPower * 1000), msg,isOpen);
 		}
 
 

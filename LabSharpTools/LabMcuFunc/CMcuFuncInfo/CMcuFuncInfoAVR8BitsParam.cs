@@ -141,6 +141,16 @@ namespace Harry.LabTools.LabMcuFunc
 		/// </summary>
 		private string defaultMsgText = "";
 
+		/// <summary>
+		///功能操作1
+		/// </summary>
+		private CMcuFuncMaskParam defaultChipFuncMask1 = new CMcuFuncMaskParam(0, 0B00010110);
+
+		/// <summary>
+		/// 功能操作1
+		/// </summary>
+		private CMcuFuncMaskParam defaultChipFuncMask2 = new CMcuFuncMaskParam(0, 0B00000010);
+
 		#endregion
 
 		#region 属性定义
@@ -690,6 +700,36 @@ namespace Harry.LabTools.LabMcuFunc
 			}
 		}
 
+		/// <summary>
+		/// 功能步骤1为读写属性
+		/// </summary>
+		public virtual CMcuFuncMaskParam mChipFuncMask1
+		{
+			get
+			{
+				return this.defaultChipFuncMask1;
+			}
+			set
+			{
+				this.defaultChipFuncMask1 = value;
+			}
+		}
+
+		/// <summary>
+		/// 功能步骤2为读写属性
+		/// </summary>
+		public virtual CMcuFuncMaskParam mChipFuncMask2
+		{
+			get
+			{
+				return this.defaultChipFuncMask2;
+			}
+			set
+			{
+				this.defaultChipFuncMask2 = value;
+			}
+		}
+
 		#endregion
 
 		#region 构造函数
@@ -738,12 +778,14 @@ namespace Harry.LabTools.LabMcuFunc
 							 //cbb.Invoke((EventHandler)
 							 (delegate
 							 {
-								 tbChipID.Text = this.mChipID[0].ToString("X2") + ":" + this.mChipID[1].ToString("X2") + ":" + this.mChipID[2].ToString("X2");
+								 tbChipID.Text = this.mChipID[0].ToString("X2").ToUpper()
+								 + ":" + this.mChipID[1].ToString("X2").ToUpper()
+								 + ":" + this.mChipID[2].ToString("X2").ToUpper();
 							 }));
 				}
 				else
 				{
-					tbChipID.Text = this.mChipID[0].ToString("X2") + ":" + this.mChipID[1].ToString("X2") + ":" + this.mChipID[2].ToString("X2");
+					tbChipID.Text = this.mChipID[0].ToString("X2").ToUpper() + ":" + this.mChipID[1].ToString("X2").ToUpper() + ":" + this.mChipID[2].ToString("X2").ToUpper();
 				}
 			}
 			return _return ;
@@ -921,12 +963,12 @@ namespace Harry.LabTools.LabMcuFunc
 								 //cbb.Invoke((EventHandler)
 								 (delegate
 								 {
-									 tb.Text = temp.ToString("X2");
+									 tb.Text = temp.ToString("X2").ToUpper();
 								 }));
 			}
 			else
 			{
-				tb.Text = temp.ToString("X2");
+				tb.Text = temp.ToString("X2").ToUpper();
 			}
 			
 			
@@ -1049,7 +1091,7 @@ namespace Harry.LabTools.LabMcuFunc
 				//---校验拓展熔丝位
 				else if (index == 2)
 				{
-					if (this.defaultChipExternFuseText != null)
+					if (this.defaultChipExternFuseText == null)
 					{
 						return false;
 					}
@@ -1057,7 +1099,7 @@ namespace Harry.LabTools.LabMcuFunc
 					{
 						tempCMcuFuncInfo = this.defaultChipExternFuseText;
 						//---拓展位熔丝位
-						fuseVal = this.defaultChipFuse[2];
+					fuseVal = this.defaultChipFuse[2];
 					}
 				}
 				//---校验加密熔丝位
@@ -1215,12 +1257,12 @@ namespace Harry.LabTools.LabMcuFunc
 								 //cbb.Invoke((EventHandler)
 								 (delegate
 								 {
-									 externFuse.Text = temp.ToString("X2");
+									 externFuse.Text = temp.ToString("X2").ToUpper();
 								 }));
 					}
 					else
 					{
-						externFuse.Text = temp.ToString("X2");
+						externFuse.Text = temp.ToString("X2").ToUpper();
 					}					
 					return;
 				}
@@ -1278,12 +1320,12 @@ namespace Harry.LabTools.LabMcuFunc
 								 //cbb.Invoke((EventHandler)
 								 (delegate
 								 {
-									 highFuse.Text = temp.ToString("X2");
+									 highFuse.Text = temp.ToString("X2").ToUpper();
 								 }));
 					}
 					else
 					{
-						highFuse.Text = temp.ToString("X2");
+						highFuse.Text = temp.ToString("X2").ToUpper();
 					}
 					return;
 				}
@@ -1340,12 +1382,12 @@ namespace Harry.LabTools.LabMcuFunc
 								 //cbb.Invoke((EventHandler)
 								 (delegate
 								 {
-									 lowFuse.Text = temp.ToString("X2");
+									 lowFuse.Text = temp.ToString("X2").ToUpper();
 								 }));
 					}
 					else
 					{
-						lowFuse.Text = temp.ToString("X2");
+						lowFuse.Text = temp.ToString("X2").ToUpper();
 					}
 					return;
 				}
@@ -1402,12 +1444,12 @@ namespace Harry.LabTools.LabMcuFunc
 								 //cbb.Invoke((EventHandler)
 								 (delegate
 								 {
-									 lockFuse.Text = temp.ToString("X2");
+									 lockFuse.Text = temp.ToString("X2").ToUpper();
 								 }));
 					}
 					else
 					{
-						lockFuse.Text = temp.ToString("X2");
+						lockFuse.Text = temp.ToString("X2").ToUpper();
 					}
 					return;
 				}
@@ -1427,6 +1469,74 @@ namespace Harry.LabTools.LabMcuFunc
 		{
 			FuseCheckedListBoxBitsRefresh(clbBits, fuseVal,index);
 			return this.FuseCheckedListBoxTextRefresh(clbText, index);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="clb"></param>
+		/// <returns></returns>
+		public CMcuFuncMaskParam GetFuncMaskCheckedListBox(CheckedListBox clb)
+		{
+			int _return = 0;
+			int length = clb.Items.Count;
+			for (int i = 0; i <length ; i++)
+			{
+				if (clb.GetItemCheckState(i)==CheckState.Checked)
+				{
+					_return |= 1<<(i);
+				}
+			}
+			return new CMcuFuncMaskParam(length,_return);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="clb"></param>
+		/// <param name="val"></param>
+		/// <returns></returns>
+		public CMcuFuncMaskParam SetFuncMaskCheckedListBox(CheckedListBox clb,CMcuFuncMaskParam val)
+		{
+			if ((val==null)||(val.mMask<0))
+			{
+				return null;
+			}
+			int length = clb.Items.Count;
+			int mask = val.mMask;
+			for (int i = 0; i < length; i++)
+			{
+				if (clb.InvokeRequired)
+				{
+					clb.BeginInvoke((EventHandler)
+							 //cbb.Invoke((EventHandler)
+							 (delegate
+							 {
+								 if ((mask & 0x01) != 0)
+								 {
+									 clb.SetItemCheckState(i, CheckState.Checked);
+								 }
+								 else
+								 {
+									 clb.SetItemCheckState(i, CheckState.Unchecked);
+								 }
+							 }));
+				}
+				else
+				{
+					if ((mask & 0x01) != 0)
+					{
+						clb.SetItemCheckState(i, CheckState.Checked);
+					}
+					else
+					{
+						clb.SetItemCheckState(i, CheckState.Unchecked);
+					}
+				}
+				mask >>= 1;
+			}
+			val.mCout = length;
+			return val;
 		}
 
 		#endregion

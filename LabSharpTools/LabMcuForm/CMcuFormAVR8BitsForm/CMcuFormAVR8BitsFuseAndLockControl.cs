@@ -413,8 +413,12 @@ namespace LabMcuForm.CMcuFormAVR8Bits
 
 					}
 				);
-				t.IsBackground = true;
-				t.Start();
+				//---校验线程有效
+				if (t != null)
+				{
+					t.IsBackground = true;
+					t.Start();
+				}
 			}
 			//clb.Enabled = true;
 		}
@@ -431,9 +435,13 @@ namespace LabMcuForm.CMcuFormAVR8Bits
 				return;
 			}
 			TextBox tb = (TextBox)sender;
+			//---检查内容是否为空
+			if (string.IsNullOrEmpty(tb.Text))
+			{
+				return;
+			}
+			tb.Text = Convert.ToByte(tb.Text,16).ToString("X2").ToUpper();
 			//tb.Enabled = false;
-			//---设置输入焦点
-			//tb.Focus();
 			//---后台线程执行函数
 			Thread t = new Thread
 			(delegate ()
@@ -453,10 +461,16 @@ namespace LabMcuForm.CMcuFormAVR8Bits
 			
 				}
 			);
-			t.IsBackground = true;
-			t.Start();
+			//---校验线程有效
+			if (t!=null)
+			{
+				t.IsBackground = true;
+				t.Start();
+			}
 			//tb.Enabled = true;
 			//tb.Focus();
+			//---光标显示在文本末尾
+			tb.Select(tb.Text.Length, 0);
 		}
 
 		/// <summary>
@@ -499,8 +513,12 @@ namespace LabMcuForm.CMcuFormAVR8Bits
 
 				}
 			);
-			t.IsBackground = true;
-			t.Start();
+			//---校验线程有效
+			if (t != null)
+			{
+				t.IsBackground = true;
+				t.Start();
+			}
 			//bt.Enabled = true;
 			//bt.Focus();
 		}

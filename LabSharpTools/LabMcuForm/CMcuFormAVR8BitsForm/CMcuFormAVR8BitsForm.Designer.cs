@@ -29,28 +29,13 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			this.cCommBaseControl_ChipCOMM = new Harry.LabTools.LabCommType.CCommBaseControl();
-			this.panel_ChipID = new System.Windows.Forms.Panel();
-			this.groupBox_ChipClock = new System.Windows.Forms.GroupBox();
-			this.label_ChipClockUnite = new System.Windows.Forms.Label();
-			this.textBox_ChipClock = new System.Windows.Forms.TextBox();
-			this.button_SetChipClock = new System.Windows.Forms.Button();
-			this.trackBar_ChipClock = new System.Windows.Forms.TrackBar();
-			this.groupBox_ChipInterfaceAndPWR = new System.Windows.Forms.GroupBox();
-			this.checkBox_ChipPWR = new System.Windows.Forms.CheckBox();
-			this.button_ReadChipPWR = new System.Windows.Forms.Button();
-			this.label_ChipPWRUnite = new System.Windows.Forms.Label();
-			this.textBox_ChipPWR = new System.Windows.Forms.TextBox();
-			this.button_SetChipPWR = new System.Windows.Forms.Button();
-			this.label_ChipPWR = new System.Windows.Forms.Label();
-			this.label_ChipInterface = new System.Windows.Forms.Label();
-			this.button_SetChipInterface = new System.Windows.Forms.Button();
-			this.comboBox_ChipInterface = new System.Windows.Forms.ComboBox();
-			this.groupBox_ChipType = new System.Windows.Forms.GroupBox();
-			this.comboBox_ChipType = new System.Windows.Forms.ComboBox();
-			this.button_ReadChipID = new System.Windows.Forms.Button();
-			this.textBox_ChipID = new System.Windows.Forms.TextBox();
-			this.label_ChipID = new System.Windows.Forms.Label();
+			this.menuStrip_ChipMenu = new System.Windows.Forms.MenuStrip();
+			this.ToolStripMenuItem_File = new System.Windows.Forms.ToolStripMenuItem();
+			this.ToolStripMenuItem_Cmd = new System.Windows.Forms.ToolStripMenuItem();
+			this.ToolStripMenuItem_Edit = new System.Windows.Forms.ToolStripMenuItem();
+			this.ToolStripMenuItem_About = new System.Windows.Forms.ToolStripMenuItem();
+			this.timer_ChipRTCTime = new System.Windows.Forms.Timer(this.components);
+			this.toolTip_ChipClock = new System.Windows.Forms.ToolTip(this.components);
 			this.tabControl_ChipMenu = new Harry.LabTools.LabControlPlus.CTabControlEx();
 			this.tabPage_ChipFunc = new System.Windows.Forms.TabPage();
 			this.panel_ChipMsg = new System.Windows.Forms.Panel();
@@ -64,8 +49,8 @@
 			this.label_Flash = new System.Windows.Forms.Label();
 			this.button_AutoChip = new System.Windows.Forms.Button();
 			this.button_Erase = new System.Windows.Forms.Button();
-			this.cCheckedListBoxEx_Func2 = new Harry.LabTools.LabControlPlus.CCheckedListBoxEx();
-			this.cCheckedListBoxEx_Func1 = new Harry.LabTools.LabControlPlus.CCheckedListBoxEx();
+			this.cCheckedListBoxEx_FuncMaskStep2 = new Harry.LabTools.LabControlPlus.CCheckedListBoxEx();
+			this.cCheckedListBoxEx_FuncMaskStep1 = new Harry.LabTools.LabControlPlus.CCheckedListBoxEx();
 			this.panel_ChipButtonFunc = new System.Windows.Forms.Panel();
 			this.groupBox_CmdFunc = new System.Windows.Forms.GroupBox();
 			this.button_ReadChipROM = new System.Windows.Forms.Button();
@@ -104,6 +89,28 @@
 			this.toolStripLabel_ChipTime = new System.Windows.Forms.ToolStripLabel();
 			this.toolStripSeparator_ChipTime = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripProgressBar_ChipBar = new System.Windows.Forms.ToolStripProgressBar();
+			this.panel_ChipID = new System.Windows.Forms.Panel();
+			this.groupBox_ChipClock = new System.Windows.Forms.GroupBox();
+			this.label_ChipClockUnite = new System.Windows.Forms.Label();
+			this.textBox_ChipClock = new System.Windows.Forms.TextBox();
+			this.button_SetChipClock = new System.Windows.Forms.Button();
+			this.trackBar_ChipClock = new System.Windows.Forms.TrackBar();
+			this.groupBox_ChipInterfaceAndPWR = new System.Windows.Forms.GroupBox();
+			this.checkBox_ChipPWR = new System.Windows.Forms.CheckBox();
+			this.button_ReadChipPWR = new System.Windows.Forms.Button();
+			this.label_ChipPWRUnite = new System.Windows.Forms.Label();
+			this.textBox_ChipPWR = new System.Windows.Forms.TextBox();
+			this.button_SetChipPWR = new System.Windows.Forms.Button();
+			this.label_ChipPWR = new System.Windows.Forms.Label();
+			this.label_ChipInterface = new System.Windows.Forms.Label();
+			this.button_SetChipInterface = new System.Windows.Forms.Button();
+			this.comboBox_ChipInterface = new System.Windows.Forms.ComboBox();
+			this.groupBox_ChipType = new System.Windows.Forms.GroupBox();
+			this.comboBox_ChipType = new System.Windows.Forms.ComboBox();
+			this.button_ReadChipID = new System.Windows.Forms.Button();
+			this.textBox_ChipID = new System.Windows.Forms.TextBox();
+			this.label_ChipID = new System.Windows.Forms.Label();
+			this.cCommBaseControl_ChipCOMM = new Harry.LabTools.LabCommType.CCommBaseControl();
 			this.tabPage_ChipEdit = new System.Windows.Forms.TabPage();
 			this.tabControl_ChipMemery = new Harry.LabTools.LabControlPlus.CTabControlEx();
 			this.tabPage_Flash = new System.Windows.Forms.TabPage();
@@ -112,18 +119,7 @@
 			this.cHexBox_Eeprom = new Harry.LabTools.LabHexEdit.CHexBox();
 			this.tabPage_ROM = new System.Windows.Forms.TabPage();
 			this.cHexBox_ROM = new Harry.LabTools.LabHexEdit.CHexBox();
-			this.menuStrip_ChipMenu = new System.Windows.Forms.MenuStrip();
-			this.ToolStripMenuItem_File = new System.Windows.Forms.ToolStripMenuItem();
-			this.ToolStripMenuItem_Cmd = new System.Windows.Forms.ToolStripMenuItem();
-			this.ToolStripMenuItem_Edit = new System.Windows.Forms.ToolStripMenuItem();
-			this.ToolStripMenuItem_About = new System.Windows.Forms.ToolStripMenuItem();
-			this.timer_ChipRTCTime = new System.Windows.Forms.Timer(this.components);
-			this.toolTip_ChipClock = new System.Windows.Forms.ToolTip(this.components);
-			this.panel_ChipID.SuspendLayout();
-			this.groupBox_ChipClock.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.trackBar_ChipClock)).BeginInit();
-			this.groupBox_ChipInterfaceAndPWR.SuspendLayout();
-			this.groupBox_ChipType.SuspendLayout();
+			this.menuStrip_ChipMenu.SuspendLayout();
 			this.tabControl_ChipMenu.SuspendLayout();
 			this.tabPage_ChipFunc.SuspendLayout();
 			this.panel_ChipMsg.SuspendLayout();
@@ -133,257 +129,71 @@
 			this.groupBox_CmdFunc.SuspendLayout();
 			this.groupBox_FileFunc.SuspendLayout();
 			this.toolStrip_ChipTool.SuspendLayout();
+			this.panel_ChipID.SuspendLayout();
+			this.groupBox_ChipClock.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.trackBar_ChipClock)).BeginInit();
+			this.groupBox_ChipInterfaceAndPWR.SuspendLayout();
+			this.groupBox_ChipType.SuspendLayout();
 			this.tabPage_ChipEdit.SuspendLayout();
 			this.tabControl_ChipMemery.SuspendLayout();
 			this.tabPage_Flash.SuspendLayout();
 			this.tabPage_Eeprom.SuspendLayout();
 			this.tabPage_ROM.SuspendLayout();
-			this.menuStrip_ChipMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// cCommBaseControl_ChipCOMM
+			// menuStrip_ChipMenu
 			// 
-			this.cCommBaseControl_ChipCOMM.Dock = System.Windows.Forms.DockStyle.Right;
-			this.cCommBaseControl_ChipCOMM.Location = new System.Drawing.Point(939, 3);
-			this.cCommBaseControl_ChipCOMM.mCCOMM = null;
-			this.cCommBaseControl_ChipCOMM.mCCommRichTextBox = null;
-			this.cCommBaseControl_ChipCOMM.mIsShowCommParam = true;
-			this.cCommBaseControl_ChipCOMM.mPerPackageMaxSize = 64;
-			this.cCommBaseControl_ChipCOMM.Name = "cCommBaseControl_ChipCOMM";
-			this.cCommBaseControl_ChipCOMM.Padding = new System.Windows.Forms.Padding(0, 4, 0, 0);
-			this.cCommBaseControl_ChipCOMM.Size = new System.Drawing.Size(262, 71);
-			this.cCommBaseControl_ChipCOMM.TabIndex = 0;
+			this.menuStrip_ChipMenu.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.menuStrip_ChipMenu.GripMargin = new System.Windows.Forms.Padding(2);
+			this.menuStrip_ChipMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItem_File,
+            this.ToolStripMenuItem_Cmd,
+            this.ToolStripMenuItem_Edit,
+            this.ToolStripMenuItem_About});
+			this.menuStrip_ChipMenu.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+			this.menuStrip_ChipMenu.Location = new System.Drawing.Point(2, 2);
+			this.menuStrip_ChipMenu.Margin = new System.Windows.Forms.Padding(3);
+			this.menuStrip_ChipMenu.Name = "menuStrip_ChipMenu";
+			this.menuStrip_ChipMenu.Padding = new System.Windows.Forms.Padding(3);
+			this.menuStrip_ChipMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+			this.menuStrip_ChipMenu.Size = new System.Drawing.Size(1218, 26);
+			this.menuStrip_ChipMenu.TabIndex = 3;
+			this.menuStrip_ChipMenu.Text = "menuStrip1";
 			// 
-			// panel_ChipID
+			// ToolStripMenuItem_File
 			// 
-			this.panel_ChipID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.panel_ChipID.Controls.Add(this.groupBox_ChipClock);
-			this.panel_ChipID.Controls.Add(this.groupBox_ChipInterfaceAndPWR);
-			this.panel_ChipID.Controls.Add(this.groupBox_ChipType);
-			this.panel_ChipID.Controls.Add(this.cCommBaseControl_ChipCOMM);
-			this.panel_ChipID.Dock = System.Windows.Forms.DockStyle.Top;
-			this.panel_ChipID.Location = new System.Drawing.Point(2, 2);
-			this.panel_ChipID.Name = "panel_ChipID";
-			this.panel_ChipID.Padding = new System.Windows.Forms.Padding(4, 3, 3, 3);
-			this.panel_ChipID.Size = new System.Drawing.Size(1206, 79);
-			this.panel_ChipID.TabIndex = 1;
+			this.ToolStripMenuItem_File.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.ToolStripMenuItem_File.Name = "ToolStripMenuItem_File";
+			this.ToolStripMenuItem_File.Padding = new System.Windows.Forms.Padding(2);
+			this.ToolStripMenuItem_File.Size = new System.Drawing.Size(55, 20);
+			this.ToolStripMenuItem_File.Text = "文件(&Z)";
 			// 
-			// groupBox_ChipClock
+			// ToolStripMenuItem_Cmd
 			// 
-			this.groupBox_ChipClock.Controls.Add(this.label_ChipClockUnite);
-			this.groupBox_ChipClock.Controls.Add(this.textBox_ChipClock);
-			this.groupBox_ChipClock.Controls.Add(this.button_SetChipClock);
-			this.groupBox_ChipClock.Controls.Add(this.trackBar_ChipClock);
-			this.groupBox_ChipClock.Dock = System.Windows.Forms.DockStyle.Left;
-			this.groupBox_ChipClock.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.groupBox_ChipClock.Location = new System.Drawing.Point(461, 3);
-			this.groupBox_ChipClock.Name = "groupBox_ChipClock";
-			this.groupBox_ChipClock.Size = new System.Drawing.Size(472, 71);
-			this.groupBox_ChipClock.TabIndex = 4;
-			this.groupBox_ChipClock.TabStop = false;
-			this.groupBox_ChipClock.Text = "时钟配置";
+			this.ToolStripMenuItem_Cmd.Name = "ToolStripMenuItem_Cmd";
+			this.ToolStripMenuItem_Cmd.Padding = new System.Windows.Forms.Padding(2);
+			this.ToolStripMenuItem_Cmd.Size = new System.Drawing.Size(55, 20);
+			this.ToolStripMenuItem_Cmd.Text = "命令(&Y)";
 			// 
-			// label_ChipClockUnite
+			// ToolStripMenuItem_Edit
 			// 
-			this.label_ChipClockUnite.AutoSize = true;
-			this.label_ChipClockUnite.Dock = System.Windows.Forms.DockStyle.Left;
-			this.label_ChipClockUnite.Location = new System.Drawing.Point(441, 17);
-			this.label_ChipClockUnite.Margin = new System.Windows.Forms.Padding(3);
-			this.label_ChipClockUnite.Name = "label_ChipClockUnite";
-			this.label_ChipClockUnite.Padding = new System.Windows.Forms.Padding(3, 4, 3, 3);
-			this.label_ChipClockUnite.Size = new System.Drawing.Size(29, 19);
-			this.label_ChipClockUnite.TabIndex = 11;
-			this.label_ChipClockUnite.Text = "KHz";
+			this.ToolStripMenuItem_Edit.Name = "ToolStripMenuItem_Edit";
+			this.ToolStripMenuItem_Edit.Padding = new System.Windows.Forms.Padding(2);
+			this.ToolStripMenuItem_Edit.Size = new System.Drawing.Size(55, 20);
+			this.ToolStripMenuItem_Edit.Text = "编辑(&X)";
 			// 
-			// textBox_ChipClock
+			// ToolStripMenuItem_About
 			// 
-			this.textBox_ChipClock.Dock = System.Windows.Forms.DockStyle.Left;
-			this.textBox_ChipClock.Location = new System.Drawing.Point(396, 17);
-			this.textBox_ChipClock.Name = "textBox_ChipClock";
-			this.textBox_ChipClock.Size = new System.Drawing.Size(45, 21);
-			this.textBox_ChipClock.TabIndex = 10;
-			this.textBox_ChipClock.Text = "200";
-			this.textBox_ChipClock.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.ToolStripMenuItem_About.Name = "ToolStripMenuItem_About";
+			this.ToolStripMenuItem_About.Padding = new System.Windows.Forms.Padding(2);
+			this.ToolStripMenuItem_About.Size = new System.Drawing.Size(55, 20);
+			this.ToolStripMenuItem_About.Text = "关于(&W)";
 			// 
-			// button_SetChipClock
+			// timer_ChipRTCTime
 			// 
-			this.button_SetChipClock.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.button_SetChipClock.Location = new System.Drawing.Point(396, 45);
-			this.button_SetChipClock.Name = "button_SetChipClock";
-			this.button_SetChipClock.Size = new System.Drawing.Size(73, 23);
-			this.button_SetChipClock.TabIndex = 9;
-			this.button_SetChipClock.Text = "时钟设置";
-			this.button_SetChipClock.UseVisualStyleBackColor = true;
-			// 
-			// trackBar_ChipClock
-			// 
-			this.trackBar_ChipClock.Dock = System.Windows.Forms.DockStyle.Left;
-			this.trackBar_ChipClock.LargeChange = 1;
-			this.trackBar_ChipClock.Location = new System.Drawing.Point(3, 17);
-			this.trackBar_ChipClock.Maximum = 19;
-			this.trackBar_ChipClock.Name = "trackBar_ChipClock";
-			this.trackBar_ChipClock.Size = new System.Drawing.Size(393, 51);
-			this.trackBar_ChipClock.TabIndex = 0;
-			this.trackBar_ChipClock.TickStyle = System.Windows.Forms.TickStyle.Both;
-			// 
-			// groupBox_ChipInterfaceAndPWR
-			// 
-			this.groupBox_ChipInterfaceAndPWR.Controls.Add(this.checkBox_ChipPWR);
-			this.groupBox_ChipInterfaceAndPWR.Controls.Add(this.button_ReadChipPWR);
-			this.groupBox_ChipInterfaceAndPWR.Controls.Add(this.label_ChipPWRUnite);
-			this.groupBox_ChipInterfaceAndPWR.Controls.Add(this.textBox_ChipPWR);
-			this.groupBox_ChipInterfaceAndPWR.Controls.Add(this.button_SetChipPWR);
-			this.groupBox_ChipInterfaceAndPWR.Controls.Add(this.label_ChipPWR);
-			this.groupBox_ChipInterfaceAndPWR.Controls.Add(this.label_ChipInterface);
-			this.groupBox_ChipInterfaceAndPWR.Controls.Add(this.button_SetChipInterface);
-			this.groupBox_ChipInterfaceAndPWR.Controls.Add(this.comboBox_ChipInterface);
-			this.groupBox_ChipInterfaceAndPWR.Dock = System.Windows.Forms.DockStyle.Left;
-			this.groupBox_ChipInterfaceAndPWR.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.groupBox_ChipInterfaceAndPWR.Location = new System.Drawing.Point(185, 3);
-			this.groupBox_ChipInterfaceAndPWR.Name = "groupBox_ChipInterfaceAndPWR";
-			this.groupBox_ChipInterfaceAndPWR.Size = new System.Drawing.Size(276, 71);
-			this.groupBox_ChipInterfaceAndPWR.TabIndex = 2;
-			this.groupBox_ChipInterfaceAndPWR.TabStop = false;
-			this.groupBox_ChipInterfaceAndPWR.Text = "接口与电源";
-			// 
-			// checkBox_ChipPWR
-			// 
-			this.checkBox_ChipPWR.AutoSize = true;
-			this.checkBox_ChipPWR.Location = new System.Drawing.Point(183, 19);
-			this.checkBox_ChipPWR.Name = "checkBox_ChipPWR";
-			this.checkBox_ChipPWR.Size = new System.Drawing.Size(84, 16);
-			this.checkBox_ChipPWR.TabIndex = 9;
-			this.checkBox_ChipPWR.Text = "使能自供电";
-			this.checkBox_ChipPWR.UseVisualStyleBackColor = true;
-			// 
-			// button_ReadChipPWR
-			// 
-			this.button_ReadChipPWR.Location = new System.Drawing.Point(114, 42);
-			this.button_ReadChipPWR.Name = "button_ReadChipPWR";
-			this.button_ReadChipPWR.Size = new System.Drawing.Size(46, 23);
-			this.button_ReadChipPWR.TabIndex = 8;
-			this.button_ReadChipPWR.Text = "读取";
-			this.button_ReadChipPWR.UseVisualStyleBackColor = true;
-			// 
-			// label_ChipPWRUnite
-			// 
-			this.label_ChipPWRUnite.AutoSize = true;
-			this.label_ChipPWRUnite.Location = new System.Drawing.Point(93, 46);
-			this.label_ChipPWRUnite.Name = "label_ChipPWRUnite";
-			this.label_ChipPWRUnite.Size = new System.Drawing.Size(11, 12);
-			this.label_ChipPWRUnite.TabIndex = 7;
-			this.label_ChipPWRUnite.Text = "V";
-			// 
-			// textBox_ChipPWR
-			// 
-			this.textBox_ChipPWR.Location = new System.Drawing.Point(42, 42);
-			this.textBox_ChipPWR.Name = "textBox_ChipPWR";
-			this.textBox_ChipPWR.Size = new System.Drawing.Size(45, 21);
-			this.textBox_ChipPWR.TabIndex = 6;
-			this.textBox_ChipPWR.Text = "3.30";
-			this.textBox_ChipPWR.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			// 
-			// button_SetChipPWR
-			// 
-			this.button_SetChipPWR.Location = new System.Drawing.Point(205, 40);
-			this.button_SetChipPWR.Name = "button_SetChipPWR";
-			this.button_SetChipPWR.Size = new System.Drawing.Size(46, 23);
-			this.button_SetChipPWR.TabIndex = 4;
-			this.button_SetChipPWR.Text = "设置";
-			this.button_SetChipPWR.UseVisualStyleBackColor = true;
-			// 
-			// label_ChipPWR
-			// 
-			this.label_ChipPWR.AutoSize = true;
-			this.label_ChipPWR.Location = new System.Drawing.Point(6, 48);
-			this.label_ChipPWR.Name = "label_ChipPWR";
-			this.label_ChipPWR.Size = new System.Drawing.Size(29, 12);
-			this.label_ChipPWR.TabIndex = 5;
-			this.label_ChipPWR.Text = "电压";
-			// 
-			// label_ChipInterface
-			// 
-			this.label_ChipInterface.AutoSize = true;
-			this.label_ChipInterface.Location = new System.Drawing.Point(6, 23);
-			this.label_ChipInterface.Name = "label_ChipInterface";
-			this.label_ChipInterface.Size = new System.Drawing.Size(29, 12);
-			this.label_ChipInterface.TabIndex = 2;
-			this.label_ChipInterface.Text = "接口";
-			// 
-			// button_SetChipInterface
-			// 
-			this.button_SetChipInterface.Location = new System.Drawing.Point(114, 15);
-			this.button_SetChipInterface.Name = "button_SetChipInterface";
-			this.button_SetChipInterface.Size = new System.Drawing.Size(46, 23);
-			this.button_SetChipInterface.TabIndex = 4;
-			this.button_SetChipInterface.Text = "应用";
-			this.button_SetChipInterface.UseVisualStyleBackColor = true;
-			// 
-			// comboBox_ChipInterface
-			// 
-			this.comboBox_ChipInterface.FormattingEnabled = true;
-			this.comboBox_ChipInterface.IntegralHeight = false;
-			this.comboBox_ChipInterface.Items.AddRange(new object[] {
-            "ISP",
-            "JTAG",
-            "HVPP",
-            "HVSP"});
-			this.comboBox_ChipInterface.Location = new System.Drawing.Point(41, 18);
-			this.comboBox_ChipInterface.Name = "comboBox_ChipInterface";
-			this.comboBox_ChipInterface.Size = new System.Drawing.Size(67, 20);
-			this.comboBox_ChipInterface.TabIndex = 2;
-			// 
-			// groupBox_ChipType
-			// 
-			this.groupBox_ChipType.Controls.Add(this.comboBox_ChipType);
-			this.groupBox_ChipType.Controls.Add(this.button_ReadChipID);
-			this.groupBox_ChipType.Controls.Add(this.textBox_ChipID);
-			this.groupBox_ChipType.Controls.Add(this.label_ChipID);
-			this.groupBox_ChipType.Dock = System.Windows.Forms.DockStyle.Left;
-			this.groupBox_ChipType.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.groupBox_ChipType.Location = new System.Drawing.Point(4, 3);
-			this.groupBox_ChipType.Name = "groupBox_ChipType";
-			this.groupBox_ChipType.Size = new System.Drawing.Size(181, 71);
-			this.groupBox_ChipType.TabIndex = 1;
-			this.groupBox_ChipType.TabStop = false;
-			this.groupBox_ChipType.Text = "芯片类型";
-			// 
-			// comboBox_ChipType
-			// 
-			this.comboBox_ChipType.FormattingEnabled = true;
-			this.comboBox_ChipType.IntegralHeight = false;
-			this.comboBox_ChipType.Location = new System.Drawing.Point(6, 18);
-			this.comboBox_ChipType.Name = "comboBox_ChipType";
-			this.comboBox_ChipType.Size = new System.Drawing.Size(118, 20);
-			this.comboBox_ChipType.TabIndex = 2;
-			// 
-			// button_ReadChipID
-			// 
-			this.button_ReadChipID.Location = new System.Drawing.Point(131, 42);
-			this.button_ReadChipID.Name = "button_ReadChipID";
-			this.button_ReadChipID.Size = new System.Drawing.Size(46, 23);
-			this.button_ReadChipID.TabIndex = 3;
-			this.button_ReadChipID.Text = "读取";
-			this.button_ReadChipID.UseVisualStyleBackColor = true;
-			// 
-			// textBox_ChipID
-			// 
-			this.textBox_ChipID.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.textBox_ChipID.Location = new System.Drawing.Point(29, 43);
-			this.textBox_ChipID.Name = "textBox_ChipID";
-			this.textBox_ChipID.Size = new System.Drawing.Size(96, 21);
-			this.textBox_ChipID.TabIndex = 1;
-			this.textBox_ChipID.Text = "1E:93:07";
-			this.textBox_ChipID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			// 
-			// label_ChipID
-			// 
-			this.label_ChipID.AutoSize = true;
-			this.label_ChipID.Location = new System.Drawing.Point(6, 46);
-			this.label_ChipID.Name = "label_ChipID";
-			this.label_ChipID.Size = new System.Drawing.Size(17, 12);
-			this.label_ChipID.TabIndex = 0;
-			this.label_ChipID.Text = "ID";
+			this.timer_ChipRTCTime.Enabled = true;
+			this.timer_ChipRTCTime.Interval = 1000;
+			this.timer_ChipRTCTime.Tag = "timer_ChipRTCTime";
 			// 
 			// tabControl_ChipMenu
 			// 
@@ -468,8 +278,8 @@
 			this.panel_ChipCheckFunc.Controls.Add(this.label_Flash);
 			this.panel_ChipCheckFunc.Controls.Add(this.button_AutoChip);
 			this.panel_ChipCheckFunc.Controls.Add(this.button_Erase);
-			this.panel_ChipCheckFunc.Controls.Add(this.cCheckedListBoxEx_Func2);
-			this.panel_ChipCheckFunc.Controls.Add(this.cCheckedListBoxEx_Func1);
+			this.panel_ChipCheckFunc.Controls.Add(this.cCheckedListBoxEx_FuncMaskStep2);
+			this.panel_ChipCheckFunc.Controls.Add(this.cCheckedListBoxEx_FuncMaskStep1);
 			this.panel_ChipCheckFunc.Location = new System.Drawing.Point(518, 8);
 			this.panel_ChipCheckFunc.Name = "panel_ChipCheckFunc";
 			this.panel_ChipCheckFunc.Size = new System.Drawing.Size(569, 271);
@@ -533,42 +343,44 @@
 			this.button_Erase.Text = "擦除";
 			this.button_Erase.UseVisualStyleBackColor = true;
 			// 
-			// cCheckedListBoxEx_Func2
+			// cCheckedListBoxEx_FuncMaskStep2
 			// 
-			this.cCheckedListBoxEx_Func2.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.cCheckedListBoxEx_Func2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.cCheckedListBoxEx_Func2.CheckOnClick = true;
-			this.cCheckedListBoxEx_Func2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.cCheckedListBoxEx_Func2.FormattingEnabled = true;
-			this.cCheckedListBoxEx_Func2.Items.AddRange(new object[] {
+			this.cCheckedListBoxEx_FuncMaskStep2.BackColor = System.Drawing.Color.WhiteSmoke;
+			this.cCheckedListBoxEx_FuncMaskStep2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.cCheckedListBoxEx_FuncMaskStep2.CheckOnClick = true;
+			this.cCheckedListBoxEx_FuncMaskStep2.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.cCheckedListBoxEx_FuncMaskStep2.FormattingEnabled = true;
+			this.cCheckedListBoxEx_FuncMaskStep2.Items.AddRange(new object[] {
             "数据自动重载",
             "校验Flash",
             "校验EEPROM",
-            "编程熔丝",
-            "加密芯片"});
-			this.cCheckedListBoxEx_Func2.Location = new System.Drawing.Point(159, 11);
-			this.cCheckedListBoxEx_Func2.Name = "cCheckedListBoxEx_Func2";
-			this.cCheckedListBoxEx_Func2.Size = new System.Drawing.Size(120, 130);
-			this.cCheckedListBoxEx_Func2.TabIndex = 1;
+            "编程熔丝位",
+            "编程加密位",
+            "校验熔丝位",
+            "校验加密位"});
+			this.cCheckedListBoxEx_FuncMaskStep2.Location = new System.Drawing.Point(159, 11);
+			this.cCheckedListBoxEx_FuncMaskStep2.Name = "cCheckedListBoxEx_FuncMaskStep2";
+			this.cCheckedListBoxEx_FuncMaskStep2.Size = new System.Drawing.Size(120, 146);
+			this.cCheckedListBoxEx_FuncMaskStep2.TabIndex = 1;
 			// 
-			// cCheckedListBoxEx_Func1
+			// cCheckedListBoxEx_FuncMaskStep1
 			// 
-			this.cCheckedListBoxEx_Func1.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.cCheckedListBoxEx_Func1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.cCheckedListBoxEx_Func1.CheckOnClick = true;
-			this.cCheckedListBoxEx_Func1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.cCheckedListBoxEx_Func1.FormattingEnabled = true;
-			this.cCheckedListBoxEx_Func1.Items.AddRange(new object[] {
+			this.cCheckedListBoxEx_FuncMaskStep1.BackColor = System.Drawing.Color.WhiteSmoke;
+			this.cCheckedListBoxEx_FuncMaskStep1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.cCheckedListBoxEx_FuncMaskStep1.CheckOnClick = true;
+			this.cCheckedListBoxEx_FuncMaskStep1.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.cCheckedListBoxEx_FuncMaskStep1.FormattingEnabled = true;
+			this.cCheckedListBoxEx_FuncMaskStep1.Items.AddRange(new object[] {
             "数据改变下载",
             "比较识别字",
             "芯片擦除",
             "空片检查",
             "编程Flash",
             "编程Eeprom"});
-			this.cCheckedListBoxEx_Func1.Location = new System.Drawing.Point(16, 11);
-			this.cCheckedListBoxEx_Func1.Name = "cCheckedListBoxEx_Func1";
-			this.cCheckedListBoxEx_Func1.Size = new System.Drawing.Size(120, 130);
-			this.cCheckedListBoxEx_Func1.TabIndex = 0;
+			this.cCheckedListBoxEx_FuncMaskStep1.Location = new System.Drawing.Point(16, 11);
+			this.cCheckedListBoxEx_FuncMaskStep1.Name = "cCheckedListBoxEx_FuncMaskStep1";
+			this.cCheckedListBoxEx_FuncMaskStep1.Size = new System.Drawing.Size(120, 146);
+			this.cCheckedListBoxEx_FuncMaskStep1.TabIndex = 0;
 			// 
 			// panel_ChipButtonFunc
 			// 
@@ -937,6 +749,252 @@
 			this.toolStripProgressBar_ChipBar.RightToLeft = System.Windows.Forms.RightToLeft.No;
 			this.toolStripProgressBar_ChipBar.Size = new System.Drawing.Size(524, 18);
 			this.toolStripProgressBar_ChipBar.Step = 1;
+			// 
+			// panel_ChipID
+			// 
+			this.panel_ChipID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panel_ChipID.Controls.Add(this.groupBox_ChipClock);
+			this.panel_ChipID.Controls.Add(this.groupBox_ChipInterfaceAndPWR);
+			this.panel_ChipID.Controls.Add(this.groupBox_ChipType);
+			this.panel_ChipID.Controls.Add(this.cCommBaseControl_ChipCOMM);
+			this.panel_ChipID.Dock = System.Windows.Forms.DockStyle.Top;
+			this.panel_ChipID.Location = new System.Drawing.Point(2, 2);
+			this.panel_ChipID.Name = "panel_ChipID";
+			this.panel_ChipID.Padding = new System.Windows.Forms.Padding(4, 3, 3, 3);
+			this.panel_ChipID.Size = new System.Drawing.Size(1206, 79);
+			this.panel_ChipID.TabIndex = 1;
+			// 
+			// groupBox_ChipClock
+			// 
+			this.groupBox_ChipClock.Controls.Add(this.label_ChipClockUnite);
+			this.groupBox_ChipClock.Controls.Add(this.textBox_ChipClock);
+			this.groupBox_ChipClock.Controls.Add(this.button_SetChipClock);
+			this.groupBox_ChipClock.Controls.Add(this.trackBar_ChipClock);
+			this.groupBox_ChipClock.Dock = System.Windows.Forms.DockStyle.Left;
+			this.groupBox_ChipClock.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.groupBox_ChipClock.Location = new System.Drawing.Point(461, 3);
+			this.groupBox_ChipClock.Name = "groupBox_ChipClock";
+			this.groupBox_ChipClock.Size = new System.Drawing.Size(472, 71);
+			this.groupBox_ChipClock.TabIndex = 4;
+			this.groupBox_ChipClock.TabStop = false;
+			this.groupBox_ChipClock.Text = "时钟配置";
+			// 
+			// label_ChipClockUnite
+			// 
+			this.label_ChipClockUnite.AutoSize = true;
+			this.label_ChipClockUnite.Dock = System.Windows.Forms.DockStyle.Left;
+			this.label_ChipClockUnite.Location = new System.Drawing.Point(441, 17);
+			this.label_ChipClockUnite.Margin = new System.Windows.Forms.Padding(3);
+			this.label_ChipClockUnite.Name = "label_ChipClockUnite";
+			this.label_ChipClockUnite.Padding = new System.Windows.Forms.Padding(3, 4, 3, 3);
+			this.label_ChipClockUnite.Size = new System.Drawing.Size(29, 19);
+			this.label_ChipClockUnite.TabIndex = 11;
+			this.label_ChipClockUnite.Text = "KHz";
+			// 
+			// textBox_ChipClock
+			// 
+			this.textBox_ChipClock.Dock = System.Windows.Forms.DockStyle.Left;
+			this.textBox_ChipClock.Location = new System.Drawing.Point(396, 17);
+			this.textBox_ChipClock.Name = "textBox_ChipClock";
+			this.textBox_ChipClock.Size = new System.Drawing.Size(45, 21);
+			this.textBox_ChipClock.TabIndex = 10;
+			this.textBox_ChipClock.Text = "200";
+			this.textBox_ChipClock.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			// 
+			// button_SetChipClock
+			// 
+			this.button_SetChipClock.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.button_SetChipClock.Location = new System.Drawing.Point(396, 45);
+			this.button_SetChipClock.Name = "button_SetChipClock";
+			this.button_SetChipClock.Size = new System.Drawing.Size(73, 23);
+			this.button_SetChipClock.TabIndex = 9;
+			this.button_SetChipClock.Text = "时钟设置";
+			this.button_SetChipClock.UseVisualStyleBackColor = true;
+			// 
+			// trackBar_ChipClock
+			// 
+			this.trackBar_ChipClock.Dock = System.Windows.Forms.DockStyle.Left;
+			this.trackBar_ChipClock.LargeChange = 1;
+			this.trackBar_ChipClock.Location = new System.Drawing.Point(3, 17);
+			this.trackBar_ChipClock.Maximum = 19;
+			this.trackBar_ChipClock.Name = "trackBar_ChipClock";
+			this.trackBar_ChipClock.Size = new System.Drawing.Size(393, 51);
+			this.trackBar_ChipClock.TabIndex = 0;
+			this.trackBar_ChipClock.TickStyle = System.Windows.Forms.TickStyle.Both;
+			// 
+			// groupBox_ChipInterfaceAndPWR
+			// 
+			this.groupBox_ChipInterfaceAndPWR.Controls.Add(this.checkBox_ChipPWR);
+			this.groupBox_ChipInterfaceAndPWR.Controls.Add(this.button_ReadChipPWR);
+			this.groupBox_ChipInterfaceAndPWR.Controls.Add(this.label_ChipPWRUnite);
+			this.groupBox_ChipInterfaceAndPWR.Controls.Add(this.textBox_ChipPWR);
+			this.groupBox_ChipInterfaceAndPWR.Controls.Add(this.button_SetChipPWR);
+			this.groupBox_ChipInterfaceAndPWR.Controls.Add(this.label_ChipPWR);
+			this.groupBox_ChipInterfaceAndPWR.Controls.Add(this.label_ChipInterface);
+			this.groupBox_ChipInterfaceAndPWR.Controls.Add(this.button_SetChipInterface);
+			this.groupBox_ChipInterfaceAndPWR.Controls.Add(this.comboBox_ChipInterface);
+			this.groupBox_ChipInterfaceAndPWR.Dock = System.Windows.Forms.DockStyle.Left;
+			this.groupBox_ChipInterfaceAndPWR.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.groupBox_ChipInterfaceAndPWR.Location = new System.Drawing.Point(185, 3);
+			this.groupBox_ChipInterfaceAndPWR.Name = "groupBox_ChipInterfaceAndPWR";
+			this.groupBox_ChipInterfaceAndPWR.Size = new System.Drawing.Size(276, 71);
+			this.groupBox_ChipInterfaceAndPWR.TabIndex = 2;
+			this.groupBox_ChipInterfaceAndPWR.TabStop = false;
+			this.groupBox_ChipInterfaceAndPWR.Text = "接口与电源";
+			// 
+			// checkBox_ChipPWR
+			// 
+			this.checkBox_ChipPWR.AutoSize = true;
+			this.checkBox_ChipPWR.Location = new System.Drawing.Point(183, 19);
+			this.checkBox_ChipPWR.Name = "checkBox_ChipPWR";
+			this.checkBox_ChipPWR.Size = new System.Drawing.Size(84, 16);
+			this.checkBox_ChipPWR.TabIndex = 9;
+			this.checkBox_ChipPWR.Text = "使能自供电";
+			this.checkBox_ChipPWR.UseVisualStyleBackColor = true;
+			// 
+			// button_ReadChipPWR
+			// 
+			this.button_ReadChipPWR.Location = new System.Drawing.Point(114, 42);
+			this.button_ReadChipPWR.Name = "button_ReadChipPWR";
+			this.button_ReadChipPWR.Size = new System.Drawing.Size(46, 23);
+			this.button_ReadChipPWR.TabIndex = 8;
+			this.button_ReadChipPWR.Text = "读取";
+			this.button_ReadChipPWR.UseVisualStyleBackColor = true;
+			// 
+			// label_ChipPWRUnite
+			// 
+			this.label_ChipPWRUnite.AutoSize = true;
+			this.label_ChipPWRUnite.Location = new System.Drawing.Point(93, 46);
+			this.label_ChipPWRUnite.Name = "label_ChipPWRUnite";
+			this.label_ChipPWRUnite.Size = new System.Drawing.Size(11, 12);
+			this.label_ChipPWRUnite.TabIndex = 7;
+			this.label_ChipPWRUnite.Text = "V";
+			// 
+			// textBox_ChipPWR
+			// 
+			this.textBox_ChipPWR.Location = new System.Drawing.Point(42, 42);
+			this.textBox_ChipPWR.MaxLength = 32768;
+			this.textBox_ChipPWR.Name = "textBox_ChipPWR";
+			this.textBox_ChipPWR.Size = new System.Drawing.Size(45, 21);
+			this.textBox_ChipPWR.TabIndex = 6;
+			this.textBox_ChipPWR.Text = "3.30";
+			this.textBox_ChipPWR.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			// 
+			// button_SetChipPWR
+			// 
+			this.button_SetChipPWR.Location = new System.Drawing.Point(205, 40);
+			this.button_SetChipPWR.Name = "button_SetChipPWR";
+			this.button_SetChipPWR.Size = new System.Drawing.Size(46, 23);
+			this.button_SetChipPWR.TabIndex = 4;
+			this.button_SetChipPWR.Text = "设置";
+			this.button_SetChipPWR.UseVisualStyleBackColor = true;
+			// 
+			// label_ChipPWR
+			// 
+			this.label_ChipPWR.AutoSize = true;
+			this.label_ChipPWR.Location = new System.Drawing.Point(6, 48);
+			this.label_ChipPWR.Name = "label_ChipPWR";
+			this.label_ChipPWR.Size = new System.Drawing.Size(29, 12);
+			this.label_ChipPWR.TabIndex = 5;
+			this.label_ChipPWR.Text = "电压";
+			// 
+			// label_ChipInterface
+			// 
+			this.label_ChipInterface.AutoSize = true;
+			this.label_ChipInterface.Location = new System.Drawing.Point(6, 23);
+			this.label_ChipInterface.Name = "label_ChipInterface";
+			this.label_ChipInterface.Size = new System.Drawing.Size(29, 12);
+			this.label_ChipInterface.TabIndex = 2;
+			this.label_ChipInterface.Text = "接口";
+			// 
+			// button_SetChipInterface
+			// 
+			this.button_SetChipInterface.Location = new System.Drawing.Point(114, 15);
+			this.button_SetChipInterface.Name = "button_SetChipInterface";
+			this.button_SetChipInterface.Size = new System.Drawing.Size(46, 23);
+			this.button_SetChipInterface.TabIndex = 4;
+			this.button_SetChipInterface.Text = "应用";
+			this.button_SetChipInterface.UseVisualStyleBackColor = true;
+			// 
+			// comboBox_ChipInterface
+			// 
+			this.comboBox_ChipInterface.FormattingEnabled = true;
+			this.comboBox_ChipInterface.IntegralHeight = false;
+			this.comboBox_ChipInterface.Items.AddRange(new object[] {
+            "ISP",
+            "JTAG",
+            "HVPP",
+            "HVSP"});
+			this.comboBox_ChipInterface.Location = new System.Drawing.Point(41, 18);
+			this.comboBox_ChipInterface.Name = "comboBox_ChipInterface";
+			this.comboBox_ChipInterface.Size = new System.Drawing.Size(67, 20);
+			this.comboBox_ChipInterface.TabIndex = 2;
+			// 
+			// groupBox_ChipType
+			// 
+			this.groupBox_ChipType.Controls.Add(this.comboBox_ChipType);
+			this.groupBox_ChipType.Controls.Add(this.button_ReadChipID);
+			this.groupBox_ChipType.Controls.Add(this.textBox_ChipID);
+			this.groupBox_ChipType.Controls.Add(this.label_ChipID);
+			this.groupBox_ChipType.Dock = System.Windows.Forms.DockStyle.Left;
+			this.groupBox_ChipType.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.groupBox_ChipType.Location = new System.Drawing.Point(4, 3);
+			this.groupBox_ChipType.Name = "groupBox_ChipType";
+			this.groupBox_ChipType.Size = new System.Drawing.Size(181, 71);
+			this.groupBox_ChipType.TabIndex = 1;
+			this.groupBox_ChipType.TabStop = false;
+			this.groupBox_ChipType.Text = "芯片类型";
+			// 
+			// comboBox_ChipType
+			// 
+			this.comboBox_ChipType.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.comboBox_ChipType.FormattingEnabled = true;
+			this.comboBox_ChipType.IntegralHeight = false;
+			this.comboBox_ChipType.Location = new System.Drawing.Point(6, 18);
+			this.comboBox_ChipType.Name = "comboBox_ChipType";
+			this.comboBox_ChipType.Size = new System.Drawing.Size(118, 21);
+			this.comboBox_ChipType.TabIndex = 2;
+			// 
+			// button_ReadChipID
+			// 
+			this.button_ReadChipID.Location = new System.Drawing.Point(131, 42);
+			this.button_ReadChipID.Name = "button_ReadChipID";
+			this.button_ReadChipID.Size = new System.Drawing.Size(46, 23);
+			this.button_ReadChipID.TabIndex = 3;
+			this.button_ReadChipID.Text = "读取";
+			this.button_ReadChipID.UseVisualStyleBackColor = true;
+			// 
+			// textBox_ChipID
+			// 
+			this.textBox_ChipID.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.textBox_ChipID.Location = new System.Drawing.Point(29, 43);
+			this.textBox_ChipID.Name = "textBox_ChipID";
+			this.textBox_ChipID.Size = new System.Drawing.Size(96, 21);
+			this.textBox_ChipID.TabIndex = 1;
+			this.textBox_ChipID.Text = "1E:93:07";
+			this.textBox_ChipID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			// 
+			// label_ChipID
+			// 
+			this.label_ChipID.AutoSize = true;
+			this.label_ChipID.Location = new System.Drawing.Point(6, 46);
+			this.label_ChipID.Name = "label_ChipID";
+			this.label_ChipID.Size = new System.Drawing.Size(17, 12);
+			this.label_ChipID.TabIndex = 0;
+			this.label_ChipID.Text = "ID";
+			// 
+			// cCommBaseControl_ChipCOMM
+			// 
+			this.cCommBaseControl_ChipCOMM.Dock = System.Windows.Forms.DockStyle.Right;
+			this.cCommBaseControl_ChipCOMM.Location = new System.Drawing.Point(939, 3);
+			this.cCommBaseControl_ChipCOMM.mCCOMM = null;
+			this.cCommBaseControl_ChipCOMM.mCCommRichTextBox = null;
+			this.cCommBaseControl_ChipCOMM.mIsShowCommParam = true;
+			this.cCommBaseControl_ChipCOMM.mPerPackageMaxSize = 64;
+			this.cCommBaseControl_ChipCOMM.Name = "cCommBaseControl_ChipCOMM";
+			this.cCommBaseControl_ChipCOMM.Padding = new System.Windows.Forms.Padding(0, 4, 0, 0);
+			this.cCommBaseControl_ChipCOMM.Size = new System.Drawing.Size(262, 71);
+			this.cCommBaseControl_ChipCOMM.TabIndex = 0;
 			// 
 			// tabPage_ChipEdit
 			// 
@@ -2665,60 +2723,6 @@
 			this.cHexBox_ROM.TabIndex = 1;
 			this.cHexBox_ROM.Text = "ROM";
 			// 
-			// menuStrip_ChipMenu
-			// 
-			this.menuStrip_ChipMenu.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.menuStrip_ChipMenu.GripMargin = new System.Windows.Forms.Padding(2);
-			this.menuStrip_ChipMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripMenuItem_File,
-            this.ToolStripMenuItem_Cmd,
-            this.ToolStripMenuItem_Edit,
-            this.ToolStripMenuItem_About});
-			this.menuStrip_ChipMenu.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-			this.menuStrip_ChipMenu.Location = new System.Drawing.Point(2, 2);
-			this.menuStrip_ChipMenu.Margin = new System.Windows.Forms.Padding(3);
-			this.menuStrip_ChipMenu.Name = "menuStrip_ChipMenu";
-			this.menuStrip_ChipMenu.Padding = new System.Windows.Forms.Padding(3);
-			this.menuStrip_ChipMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-			this.menuStrip_ChipMenu.Size = new System.Drawing.Size(1218, 26);
-			this.menuStrip_ChipMenu.TabIndex = 3;
-			this.menuStrip_ChipMenu.Text = "menuStrip1";
-			// 
-			// ToolStripMenuItem_File
-			// 
-			this.ToolStripMenuItem_File.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.ToolStripMenuItem_File.Name = "ToolStripMenuItem_File";
-			this.ToolStripMenuItem_File.Padding = new System.Windows.Forms.Padding(2);
-			this.ToolStripMenuItem_File.Size = new System.Drawing.Size(55, 20);
-			this.ToolStripMenuItem_File.Text = "文件(&Z)";
-			// 
-			// ToolStripMenuItem_Cmd
-			// 
-			this.ToolStripMenuItem_Cmd.Name = "ToolStripMenuItem_Cmd";
-			this.ToolStripMenuItem_Cmd.Padding = new System.Windows.Forms.Padding(2);
-			this.ToolStripMenuItem_Cmd.Size = new System.Drawing.Size(55, 20);
-			this.ToolStripMenuItem_Cmd.Text = "命令(&Y)";
-			// 
-			// ToolStripMenuItem_Edit
-			// 
-			this.ToolStripMenuItem_Edit.Name = "ToolStripMenuItem_Edit";
-			this.ToolStripMenuItem_Edit.Padding = new System.Windows.Forms.Padding(2);
-			this.ToolStripMenuItem_Edit.Size = new System.Drawing.Size(55, 20);
-			this.ToolStripMenuItem_Edit.Text = "编辑(&X)";
-			// 
-			// ToolStripMenuItem_About
-			// 
-			this.ToolStripMenuItem_About.Name = "ToolStripMenuItem_About";
-			this.ToolStripMenuItem_About.Padding = new System.Windows.Forms.Padding(2);
-			this.ToolStripMenuItem_About.Size = new System.Drawing.Size(55, 20);
-			this.ToolStripMenuItem_About.Text = "关于(&W)";
-			// 
-			// timer_ChipRTCTime
-			// 
-			this.timer_ChipRTCTime.Enabled = true;
-			this.timer_ChipRTCTime.Interval = 1000;
-			this.timer_ChipRTCTime.Tag = "timer_ChipRTCTime";
-			// 
 			// CMcuFormAVR8BitsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2732,14 +2736,8 @@
 			this.Padding = new System.Windows.Forms.Padding(2);
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "CMcuFormAVR8Bits";
-			this.panel_ChipID.ResumeLayout(false);
-			this.groupBox_ChipClock.ResumeLayout(false);
-			this.groupBox_ChipClock.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.trackBar_ChipClock)).EndInit();
-			this.groupBox_ChipInterfaceAndPWR.ResumeLayout(false);
-			this.groupBox_ChipInterfaceAndPWR.PerformLayout();
-			this.groupBox_ChipType.ResumeLayout(false);
-			this.groupBox_ChipType.PerformLayout();
+			this.menuStrip_ChipMenu.ResumeLayout(false);
+			this.menuStrip_ChipMenu.PerformLayout();
 			this.tabControl_ChipMenu.ResumeLayout(false);
 			this.tabPage_ChipFunc.ResumeLayout(false);
 			this.tabPage_ChipFunc.PerformLayout();
@@ -2752,13 +2750,19 @@
 			this.groupBox_FileFunc.ResumeLayout(false);
 			this.toolStrip_ChipTool.ResumeLayout(false);
 			this.toolStrip_ChipTool.PerformLayout();
+			this.panel_ChipID.ResumeLayout(false);
+			this.groupBox_ChipClock.ResumeLayout(false);
+			this.groupBox_ChipClock.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.trackBar_ChipClock)).EndInit();
+			this.groupBox_ChipInterfaceAndPWR.ResumeLayout(false);
+			this.groupBox_ChipInterfaceAndPWR.PerformLayout();
+			this.groupBox_ChipType.ResumeLayout(false);
+			this.groupBox_ChipType.PerformLayout();
 			this.tabPage_ChipEdit.ResumeLayout(false);
 			this.tabControl_ChipMemery.ResumeLayout(false);
 			this.tabPage_Flash.ResumeLayout(false);
 			this.tabPage_Eeprom.ResumeLayout(false);
 			this.tabPage_ROM.ResumeLayout(false);
-			this.menuStrip_ChipMenu.ResumeLayout(false);
-			this.menuStrip_ChipMenu.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -2847,8 +2851,8 @@
 		private System.Windows.Forms.Button button_CheckChipEmpty;
 		private System.Windows.Forms.Button button_EraseChip;
 		private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar_ChipBar;
-		private Harry.LabTools.LabControlPlus.CCheckedListBoxEx cCheckedListBoxEx_Func2;
-		private Harry.LabTools.LabControlPlus.CCheckedListBoxEx cCheckedListBoxEx_Func1;
+		private Harry.LabTools.LabControlPlus.CCheckedListBoxEx cCheckedListBoxEx_FuncMaskStep2;
+		private Harry.LabTools.LabControlPlus.CCheckedListBoxEx cCheckedListBoxEx_FuncMaskStep1;
 		private System.Windows.Forms.Button button_AutoChip;
 		private System.Windows.Forms.Button button_Erase;
 		private System.Windows.Forms.Label label_Flash;

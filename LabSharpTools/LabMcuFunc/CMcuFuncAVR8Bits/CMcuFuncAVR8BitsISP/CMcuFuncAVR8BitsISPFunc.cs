@@ -1559,9 +1559,48 @@ namespace Harry.LabTools.LabMcuFunc
 		/// <param name="pwr"></param>
 		/// <param name="msg"></param>
 		/// <returns></returns>
-		public override int CMcuFunc_WriteChipPower(int chipPWR, RichTextBox msg)
+		public override int CMcuFunc_WriteChipPower(int chipPWR, RichTextBox msg, bool isOpen = true)
 		{
-			return -1;
+			int _return = -1;
+			//---校验通讯接口
+			if ((this.mCCOMM != null) && (this.mCCOMM.mIsOpen == true))
+			{
+				//---发送命令
+				byte[] cmd = new byte[] {	(byte)CMCUFUNC_CMD_ISP.CMD_ISP_PROG_CLOCK_SET, 0x02, 
+											(byte)(chipPWR>>8),(byte)(chipPWR),
+											(byte)((isOpen==true)?1:0)
+										};
+				//---读取命令
+				byte[] res = null;
+				//---发送并读取命令
+				_return = this.mCCOMM.SendCmdAndReadResponse(cmd, ref res);
+				//---校验结果
+				if (_return == 0)
+				{
+					if (this.mCCOMM.mReceCheckPass)
+					{
+						this.mMsgText = "ISP编程：供电电压设置成功!";
+					}
+					else
+					{
+						_return = 2;
+						this.mMsgText = "ISP编程：供电电压设置命令校验错误!";
+					}
+				}
+				else
+				{
+					this.mMsgText = this.mCCOMM.mLogMsg;
+				}
+			}
+			else
+			{
+				this.mMsgText = "通讯端口初始化失败!";
+			}
+			if (msg != null)
+			{
+				CRichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, this.mMsgText, (_return == 0 ? Color.Black : Color.Red));
+			}
+			return _return;
 		}
 
 		/// <summary>
@@ -1572,7 +1611,129 @@ namespace Harry.LabTools.LabMcuFunc
 		/// <returns></returns>
 		public override int CMcuFunc_ReadChipPower(ref int chipPWR, RichTextBox msg)
 		{
-			return -1;
+			int _return = -1;
+			//---校验通讯接口
+			if ((this.mCCOMM != null) && (this.mCCOMM.mIsOpen == true))
+			{
+				//---发送命令
+				byte[] cmd = new byte[] {   (byte)CMCUFUNC_CMD_ISP.CMD_ISP_PROG_CLOCK_SET, 0x01 };
+				//---读取命令
+				byte[] res = null;
+				//---发送并读取命令
+				_return = this.mCCOMM.SendCmdAndReadResponse(cmd, ref res);
+				//---校验结果
+				if (_return == 0)
+				{
+					if ((this.mCCOMM.mReceCheckPass)&&((this.mCCOMM.mReceData.mIndexOffset+1)<=this.mCCOMM.mReceData.mArray.Length))
+					{
+						this.mMsgText = "ISP编程：供电电压读取成功!";
+						chipPWR=BitConverter.ToUInt16(new byte[2] { this.mCCOMM.mReceData.mArray[this.mCCOMM.mReceData.mIndexOffset+1], this.mCCOMM.mReceData.mArray[this.mCCOMM.mReceData.mIndexOffset] }, 0);
+					}
+					else
+					{
+						_return = 2;
+						this.mMsgText = "ISP编程：供电电压读取命令校验错误!";
+					}
+				}
+				else
+				{
+					this.mMsgText = this.mCCOMM.mLogMsg;
+				}
+			}
+			else
+			{
+				this.mMsgText = "通讯端口初始化失败!";
+			}
+			if (msg != null)
+			{
+				CRichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, this.mMsgText, (_return == 0 ? Color.Black : Color.Red));
+			}
+			return _return;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="chipFuse"></param>
+		/// <param name="chipLock"></param>
+		/// <param name="chipFlash"></param>
+		/// <param name="chipEeprom"></param>
+		/// <param name="msg"></param>
+		/// <param name="workState"></param>
+		/// <param name="workTime"></param>
+		/// <param name="workBar"></param>
+		/// <returns></returns>
+		public override int CMcuFunc_DoChipTask(byte[] chipFuse, byte chipLock, CHexBox chipFlash, CHexBox chipEeprom, RichTextBox msg, ToolStripLabel workState, ToolStripLabel workTime, ToolStripProgressBar workBar)
+		{
+			int _return = -1;
+			int i = 0;
+			int mask = 0;
+			//---校验通讯接口
+			if ((this.mCCOMM != null) && (this.mCCOMM.mIsOpen == true))
+			{
+				mask = this.mMcuInfoParam.mChipFuncMask1.mMask;
+				for (i = 0; i < this.mMcuInfoParam.mChipFuncMask1.mCout; i++)
+				{
+					mask &= (1 << i);
+					//---任务轮训判断
+					switch (mask)
+					{
+						//---比较识别字
+						case 0x02:
+							_return = this.CMcuFunc_ReadChipID(null, null);
+							break;
+						//---芯片擦除:
+						case 0x04:
+							_return = this.CMcuFunc_EraseChip(null);
+							break;
+						//---空片检查
+						case 0x08:
+							_return = this.CMcuFunc_CheckChipMemeryEmpty(null, false);
+							break;
+						//---编程Flash
+						case 0x10:
+							_return = this.CMcuFunc_WriteChipFlash(chipFlash, null, true, workState, workTime, workBar);
+							break;
+						//---编程Eeprom
+						case 0x20:
+							_return = this.CMcuFunc_WriteChipEeprom(chipEeprom, null, true, workState, workTime, workBar);
+							break;
+						default:
+							break;
+					}
+					if (_return != 0)
+					{
+						break;
+					}
+				}
+				if (_return == 0)
+				{
+					mask = this.mMcuInfoParam.mChipFuncMask2.mMask;
+					for (i = 0; i < this.mMcuInfoParam.mChipFuncMask2.mCout; i++)
+					{
+						mask &= (1 << i);
+						//---任务轮训判断
+						switch (mask)
+						{
+							default:
+								break;
+						}
+					}
+				}
+				else
+				{
+					MessageBox.Show(this.mMsgText ,	"消息提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+			}
+			else
+			{
+				this.mMsgText = "通讯端口初始化失败!";
+			}
+			if (msg != null)
+			{
+				CRichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, this.mMsgText, (_return == 0 ? Color.Black : Color.Red));
+			}
+			return _return;
 		}
 
 		#endregion

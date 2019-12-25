@@ -228,7 +228,99 @@ namespace Harry.LabTools.LabMcuFunc
 
 		#endregion
 	}
-	
+
+	#endregion
+
+	#region 结构体定义
+	public class CMcuFuncMaskParam
+	{
+		#region 变量定义
+		/// <summary>
+		/// 
+		/// </summary>
+		private int defaultCout=0;
+		/// <summary>
+		/// 
+		/// </summary>
+		public int defaultMask=0;
+
+		#endregion
+
+		#region 属性定义
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public virtual int mCout
+		{
+			get
+			{
+				return this.defaultCout;
+			}
+			set
+			{
+				this.defaultCout = value;
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public virtual int mMask
+		{
+			get
+			{
+				return this.defaultMask;
+			}
+			set
+			{
+				this.defaultMask = value;
+			}
+		}
+
+		#endregion
+
+		#region 构造函数
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public CMcuFuncMaskParam()
+		{
+			this.defaultCout = 0;
+			this.defaultMask = 0;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="count"></param>
+		/// <param name="mask"></param>
+		public CMcuFuncMaskParam(int count, int mask)
+		{
+			this.defaultCout = count;
+			this.defaultMask = mask;
+		}
+
+		#endregion
+
+		#region 公共函数
+
+		#endregion
+
+		#region 保护函数
+
+		#endregion
+
+		#region 私有函数
+
+		#endregion
+
+		#region 事件函数
+
+		#endregion
+
+	}
 	#endregion
 
 	#region 接口定义
@@ -238,8 +330,9 @@ namespace Harry.LabTools.LabMcuFunc
 	/// </summary>
 	interface IMcuFuncInfoAVR8BitsParam
 	{
-		#region 属性参数
 		
+		#region 属性参数
+
 		/// <summary>
 		/// 参数解析是是否正常
 		/// </summary>
@@ -486,6 +579,24 @@ namespace Harry.LabTools.LabMcuFunc
 		/// 加密位熔丝位
 		/// </summary>
 		CMcuFuncAVR8BitsParam mChipLockFuseText
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// 功能函数的执行步序1
+		/// </summary>
+		CMcuFuncMaskParam mChipFuncMask1
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// 功能函数的执行步序2
+		/// </summary>
+		CMcuFuncMaskParam mChipFuncMask2
 		{
 			get;
 			set;

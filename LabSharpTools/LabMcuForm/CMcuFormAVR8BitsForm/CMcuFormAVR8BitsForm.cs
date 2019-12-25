@@ -1,5 +1,6 @@
 ﻿using Harry.LabTools.LabCommType;
 using Harry.LabTools.LabControlPlus;
+using Harry.LabTools.LabGenFunc;
 using Harry.LabTools.LabMcuFunc;
 using System;
 using System.Collections.Generic;
@@ -276,6 +277,9 @@ namespace LabMcuForm
 			this.toolStripLabel_ChipRTCTimer.Text = DateTime.Now.ToString();
 			//---事件注册
 			this.RegistrationEventHandler();
+			//---刷新功能选择项
+			this.defaultCMcuFunc.mMcuInfoParam.mChipFuncMask1=this.defaultCMcuFunc.mMcuInfoParam.SetFuncMaskCheckedListBox(this.cCheckedListBoxEx_FuncMaskStep1, this.defaultCMcuFunc.mMcuInfoParam.mChipFuncMask1);
+			this.defaultCMcuFunc.mMcuInfoParam.mChipFuncMask2=this.defaultCMcuFunc.mMcuInfoParam.SetFuncMaskCheckedListBox(this.cCheckedListBoxEx_FuncMaskStep2, this.defaultCMcuFunc.mMcuInfoParam.mChipFuncMask2);
 
 		}
 
@@ -343,6 +347,13 @@ namespace LabMcuForm
 			//---编程的时钟的变化
 			this.trackBar_ChipClock.MouseHover += new System.EventHandler(this.TrackBar_MouseHover);
 			this.trackBar_ChipClock.Scroll += new System.EventHandler(this.TrackBar_Scroll);
+
+			//---电压发生变化
+			this.textBox_ChipPWR.TextChanged += new EventHandler(this.TextBox_TextChanged);
+
+			//---功能码的变化
+			this.cCheckedListBoxEx_FuncMaskStep1.SelectedIndexChanged += new EventHandler(this.CheckedListBox_SelectedIndexChanged);
+			this.cCheckedListBoxEx_FuncMaskStep2.SelectedIndexChanged += new EventHandler(this.CheckedListBox_SelectedIndexChanged);
 
 		}
 
@@ -479,7 +490,7 @@ namespace LabMcuForm
 					break;
 				//---设置供电电压
 				case "button_SetChipPWR":
-					this.defaultCMcuFunc.CMcuFunc_WriteChipPower(this.textBox_ChipPWR, this.cRichTextBoxEx_ChipMsg);
+					this.defaultCMcuFunc.CMcuFunc_WriteChipPower(this.textBox_ChipPWR, this.cRichTextBoxEx_ChipMsg,this.checkBox_ChipPWR.Checked);
 					break;
 				//---设置编程时钟
 				case "button_SetChipClock":
@@ -758,6 +769,32 @@ namespace LabMcuForm
 		}
 
 		/// <summary>
+		/// Text窗体事件
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void TextBox_TextChanged(object sender, EventArgs e)
+		{
+			if (sender == null)
+			{
+				return;
+			}
+			TextBox tb = (TextBox)sender;
+			//tb.Enabled = false;
+			//---设置输入焦点
+			//tb.Focus();
+			switch (tb.Name)
+			{
+				default:
+					break;
+			}
+			//tb.Enabled = true;
+			//tb.Focus();
+			//---光标显示在文本末尾
+			tb.Select(tb.Text.Length, 0);
+		}
+
+		/// <summary>
 		/// ComboBox事件
 		/// </summary>
 		/// <param name="sender"></param>
@@ -790,9 +827,48 @@ namespace LabMcuForm
 
 			}
 			);
-			t.IsBackground = true;
-			t.Start();
+			//---校验线程有效
+			if (t != null)
+			{
+				t.IsBackground = true;
+				t.Start();
+			}
 			//cbb.Enabled = true;
+		}
+
+
+		/// <summary>
+		/// 功能码的变化
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void CheckedListBox_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (sender == null)
+			{
+				return;
+			}
+			CheckedListBox clb = (CheckedListBox)sender;
+			//---这里是为防止双击操作，如果没有，快速双击会导致状态解析错误
+			CGenFuncDelay.GenFuncDelayms(150);
+			//---检测变化状态
+			switch (clb.Name)	
+			{
+				case "cCheckedListBoxEx_FuncMaskStep1":
+					if ((this.defaultCMcuFunc!=null)&&(this.defaultCMcuFunc.mMcuInfoParam!=null))
+					{
+						this.defaultCMcuFunc.mMcuInfoParam.mChipFuncMask1 = this.defaultCMcuFunc.mMcuInfoParam.GetFuncMaskCheckedListBox(clb);
+					}
+					break;
+				case "cCheckedListBoxEx_FuncMaskStep2":
+					if ((this.defaultCMcuFunc != null) && (this.defaultCMcuFunc.mMcuInfoParam != null))
+					{
+						this.defaultCMcuFunc.mMcuInfoParam.mChipFuncMask2 = this.defaultCMcuFunc.mMcuInfoParam.GetFuncMaskCheckedListBox(clb);
+					}
+					break;
+				default:
+					break;
+			}
 		}
 
 		/// <summary>
@@ -833,8 +909,12 @@ namespace LabMcuForm
 
 				}
 			);
-			t.IsBackground = true;
-			t.Start();
+			//---校验线程有效
+			if (t != null)
+			{
+				t.IsBackground = true;
+				t.Start();
+			}
 			//bt.Enabled = true;
 		}
 

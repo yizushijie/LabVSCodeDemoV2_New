@@ -38,10 +38,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DSAPI, Version=2.0.8.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\DSAPI.2.0.8.63\lib\net40\DSAPI.dll</HintPath>
+      <HintPath>..\..\packages\DSAPI.2.0.8.64\lib\net40\DSAPI.DLL</HintPath>
     </Reference>
-    <Reference Include="DSControls, Version=1.0.7289.30604, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\DSControls.1.0.3.41\lib\net20\DSControls.dll</HintPath>
+    <Reference Include="DSControls, Version=1.0.7297.41457, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DSControls.1.0.3.44\lib\net20\DSControls.dll</HintPath>
     </Reference>
     <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
       <HintPath>..\..\LabSharpTools\packages\Great.LiveCharts.2.0.3\lib\LiveCharts.dll</HintPath>

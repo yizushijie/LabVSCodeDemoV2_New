@@ -62,3 +62,6 @@ dotnet_style_object_initializer = true:none
 
 # IDE0060: 删除未使用的参数
 dotnet_code_quality_unused_parameters = all:none
+
+# CA1051: 不要声明可见实例字段
+dotnet_diagnostic.CA1051.severity = none
