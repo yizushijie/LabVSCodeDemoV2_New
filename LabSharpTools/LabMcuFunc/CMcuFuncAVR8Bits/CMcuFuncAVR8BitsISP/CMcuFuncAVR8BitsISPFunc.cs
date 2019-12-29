@@ -10,7 +10,6 @@ using System.Windows.Forms;
 
 namespace Harry.LabTools.LabMcuFunc
 {
-
 	#region 使用的编程命令
 
 	/// <summary>
@@ -18,19 +17,19 @@ namespace Harry.LabTools.LabMcuFunc
 	/// </summary>
 	public enum CMCUFUNC_CMD_ISP : byte 
 	{
-		CMD_ISP_OPEN_CLOSE				=0x10,
-		CMD_ISP_ERASE					=0x11,
-		CMD_ISP_FLASH_PAGE_READ			=0x12,
-		CMD_ISP_FLASH_PAGE_WRITE		=0x13,
-		CMD_ISP_EEPROM_PAGE_READ		=0x14,
-		CMD_ISP_EEPROM_PAGE_WRITE		=0x15,
-		CMD_ISP_FUSE_LOCK_READ			=0x16,
-		CMD_ISP_FUSE_WRITE				=0x17,
-		CMD_ISP_LOCK_WRITE				=0x18,
-		CMD_ISP_ID_READ					=0x19,
-		CMD_ISP_CALIBRATIONBYTE_READ	=0x1A,
-		CMD_ISP_ROM_PAGE_READ			=0x1B,
-		CMD_ISP_PROG_CLOCK_SET			=0x1C
+		CMD_ISP_OPEN_CLOSE		=0x10	,
+		CMD_ISP_ERASE					,
+		CMD_ISP_FLASH_PAGE_READ			,
+		CMD_ISP_FLASH_PAGE_WRITE		,
+		CMD_ISP_EEPROM_PAGE_READ		,
+		CMD_ISP_EEPROM_PAGE_WRITE		,
+		CMD_ISP_FUSE_LOCK_READ			,
+		CMD_ISP_FUSE_WRITE				,
+		CMD_ISP_LOCK_WRITE				,
+		CMD_ISP_ID_READ					,
+		CMD_ISP_CALIBRATIONBYTE_READ	,
+		CMD_ISP_ROM_PAGE_READ			,
+		CMD_ISP_PROG_CLOCK_SET			,
 	}
 
 	#endregion
@@ -42,7 +41,7 @@ namespace Harry.LabTools.LabMcuFunc
 		#endregion
 
 		#region 属性定义
-		
+
 		#endregion
 
 		#region 构造函数

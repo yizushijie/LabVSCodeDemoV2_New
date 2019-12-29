@@ -294,6 +294,7 @@ namespace LabMcuForm
 			this.Resize += new System.EventHandler(this.Form_Resize);
 			//---窗体关闭事件
 			this.FormClosing += new FormClosingEventHandler(this.Form_Closing);
+			//---窗体加载事件
 		}
 
 		/// <summary>
@@ -833,6 +834,7 @@ namespace LabMcuForm
 				t.IsBackground = true;
 				t.Start();
 			}
+			//cbb.Focus();
 			//cbb.Enabled = true;
 		}
 

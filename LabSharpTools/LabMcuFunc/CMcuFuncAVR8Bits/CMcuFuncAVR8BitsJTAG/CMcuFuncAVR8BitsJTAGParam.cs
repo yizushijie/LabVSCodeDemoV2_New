@@ -84,6 +84,7 @@ namespace Harry.LabTools.LabMcuFunc
 			this.mMsgText = cMcuFunc.mMsgText;
 			this.mSoftwareVersion = cMcuFunc.mSoftwareVersion;
 			this.mHardwareVersion = cMcuFunc.mHardwareVersion;
+
 		}
 
 		#endregion
