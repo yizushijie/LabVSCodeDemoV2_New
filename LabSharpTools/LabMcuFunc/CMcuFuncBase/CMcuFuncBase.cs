@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Harry.LabTools.LabMcuFunc
 {
+	/// <summary>
+	/// MCU功能的基类函数
+	/// </summary>
 	public partial class CMcuFuncBase
 	{
 		#region 变量定义

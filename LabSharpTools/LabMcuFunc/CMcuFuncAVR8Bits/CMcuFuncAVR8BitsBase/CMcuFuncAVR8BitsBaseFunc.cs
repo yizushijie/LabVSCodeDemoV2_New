@@ -14,11 +14,51 @@ namespace Harry.LabTools.LabMcuFunc
 	public partial class CMcuFuncAVR8BitsBase
 	{
 		#region 变量定义
-	
+		
+		/// <summary>
+		/// NVM中记录的CP的log信息的其实位置，这里是字地址
+		/// </summary>
+		private int defaultNvmCPLogPosition = 20;
+
+		/// <summary>
+		/// NVM中记录的FT的log信息的其实位置，这里是字地址
+		/// </summary>
+		private int defaultNvmFTLogPosition = 8;
+
 		#endregion
 
 		#region 属性定义
-		
+
+		/// <summary>
+		/// Nvm中记录的CP的Log信息
+		/// </summary>
+		public virtual int mNvmCPLogPosition
+	    {
+			get
+			{
+				return this.defaultNvmCPLogPosition;
+			}
+			set
+			{
+				this.defaultNvmCPLogPosition = value;
+			}
+		}
+
+		/// <summary>
+		/// Nvm中记录的FT的Log信息
+		/// </summary>
+		public virtual int mNvmFTLogPosition
+		{
+			get
+			{
+				return this.defaultNvmFTLogPosition;
+			}
+			set
+			{
+				this.defaultNvmFTLogPosition = value;
+			}
+		}
+
 		#endregion
 
 		#region 构造函数
@@ -1226,15 +1266,70 @@ namespace Harry.LabTools.LabMcuFunc
 		}
 
 		/// <summary>
+		/// 显示Rom页中的Log信息
+		/// </summary>
+		/// <param name="chipRom"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public virtual int CMcuFunc_ShowLogChipRom(byte[] chipRom, RichTextBox msg)
+		{
+			//---CP测试版本
+			string cpVersion = "CP Version: V" + (chipRom[this.defaultNvmCPLogPosition * 2 + 9] & 0x7F).ToString(); 
+			//---Lot信息
+			string lotInfo="Lot:";
+			int i = 0;
+			for ( i = 0; i < 8; i++)
+			{
+				lotInfo += (Convert.ToChar(chipRom[this.defaultNvmCPLogPosition * 2 + i])).ToString();
+			}
+			//---Wafer信息
+			string waferInfo="Wafer:"+ (chipRom[this.defaultNvmCPLogPosition * 2 + 8]).ToString();
+			//---测试时间
+			string tstDataTime = (chipRom[this.defaultNvmCPLogPosition * 2 + 12] + 2000).ToString() + "年-" + (chipRom[this.defaultNvmCPLogPosition * 2 + 13]).ToString() + "月-" + (chipRom[this.defaultNvmCPLogPosition * 2 + 14]).ToString() + "日-" + (chipRom[this.defaultNvmCPLogPosition * 2 + 15]).ToString() + "时";
+			//---FT测试版本信息
+			int ftVer = chipRom[this.defaultNvmFTLogPosition * 2 + 1];
+			ftVer = (ftVer<<8)+chipRom[this.defaultNvmFTLogPosition * 2 ];
+			int nowVer = -1;
+			for (i = 0; i < 16; i++)
+			{
+				if ((ftVer&0x8000)==0)
+				{
+					nowVer = 16 - i;
+					break;
+				}
+				ftVer <<= 1;
+			}
+			string ftVersion = "FT Version: ";
+			if (nowVer > -1)
+			{
+				ftVersion += nowVer.ToString();
+			}
+			else
+			{
+				ftVersion += "Not FT";
+			}
+			string str = cpVersion + ";\r\n" + lotInfo + ";" + waferInfo + ";时间: " + tstDataTime + ";\r\n" + ftVersion;
+			if (msg!=null)
+			{
+				CRichTextBoxPlus.AppendTextInfoTopWithoutDataTime(msg,str,Color.Black );
+			}
+			return 0;
+		}
+
+		/// <summary>
 		/// 读取ROM信息
 		/// </summary>
-		/// <param name="chb">Hex编辑器控件</param>
+		/// <param name="chb">Hex编辑控件</param>
+		/// <param name="msg">消息显示</param>
+		/// <param name="isShowLog">是否显示Log信息</param>
 		/// <returns></returns>
-		public virtual int CMcuFunc_ReadChipRom(CHexBox chb, RichTextBox msg)
+		public virtual int CMcuFunc_ReadChipRom(CHexBox chb, RichTextBox msg,bool isShowLog=false)
 		{
 			int _return = -1;
 			byte[] tempRom = null;
+			//---读取ROM页信息
 			_return = this.CMcuFunc_ReadChipRom(ref tempRom,msg);
+			//---校验ROM读取的结果
 			if ((_return == 0) && (tempRom != null))
 			{
 				if (chb.InvokeRequired)
@@ -1248,6 +1343,11 @@ namespace Harry.LabTools.LabMcuFunc
 				else
 				{
 					chb.AddData(tempRom);
+				}
+				//---校验是否显示Log信息
+				if ((isShowLog==true)&&(msg!=null))
+				{
+					_return = this.CMcuFunc_ShowLogChipRom(tempRom, msg);
 				}
 			}
 			return _return;

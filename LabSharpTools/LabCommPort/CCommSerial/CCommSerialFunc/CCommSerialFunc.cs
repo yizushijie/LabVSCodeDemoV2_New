@@ -15,7 +15,7 @@ namespace Harry.LabTools.LabCommType
 		/// <summary>
 		/// 上一次的接收是不是错误，true---正常，false---异常
 		/// </summary>
-		private bool defaultLastReceIsOK = true;
+		private bool defaultLastRecePass = true;
 
 		#endregion
 
@@ -601,7 +601,7 @@ namespace Harry.LabTools.LabCommType
 			else
 			{	
 				//---接收发生错误
-				this.defaultLastReceIsOK = false;
+				this.defaultLastRecePass = false;
 			}
 			if ((msg != null) && (_return != 0))
 			{
@@ -624,7 +624,7 @@ namespace Harry.LabTools.LabCommType
 		public override int SendCmdAndReadResponse(byte[] cmd, ref byte[] res, int timeout = 300, RichTextBox msg = null)
 		{
 			//---校验上一次的接收状态
-			if (this.defaultLastReceIsOK == false)
+			if (this.defaultLastRecePass == false)
 			{
 				//---读取接收缓存区的数据
 				if (this.defaultSerialPort.BytesToRead>0)
@@ -636,7 +636,7 @@ namespace Harry.LabTools.LabCommType
 				//---清空发送缓存区
 				this.defaultSerialPort.DiscardOutBuffer();
 				//---置位上一次的数据接收为正常
-				this.defaultLastReceIsOK = true;
+				this.defaultLastRecePass = true;
 			}
 			//---获取开始时间标签
 			DateTime nowTime = DateTime.Now;
@@ -664,7 +664,7 @@ namespace Harry.LabTools.LabCommType
 		public override int SendCmdAndReadResponse(string cmd, ref string res, int timeout = 200, RichTextBox msg = null)
 		{
 			//---校验上一次的接收状态
-			if (this.defaultLastReceIsOK == false)
+			if (this.defaultLastRecePass == false)
 			{
 				//---读取接收缓存区的数据
 				if (this.defaultSerialPort.BytesToRead > 0)
@@ -676,7 +676,7 @@ namespace Harry.LabTools.LabCommType
 				//---清空发送缓存区
 				this.defaultSerialPort.DiscardOutBuffer();
 				//---置位上一次的数据接收为正常
-				this.defaultLastReceIsOK = true;
+				this.defaultLastRecePass = true;
 			}
 			//---获取开始时间标签
 			DateTime nowTime = DateTime.Now;

@@ -33,6 +33,11 @@ namespace LabMcuForm.CMcuFormAVR8Bits
 		/// </summary>
 		private RichTextBox defaultRichTextBoxMsg = null;
 
+		/// <summary>
+		/// 事件注册的状态，false---未注册事件，true---已经注册事件
+		/// </summary>
+		private bool defaultRegistrationEventState = false;
+
 		#endregion
 
 		#region 属性定义
@@ -104,12 +109,12 @@ namespace LabMcuForm.CMcuFormAVR8Bits
 			{
 				CreateParams cp = base.CreateParams;
 				// Turn on WS_EX_COMPOSITED    
-				cp.ExStyle |= 0x02000000;
-				if (this.IsXpOr2003 == true)
-				{
-					// Turn on WS_EX_LAYERED  
-					cp.ExStyle |= 0x00080000;
-				}
+				//cp.ExStyle |= 0x02000000;
+				//if (this.IsXpOr2003 == true)
+				//{
+				//	// Turn on WS_EX_LAYERED  
+				//	cp.ExStyle |= 0x00080000;
+				//}
 				return cp;
 			}
 		}
@@ -192,7 +197,12 @@ namespace LabMcuForm.CMcuFormAVR8Bits
 																this.textBox_OSCValue1, this.textBox_OSCValue2, this.textBox_OSCValue3, this.textBox_OSCValue4,
 																this.textBox_LowFuseValue, this.textBox_HighFuseValue, this.textBox_ExternFuseValue, this.textBox_LockFuseValue
 																);
-			this.RegistrationEventHandler();
+			//---校验是否已经注册了事件
+			if (this.defaultRegistrationEventState==false)
+			{
+				this.RegistrationEventHandler();
+				this.defaultRegistrationEventState = true;
+			}
 			//---消息显示
 			if (msg!=null)
 			{
@@ -419,6 +429,7 @@ namespace LabMcuForm.CMcuFormAVR8Bits
 					t.IsBackground = true;
 					t.Start();
 				}
+				//this.UI_CheckedListBox_SelectedIndexChanged(clb);
 			}
 			//clb.Enabled = true;
 		}
@@ -458,15 +469,16 @@ namespace LabMcuForm.CMcuFormAVR8Bits
 					{
 						this.UI_TextBox_TextChanged(tb);
 					}
-			
+
 				}
 			);
 			//---校验线程有效
-			if (t!=null)
+			if (t != null)
 			{
 				t.IsBackground = true;
 				t.Start();
 			}
+			//this.UI_TextBox_TextChanged(tb);
 			//tb.Enabled = true;
 			//tb.Focus();
 			//---光标显示在文本末尾
@@ -519,6 +531,7 @@ namespace LabMcuForm.CMcuFormAVR8Bits
 				t.IsBackground = true;
 				t.Start();
 			}
+			//this.UI_Button_Click(bt);
 			//bt.Enabled = true;
 			//bt.Focus();
 		}

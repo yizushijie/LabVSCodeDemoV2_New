@@ -265,7 +265,8 @@ namespace LabMcuForm
 		private void StartupInit()
 		{
 			//---初始化MCU列表
-			this.defaultCMcuFunc.mMcuInfoParam.McuListInfo(this.comboBox_ChipType);
+			//this.defaultCMcuFunc.mMcuInfoParam.McuListInfo(this.comboBox_ChipType);
+			this.defaultCMcuFunc.McuListInfo(this.comboBox_ChipType);
 			//---初始化MCU类型
 			this.McuTypeChanged(this.comboBox_ChipType.Text.ToLower());
 			//---初始化通信端口
@@ -365,7 +366,8 @@ namespace LabMcuForm
 		private void McuTypeChanged(string chipName)
 		{
 			//---初始化芯片信息
-			this.defaultCMcuFunc.mMcuInfoParam.McuTypeInfo(chipName, this.comboBox_ChipInterface,this.textBox_ChipID);
+			//this.defaultCMcuFunc.mMcuInfoParam.McuTypeInfo(chipName, this.comboBox_ChipInterface,this.textBox_ChipID);
+			this.defaultCMcuFunc.McuTypeInfo(chipName, this.comboBox_ChipInterface, this.textBox_ChipID);
 			//---依据芯片的类型进行控件的初始化
 			this.cMcuFormAVR8BitsFuseAndLockControl_ChipFuse.Init(this.defaultCMcuFunc, this.cRichTextBoxEx_ChipMsg);
 			//-->>>依据芯片进行Memery的信息初始化---开始
@@ -566,7 +568,7 @@ namespace LabMcuForm
 					break;
 				//---读取ROM信息
 				case "button_ReadChipROM":
-					this.defaultCMcuFunc.CMcuFunc_ReadChipRom(this.cHexBox_ROM, this.cRichTextBoxEx_ChipMsg);
+					this.defaultCMcuFunc.CMcuFunc_ReadChipRom(this.cHexBox_ROM, this.cRichTextBoxEx_ChipMsg,true);
 					break;
 				default:
 					break;
@@ -605,8 +607,12 @@ namespace LabMcuForm
 
 			}
 			);
-			t.IsBackground = true;
-			t.Start();
+			if (t!=null)
+			{
+				t.IsBackground = true;
+				t.Start();
+			}			
+			//this.UI_Form_Shown(fm);
 			//fm.Focus();
 		}
 
@@ -834,6 +840,7 @@ namespace LabMcuForm
 				t.IsBackground = true;
 				t.Start();
 			}
+			//this.UI_ComboBox_SelectedIndexChanged(cbb);
 			//cbb.Focus();
 			//cbb.Enabled = true;
 		}
@@ -917,6 +924,7 @@ namespace LabMcuForm
 				t.IsBackground = true;
 				t.Start();
 			}
+			//this.UI_Button_Click(bt);
 			//bt.Enabled = true;
 		}
 

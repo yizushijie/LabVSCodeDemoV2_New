@@ -124,7 +124,7 @@ namespace Harry.LabTools.LabCommType
 		/// <param name="timeout"></param>
 		/// <param name="msg"></param>
 		/// <returns></returns>
-		public virtual int SendCmdAndReadResponse(byte[] cmd, ref byte[] res, int timeout = 200, RichTextBox msg = null)
+		public virtual int SendCmdAndReadResponse(byte[] cmd, ref byte[] res, int timeout =300, RichTextBox msg = null)
 		{
 			return -1;
 		}

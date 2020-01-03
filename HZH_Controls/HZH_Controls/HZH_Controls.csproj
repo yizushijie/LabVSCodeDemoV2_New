@@ -32,10 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DSAPI, Version=2.0.8.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\DSAPI.2.0.8.64\lib\net40\DSAPI.DLL</HintPath>
-    </Reference>
-    <Reference Include="DSControls, Version=1.0.7297.41457, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\DSControls.1.0.3.44\lib\net20\DSControls.dll</HintPath>
+      <HintPath>..\..\packages\DSAPI.2.0.8.65\lib\net40\DSAPI.DLL</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -50,6 +47,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Theraot.Core, Version=3.1.2.0, Culture=neutral, PublicKeyToken=b1460dff8a28f7a7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Theraot.Core.3.1.2\lib\net40\Theraot.Core.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Colors\BasisColors.cs" />

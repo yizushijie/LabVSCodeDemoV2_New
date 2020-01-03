@@ -441,8 +441,8 @@ namespace Harry.LabTools.LabCommType
 											 {
 												 this.comboBox_COMM.Enabled = true;
 											 }
-											 //---注销资源
-											 this.defaultCCOMM.Dispose();
+											 //---注销资源,一般这里不能释放资源，如果资源被释放，就不能主动监控端口的拔插事件
+											 //this.defaultCCOMM.Dispose();
 											 this.pictureBox_COMM.Image = Properties.Resources.lost;
 											 this.defaultIsShowCommParam = true;
 										 }

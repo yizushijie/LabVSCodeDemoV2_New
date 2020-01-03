@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Harry.LabTools.LabMcuFunc
 {
@@ -138,6 +139,54 @@ namespace Harry.LabTools.LabMcuFunc
 		#endregion
 
 		#region 公有函数
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="cbbList"></param>
+		/// <returns></returns>
+		public virtual string[] McuListInfo(ComboBox cbbList = null)
+		{
+			string[] _return = null;
+			//---校验MCU的信息参数
+			if (this.defaultMcuInfoParam!=null)
+			{
+				_return = this.defaultMcuInfoParam.McuListInfo(cbbList);
+			}
+			return _return;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="chipName"></param>
+		/// <param name="cbbInterface"></param>
+		/// <param name="tbChipID"></param>
+		/// <returns></returns>
+		public virtual bool McuTypeInfo(string chipName, ComboBox cbbInterface = null, TextBox tbChipID = null)
+		{
+			bool _return = false;
+			//---校验MCU的信息参数
+			if (this.defaultMcuInfoParam!=null)
+			{
+				_return=this.defaultMcuInfoParam.McuTypeInfo(chipName, cbbInterface, tbChipID);
+			}
+			//---信息解析正确，确定CP或者FT的Log信息的存储位置
+			if (_return==true)
+			{
+				if (this.defaultMcuInfoParam.mChipFlashPerPageWordNum > 16)
+				{
+					this.mNvmCPLogPosition = 20;
+					this.mNvmFTLogPosition = 8;
+				}
+				else
+				{
+					this.mNvmCPLogPosition = 10;
+					this.mNvmFTLogPosition = 4;
+				}
+			}
+			return _return;
+		}
 
 		#endregion
 
