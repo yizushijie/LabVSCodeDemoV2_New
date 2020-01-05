@@ -109,12 +109,12 @@ namespace LabMcuForm.CMcuFormAVR8Bits
 			{
 				CreateParams cp = base.CreateParams;
 				// Turn on WS_EX_COMPOSITED    
-				//cp.ExStyle |= 0x02000000;
-				//if (this.IsXpOr2003 == true)
-				//{
-				//	// Turn on WS_EX_LAYERED  
-				//	cp.ExStyle |= 0x00080000;
-				//}
+				cp.ExStyle |= 0x02000000;
+				if (this.IsXpOr2003 == true)
+				{
+					// Turn on WS_EX_LAYERED  
+					cp.ExStyle |= 0x00080000;
+				}
 				return cp;
 			}
 		}

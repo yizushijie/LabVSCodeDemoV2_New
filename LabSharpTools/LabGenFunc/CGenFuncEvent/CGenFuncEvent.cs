@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Harry.LabTools.LabGenFunc
 {
@@ -42,14 +43,14 @@ namespace Harry.LabTools.LabGenFunc
 		/// 
 		/// </summary>
 		/// <param name="control"></param>
-		/// <param name="eventname"></param>
-		public static void GenFuncClearAllEvents(System.Windows.Forms.Control control, string eventname)
+		/// <param name="eventName"></param>
+		public static void GenFuncClearAllEvents(Control control, string eventName)
 		{
 			if (control == null)
 			{
 				return;
 			}
-			if (string.IsNullOrEmpty(eventname))
+			if (string.IsNullOrEmpty(eventName))
 			{
 				return;
 			}
@@ -59,14 +60,14 @@ namespace Harry.LabTools.LabGenFunc
 			Type controlType = typeof(System.Windows.Forms.Control);
 			PropertyInfo propertyInfo = controlType.GetProperty("Events", mPropertyFlags);
 			EventHandlerList eventHandlerList = (EventHandlerList)propertyInfo.GetValue(control, null);
-			FieldInfo fieldInfo = (typeof(System.Windows.Forms.Control)).GetField("Event" + eventname, mFieldFlags);
+			FieldInfo fieldInfo = (typeof(System.Windows.Forms.Control)).GetField("Event" + eventName, mFieldFlags);
 			Delegate d = eventHandlerList[fieldInfo.GetValue(control)];
 			
 			if (d == null)
 			{
 				return;
 			}
-			EventInfo eventInfo = controlType.GetEvent(eventname);
+			EventInfo eventInfo = controlType.GetEvent(eventName);
 			
 			foreach (Delegate dx in d.GetInvocationList())
 			{
@@ -74,8 +75,6 @@ namespace Harry.LabTools.LabGenFunc
 			}
 		
 		}
-
-
 
 		#endregion
 	}
