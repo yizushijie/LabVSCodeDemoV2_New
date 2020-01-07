@@ -42,6 +42,7 @@
 			this.groupBox_SrcProject = new System.Windows.Forms.GroupBox();
 			this.groupBox_Note = new System.Windows.Forms.GroupBox();
 			this.label_Note1 = new System.Windows.Forms.Label();
+			this.label_Note2 = new System.Windows.Forms.Label();
 			this.groupBox_DesProject.SuspendLayout();
 			this.groupBox_SrcProject.SuspendLayout();
 			this.groupBox_Note.SuspendLayout();
@@ -188,6 +189,7 @@
 			// 
 			// groupBox_Note
 			// 
+			this.groupBox_Note.Controls.Add(this.label_Note2);
 			this.groupBox_Note.Controls.Add(this.label_Note1);
 			this.groupBox_Note.Dock = System.Windows.Forms.DockStyle.Top;
 			this.groupBox_Note.Location = new System.Drawing.Point(0, 129);
@@ -204,17 +206,28 @@
 			this.label_Note1.AutoSize = true;
 			this.label_Note1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.label_Note1.ForeColor = System.Drawing.Color.Red;
-			this.label_Note1.Location = new System.Drawing.Point(42, 16);
+			this.label_Note1.Location = new System.Drawing.Point(23, 16);
 			this.label_Note1.Name = "label_Note1";
-			this.label_Note1.Size = new System.Drawing.Size(377, 12);
+			this.label_Note1.Size = new System.Drawing.Size(429, 12);
 			this.label_Note1.TabIndex = 0;
-			this.label_Note1.Text = "1. 本工具不支持工程或者路劲有特殊字符，比如空格，下划线等";
+			this.label_Note1.Text = "1. 本工具不支持工程或者路劲有特殊字符，比如空格，下划线，中文等；";
+			// 
+			// label_Note2
+			// 
+			this.label_Note2.AutoSize = true;
+			this.label_Note2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.label_Note2.ForeColor = System.Drawing.Color.Red;
+			this.label_Note2.Location = new System.Drawing.Point(23, 32);
+			this.label_Note2.Name = "label_Note2";
+			this.label_Note2.Size = new System.Drawing.Size(143, 12);
+			this.label_Note2.TabIndex = 1;
+			this.label_Note2.Text = "2. 建议使用英文路劲；";
 			// 
 			// ToVisualStudioForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(476, 167);
+			this.ClientSize = new System.Drawing.Size(476, 179);
 			this.Controls.Add(this.groupBox_Note);
 			this.Controls.Add(this.groupBox_DesProject);
 			this.Controls.Add(this.groupBox_SrcProject);
@@ -250,6 +263,7 @@
 		private System.Windows.Forms.GroupBox groupBox_SrcProject;
 		private System.Windows.Forms.GroupBox groupBox_Note;
 		private System.Windows.Forms.Label label_Note1;
+		private System.Windows.Forms.Label label_Note2;
 	}
 }
 

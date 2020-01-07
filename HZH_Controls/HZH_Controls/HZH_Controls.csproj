@@ -32,7 +32,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DSAPI, Version=2.0.8.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\DSAPI.2.0.8.65\lib\net40\DSAPI.DLL</HintPath>
+      <HintPath>..\..\packages\DSAPI.2.0.8.66\lib\net40\DSAPI.DLL</HintPath>
+    </Reference>
+    <Reference Include="DSControls, Version=1.0.7311.17926, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DSControls.1.0.3.47\lib\net40\DSControls.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
