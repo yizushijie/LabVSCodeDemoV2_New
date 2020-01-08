@@ -120,7 +120,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mbedtls-lib", "PremakeCore\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib-lib", "PremakeCore\contrib\zlib\zlib-lib.vcxproj", "{7AF09988-66BD-F493-8FD6-E23B7B022A22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabIniFile", "LabIniFile\LabIniFile.csproj", "{FCB39572-BBB0-4FD3-BD78-8B60E43BDF10}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabIniFile", "LabSharpTools\LabIniFile\LabIniFile.csproj", "{FCB39572-BBB0-4FD3-BD78-8B60E43BDF10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

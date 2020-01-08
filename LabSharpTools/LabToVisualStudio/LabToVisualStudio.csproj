@@ -50,8 +50,8 @@
     <Reference Include="DSAPI, Version=2.0.8.8, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\DSAPI.2.0.8.66\lib\net40\DSAPI.DLL</HintPath>
     </Reference>
-    <Reference Include="DSControls, Version=1.0.7311.17926, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\DSControls.1.0.3.47\lib\net40\DSControls.dll</HintPath>
+    <Reference Include="DSControls, Version=1.0.7311.39803, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DSControls.1.0.3.48\lib\net40\DSControls.dll</HintPath>
     </Reference>
     <Reference Include="ExcelLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelLibrary.1.2011.7.31\lib\ExcelLibrary.dll</HintPath>
@@ -63,7 +63,7 @@
       <HintPath>..\packages\NativeUsbLib.1.4.8\lib\net20\NativeUsbLib.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.12.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -123,10 +123,6 @@
     <None Include="ToVisaulStudioForm\App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\LabIniFile\LabIniFile.csproj">
-      <Project>{FCB39572-BBB0-4FD3-BD78-8B60E43BDF10}</Project>
-      <Name>LabIniFile</Name>
-    </ProjectReference>
     <ProjectReference Include="..\LabControlPlus\LabControlPlus.csproj">
       <Project>{E54A51A6-A054-4F21-AC22-A827B5EF4D36}</Project>
       <Name>LabControlPlus</Name>
@@ -134,6 +130,10 @@
     <ProjectReference Include="..\LabGenFunc\LabGenFunc.csproj">
       <Project>{c64aeea0-7a08-4786-9f1e-bd66608e190e}</Project>
       <Name>LabGenFunc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LabIniFile\LabIniFile.csproj">
+      <Project>{FCB39572-BBB0-4FD3-BD78-8B60E43BDF10}</Project>
+      <Name>LabIniFile</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1771,7 +1771,8 @@ namespace Harry.LabTools.LabMcuFunc
 		/// <returns></returns>
 		private bool AnalyseChipAVR8BitsMcuFuseTextXml(string chipName, XmlNode xmlNode)
 		{
-			switch (chipName.ToUpper())
+			string str = chipName.ToUpper();
+			switch (chipName.ToUpper().Trim())
 			{
 				case "LOWFUSE":
 					this.defaultChipLowFuseText=new CMcuFuncAVR8BitsParam (this.AnalyseChipAVR8BitsMcuFuseXml(chipName,xmlNode,1));
