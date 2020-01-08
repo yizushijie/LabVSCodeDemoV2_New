@@ -38,15 +38,7 @@ namespace Harry.LabTools.LabIniFile
 		public int CIniFileReadInt(string section, string ident, int defaultValue)
 		{
 			string intStr = CIniFileReadString(section, ident, Convert.ToString(defaultValue));
-			try
-			{
-				return Convert.ToInt32(intStr);
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine(ex.Message);
-				return defaultValue;
-			}
+			return Convert.ToInt32(intStr);
 		}
 
 		/// <summary>
@@ -58,15 +50,7 @@ namespace Harry.LabTools.LabIniFile
 		/// <returns>读取的布尔值</returns>
 		public bool CIniFileReadBool(string section, string ident, bool defaultValue)
 		{
-			try
-			{
-				return Convert.ToBoolean(CIniFileReadString(section, ident, Convert.ToString(defaultValue)));
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine(ex.Message);
-				return defaultValue;
-			}
+			return Convert.ToBoolean(CIniFileReadString(section, ident, Convert.ToString(defaultValue)));
 		}
 
 		/// <summary>
@@ -77,11 +61,7 @@ namespace Harry.LabTools.LabIniFile
 		public void CIniFileReadSection(string section, ref StringCollection idents)
 		{
 			byte[] buffer = new byte[16384];
-			if (idents != null)
-			{
-				idents.Clear();
-			}
-			else
+			if (idents == null)
 			{
 				idents = new StringCollection();
 			}
@@ -91,6 +71,46 @@ namespace Harry.LabTools.LabIniFile
 			BytesToString(buffer, bufLen, ref idents);
 		}
 
+		/// <summary>
+		/// 从Ini文件中，读取所有的Sections的名称 
+		/// </summary>
+		/// <param name="SectionList"></param>
+		public void CIniFileReadSections(ref StringCollection sectionList)
+		{
+			if (sectionList == null)
+			{
+				sectionList = new StringCollection();
+			}
+			//Note:必须得用Bytes来实现，StringBuilder只能取到第一个Section 
+			byte[] Buffer = new byte[65535];
+			int bufLen = 0;
+			bufLen = GetPrivateProfileString(null, null, null, Buffer, Buffer.GetUpperBound(0), this.defaultFilePath);
+			BytesToString(Buffer, bufLen, ref sectionList);
+		}
+
+		/// <summary>
+		/// 读取指定的Section的所有Value到列表中 
+		/// </summary>
+		/// <param name="Section"></param>
+		/// <param name="Values"></param>
+		public void CIniFileReadSectionValues(string section, ref NameValueCollection values)
+		{
+			//---查空操作
+			if (values != null)
+			{
+				values.Clear();
+			}
+			else
+			{
+				values = new NameValueCollection();
+			}
+			StringCollection KeyList = new StringCollection();
+			this.CIniFileReadSection(section, ref KeyList);
+			foreach (string key in KeyList)
+			{
+				values.Add(key, this.CIniFileReadString(section, key, ""));
+			}
+		}
 		#endregion
 
 		#region 保护函数

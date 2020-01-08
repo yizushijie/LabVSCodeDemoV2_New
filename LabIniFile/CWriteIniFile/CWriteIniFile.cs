@@ -38,7 +38,7 @@ namespace Harry.LabTools.LabIniFile
 		/// <param name="Section">小结</param>
 		/// <param name="Ident">键</param>
 		/// <param name="Value">整形键值</param>
-		public bool CIniFileWriteInteger(string section, string ident, int value)
+		public bool CIniFileWriteInt(string section, string ident, int value)
 		{
 			return CIniFileWriteString(section, ident, value.ToString());
 		}

@@ -31,18 +31,18 @@
 			this.TextBox_SrcProjectPath = new System.Windows.Forms.TextBox();
 			this.button_SelectSourceProject = new System.Windows.Forms.Button();
 			this.label_SrcProjectName = new System.Windows.Forms.Label();
-			this.label_SrcProjectVersion = new System.Windows.Forms.Label();
-			this.comboBox_SrcProjectVersion = new System.Windows.Forms.ComboBox();
-			this.label_VisualStudioProjectVersion = new System.Windows.Forms.Label();
-			this.comboBox_VisualStudioVersion = new System.Windows.Forms.ComboBox();
+			this.label_ProjectIDE = new System.Windows.Forms.Label();
+			this.comboBox_ProjectIDE = new System.Windows.Forms.ComboBox();
+			this.label_VSVersion = new System.Windows.Forms.Label();
+			this.comboBox_VSVersion = new System.Windows.Forms.ComboBox();
 			this.button_ToVisualStudioProject = new System.Windows.Forms.Button();
 			this.checkBox_CloseApplication = new System.Windows.Forms.CheckBox();
 			this.checkBox_OpenVSProject = new System.Windows.Forms.CheckBox();
 			this.groupBox_DesProject = new System.Windows.Forms.GroupBox();
 			this.groupBox_SrcProject = new System.Windows.Forms.GroupBox();
 			this.groupBox_Note = new System.Windows.Forms.GroupBox();
-			this.label_Note1 = new System.Windows.Forms.Label();
 			this.label_Note2 = new System.Windows.Forms.Label();
+			this.label_Note1 = new System.Windows.Forms.Label();
 			this.groupBox_DesProject.SuspendLayout();
 			this.groupBox_SrcProject.SuspendLayout();
 			this.groupBox_Note.SuspendLayout();
@@ -73,41 +73,41 @@
 			this.label_SrcProjectName.TabIndex = 4;
 			this.label_SrcProjectName.Text = "项目路劲：";
 			// 
-			// label_SrcProjectVersion
+			// label_ProjectIDE
 			// 
-			this.label_SrcProjectVersion.AutoSize = true;
-			this.label_SrcProjectVersion.Location = new System.Drawing.Point(12, 26);
-			this.label_SrcProjectVersion.Name = "label_SrcProjectVersion";
-			this.label_SrcProjectVersion.Size = new System.Drawing.Size(71, 12);
-			this.label_SrcProjectVersion.TabIndex = 5;
-			this.label_SrcProjectVersion.Text = "项目工程IDE";
+			this.label_ProjectIDE.AutoSize = true;
+			this.label_ProjectIDE.Location = new System.Drawing.Point(12, 26);
+			this.label_ProjectIDE.Name = "label_ProjectIDE";
+			this.label_ProjectIDE.Size = new System.Drawing.Size(47, 12);
+			this.label_ProjectIDE.TabIndex = 5;
+			this.label_ProjectIDE.Text = "项目IDE";
 			// 
-			// comboBox_SrcProjectVersion
+			// comboBox_ProjectIDE
 			// 
-			this.comboBox_SrcProjectVersion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.comboBox_SrcProjectVersion.FormattingEnabled = true;
-			this.comboBox_SrcProjectVersion.Items.AddRange(new object[] {
+			this.comboBox_ProjectIDE.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBox_ProjectIDE.FormattingEnabled = true;
+			this.comboBox_ProjectIDE.Items.AddRange(new object[] {
             "Keil",
             "IAR"});
-			this.comboBox_SrcProjectVersion.Location = new System.Drawing.Point(11, 41);
-			this.comboBox_SrcProjectVersion.Name = "comboBox_SrcProjectVersion";
-			this.comboBox_SrcProjectVersion.Size = new System.Drawing.Size(70, 20);
-			this.comboBox_SrcProjectVersion.TabIndex = 6;
+			this.comboBox_ProjectIDE.Location = new System.Drawing.Point(11, 41);
+			this.comboBox_ProjectIDE.Name = "comboBox_ProjectIDE";
+			this.comboBox_ProjectIDE.Size = new System.Drawing.Size(70, 20);
+			this.comboBox_ProjectIDE.TabIndex = 6;
 			// 
-			// label_VisualStudioProjectVersion
+			// label_VSVersion
 			// 
-			this.label_VisualStudioProjectVersion.AutoSize = true;
-			this.label_VisualStudioProjectVersion.Location = new System.Drawing.Point(98, 26);
-			this.label_VisualStudioProjectVersion.Name = "label_VisualStudioProjectVersion";
-			this.label_VisualStudioProjectVersion.Size = new System.Drawing.Size(77, 12);
-			this.label_VisualStudioProjectVersion.TabIndex = 7;
-			this.label_VisualStudioProjectVersion.Text = "VisualStudio";
+			this.label_VSVersion.AutoSize = true;
+			this.label_VSVersion.Location = new System.Drawing.Point(98, 26);
+			this.label_VSVersion.Name = "label_VSVersion";
+			this.label_VSVersion.Size = new System.Drawing.Size(41, 12);
+			this.label_VSVersion.TabIndex = 7;
+			this.label_VSVersion.Text = "VS版本";
 			// 
-			// comboBox_VisualStudioVersion
+			// comboBox_VSVersion
 			// 
-			this.comboBox_VisualStudioVersion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.comboBox_VisualStudioVersion.FormattingEnabled = true;
-			this.comboBox_VisualStudioVersion.Items.AddRange(new object[] {
+			this.comboBox_VSVersion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBox_VSVersion.FormattingEnabled = true;
+			this.comboBox_VSVersion.Items.AddRange(new object[] {
             "vs2019",
             "vs2017",
             "vs2015",
@@ -116,10 +116,10 @@
             "vs2010",
             "vs2008",
             "vs2005"});
-			this.comboBox_VisualStudioVersion.Location = new System.Drawing.Point(100, 41);
-			this.comboBox_VisualStudioVersion.Name = "comboBox_VisualStudioVersion";
-			this.comboBox_VisualStudioVersion.Size = new System.Drawing.Size(76, 20);
-			this.comboBox_VisualStudioVersion.TabIndex = 8;
+			this.comboBox_VSVersion.Location = new System.Drawing.Point(100, 41);
+			this.comboBox_VSVersion.Name = "comboBox_VSVersion";
+			this.comboBox_VSVersion.Size = new System.Drawing.Size(76, 20);
+			this.comboBox_VSVersion.TabIndex = 8;
 			// 
 			// button_ToVisualStudioProject
 			// 
@@ -154,10 +154,10 @@
 			// 
 			// groupBox_DesProject
 			// 
-			this.groupBox_DesProject.Controls.Add(this.comboBox_SrcProjectVersion);
-			this.groupBox_DesProject.Controls.Add(this.label_SrcProjectVersion);
-			this.groupBox_DesProject.Controls.Add(this.comboBox_VisualStudioVersion);
-			this.groupBox_DesProject.Controls.Add(this.label_VisualStudioProjectVersion);
+			this.groupBox_DesProject.Controls.Add(this.comboBox_ProjectIDE);
+			this.groupBox_DesProject.Controls.Add(this.label_ProjectIDE);
+			this.groupBox_DesProject.Controls.Add(this.comboBox_VSVersion);
+			this.groupBox_DesProject.Controls.Add(this.label_VSVersion);
 			this.groupBox_DesProject.Controls.Add(this.button_ToVisualStudioProject);
 			this.groupBox_DesProject.Controls.Add(this.checkBox_OpenVSProject);
 			this.groupBox_DesProject.Controls.Add(this.checkBox_CloseApplication);
@@ -201,17 +201,6 @@
 			this.groupBox_Note.TabStop = false;
 			this.groupBox_Note.Text = "注意事项";
 			// 
-			// label_Note1
-			// 
-			this.label_Note1.AutoSize = true;
-			this.label_Note1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.label_Note1.ForeColor = System.Drawing.Color.Red;
-			this.label_Note1.Location = new System.Drawing.Point(23, 16);
-			this.label_Note1.Name = "label_Note1";
-			this.label_Note1.Size = new System.Drawing.Size(429, 12);
-			this.label_Note1.TabIndex = 0;
-			this.label_Note1.Text = "1. 本工具不支持工程或者路劲有特殊字符，比如空格，下划线，中文等；";
-			// 
 			// label_Note2
 			// 
 			this.label_Note2.AutoSize = true;
@@ -222,6 +211,17 @@
 			this.label_Note2.Size = new System.Drawing.Size(143, 12);
 			this.label_Note2.TabIndex = 1;
 			this.label_Note2.Text = "2. 建议使用英文路劲；";
+			// 
+			// label_Note1
+			// 
+			this.label_Note1.AutoSize = true;
+			this.label_Note1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.label_Note1.ForeColor = System.Drawing.Color.Red;
+			this.label_Note1.Location = new System.Drawing.Point(23, 16);
+			this.label_Note1.Name = "label_Note1";
+			this.label_Note1.Size = new System.Drawing.Size(429, 12);
+			this.label_Note1.TabIndex = 0;
+			this.label_Note1.Text = "1. 本工具不支持工程或者路劲有特殊字符，比如空格，下划线，中文等；";
 			// 
 			// ToVisualStudioForm
 			// 
@@ -252,10 +252,10 @@
 		private System.Windows.Forms.TextBox TextBox_SrcProjectPath;
 		private System.Windows.Forms.Button button_SelectSourceProject;
 		private System.Windows.Forms.Label label_SrcProjectName;
-		private System.Windows.Forms.Label label_SrcProjectVersion;
-		private System.Windows.Forms.ComboBox comboBox_SrcProjectVersion;
-		private System.Windows.Forms.Label label_VisualStudioProjectVersion;
-		private System.Windows.Forms.ComboBox comboBox_VisualStudioVersion;
+		private System.Windows.Forms.Label label_ProjectIDE;
+		private System.Windows.Forms.ComboBox comboBox_ProjectIDE;
+		private System.Windows.Forms.Label label_VSVersion;
+		private System.Windows.Forms.ComboBox comboBox_VSVersion;
 		private System.Windows.Forms.Button button_ToVisualStudioProject;
 		private System.Windows.Forms.CheckBox checkBox_CloseApplication;
 		private System.Windows.Forms.CheckBox checkBox_OpenVSProject;

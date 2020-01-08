@@ -844,8 +844,7 @@ namespace LabMcuForm
 			//cbb.Focus();
 			//cbb.Enabled = true;
 		}
-
-
+		
 		/// <summary>
 		/// 功能码的变化
 		/// </summary>

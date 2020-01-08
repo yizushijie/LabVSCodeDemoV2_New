@@ -123,6 +123,10 @@
     <None Include="ToVisaulStudioForm\App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\LabIniFile\LabIniFile.csproj">
+      <Project>{FCB39572-BBB0-4FD3-BD78-8B60E43BDF10}</Project>
+      <Name>LabIniFile</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LabControlPlus\LabControlPlus.csproj">
       <Project>{E54A51A6-A054-4F21-AC22-A827B5EF4D36}</Project>
       <Name>LabControlPlus</Name>
