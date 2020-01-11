@@ -340,7 +340,7 @@ namespace Harry.LabTools.LabCommType
         {
             if (this.defaultCCOMM!=null)
             {
-                if (this.defaultCCOMM.IsAttached())
+                if (this.defaultCCOMM.DetectDevice())
                 {
                    if( this.defaultCCOMM.CloseDevice(this.defaultCCOMM.mCCommRichTextBox)==0)
                    {
@@ -594,7 +594,7 @@ namespace Harry.LabTools.LabCommType
 				//---检查对象类型
 				if ((this.defaultCCOMM.GetType() == typeof(CCommSerial)) && (this.defaultCCOMM.mType == CCOMM_TYPE.COMM_SERIAL))
 				{
-					if (this.defaultCCOMM.mIsFullParam)
+					if (this.defaultCCOMM.mFullParam)
 					{
 						//---串行通讯对象的参数
 						p = new CCommSerialFullForm(this.defaultCCOMM.mPerPackageMaxSize,this.comboBox_COMM, this.defaultCCOMM, this.defaultCCOMM.mCCommRichTextBox, "配置设备", true);
@@ -627,7 +627,7 @@ namespace Harry.LabTools.LabCommType
 					if (p.ShowDialog(this.comboBox_COMM, offset, this.comboBox_COMM.Height+4) == System.Windows.Forms.DialogResult.OK)
 					{
 						//---解析参数
-						if (this.defaultCCOMM.mIsFullParam)
+						if (this.defaultCCOMM.mFullParam)
 						{
 							this.defaultCCOMM.AnalyseParam(p.mPerPackageMaxSize,p.mCCommSrialParam, p.mCCommUSBParam,p.mRxCRC,p.mTxCRC,true);
 						}

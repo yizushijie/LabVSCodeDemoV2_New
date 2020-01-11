@@ -36,7 +36,7 @@ namespace LabMcuForm.CMcuFormAVR8Bits
 		/// <summary>
 		/// 事件注册的状态，false---未注册事件，true---已经注册事件
 		/// </summary>
-		private bool defaultRegistrationEventState = false;
+		private bool defaultRegisterEventState = false;
 
 		#endregion
 
@@ -198,10 +198,10 @@ namespace LabMcuForm.CMcuFormAVR8Bits
 																this.textBox_LowFuseValue, this.textBox_HighFuseValue, this.textBox_ExternFuseValue, this.textBox_LockFuseValue
 																);
 			//---校验是否已经注册了事件
-			if (this.defaultRegistrationEventState==false)
+			if (this.defaultRegisterEventState==false)
 			{
-				this.RegistrationEventHandler();
-				this.defaultRegistrationEventState = true;
+				this.RegisterEventHandler();
+				this.defaultRegisterEventState = true;
 			}
 			//---消息显示
 			if (msg!=null)
@@ -247,7 +247,7 @@ namespace LabMcuForm.CMcuFormAVR8Bits
 		/// <summary>
 		/// 注册事件函数
 		/// </summary>
-		private void RegistrationEventHandler()
+		private void RegisterEventHandler()
 		{
 			this.cCheckedListBoxEx_LowFuseBits.SelectedIndexChanged += new EventHandler(this.CheckedListBox_SelectedIndexChanged);
 			this.cCheckedListBoxEx_HighFuseBits.SelectedIndexChanged += new EventHandler(this.CheckedListBox_SelectedIndexChanged);
@@ -497,7 +497,7 @@ namespace LabMcuForm.CMcuFormAVR8Bits
 				return;
 			}
 			//---校验通讯端口
-			if ((this.defaultCMcuFunc.mCCOMM==null) ||(this.defaultCMcuFunc.mCCOMM.mIsOpen == false))
+			if ((this.defaultCMcuFunc.mCCOMM==null) ||(this.defaultCMcuFunc.mCCOMM.mOpen == false))
 			{
 				MessageBox.Show("通讯端口初始化异常!", "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;

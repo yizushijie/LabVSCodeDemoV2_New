@@ -90,7 +90,7 @@ namespace Harry.LabTools.LabCommType
 		/// <summary>
 		/// 
 		/// </summary>
-		public virtual bool mIsMultiAddr
+		public virtual bool mMultiAddr
 		{
 			get
 			{
@@ -101,7 +101,7 @@ namespace Harry.LabTools.LabCommType
 		/// <summary>
 		/// 
 		/// </summary>
-		public virtual bool mIsMultiCMD
+		public virtual bool mMultiCMD
 		{
 			get
 			{
@@ -116,7 +116,7 @@ namespace Harry.LabTools.LabCommType
 		/// <summary>
 		/// 端口是否打开
 		/// </summary>
-		public virtual bool mIsOpen
+		public virtual bool mOpen
 		{
 			get
 			{
@@ -160,7 +160,7 @@ namespace Harry.LabTools.LabCommType
 		/// <summary>
 		/// 设备连接状态
 		/// </summary>
-		public virtual bool mIsConnected
+		public virtual bool mConnected
 		{
 			get
 			{
@@ -171,7 +171,7 @@ namespace Harry.LabTools.LabCommType
 		/// <summary>
 		/// 设备是否发生变化,TRUE---发生变化，FALSE---未变化
 		/// </summary>
-		public virtual bool mIsChanged
+		public virtual bool mChanged
 		{
 			get
 			{
@@ -186,7 +186,7 @@ namespace Harry.LabTools.LabCommType
 		/// <summary>
 		/// 
 		/// </summary>
-		public virtual bool mIsFullParam
+		public virtual bool mFullParam
 		{
 			get
 			{

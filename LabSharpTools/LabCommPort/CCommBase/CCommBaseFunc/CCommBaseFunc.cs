@@ -263,7 +263,7 @@ namespace Harry.LabTools.LabCommType
 		/// 设备是否处于连接状态
 		/// </summary>
 		/// <returns></returns>
-		public virtual bool IsAttached()
+		public virtual bool DetectDevice()
 		{
 			return false;
 		}
@@ -273,7 +273,7 @@ namespace Harry.LabTools.LabCommType
 		/// </summary>
 		/// <param name="argName"></param>
 		/// <returns></returns>
-		public virtual bool IsAttached(string argName)
+		public virtual bool DetectDevice(string argName)
 		{
 			return false;
 		}
@@ -283,7 +283,7 @@ namespace Harry.LabTools.LabCommType
 		/// </summary>
 		/// <param name="argIndex"></param>
 		/// <returns></returns>
-		public virtual bool IsAttached(int argIndex)
+		public virtual bool DetectDevice(int argIndex)
 		{
 			return false;
 		}
@@ -294,10 +294,51 @@ namespace Harry.LabTools.LabCommType
 		/// <param name="argVID"></param>
 		/// <param name="argPID"></param>
 		/// <returns></returns>
-		public virtual bool IsAttached(int argVID, int argPID)
+		public virtual bool DetectDevice(int argVID, int argPID)
 		{
 			return false;
 		}
+
+		/// <summary>
+		/// 等待空闲
+		/// </summary>
+		/// <returns></returns>
+		public virtual bool WaitForIdle()
+		{
+			return false;
+		}
+
+		/// <summary>
+		/// 等待空闲
+		/// </summary>
+		/// <param name="argName"></param>
+		/// <returns></returns>
+		public virtual bool WaitForIdle(string argName)
+		{
+			return false;
+		}
+
+		/// <summary>
+		/// 等待空闲
+		/// </summary>
+		/// <param name="argIndex"></param>
+		/// <returns></returns>
+		public virtual bool WaitForIdle(int argIndex)
+		{
+			return false;
+		}
+
+		/// <summary>
+		/// 等待空闲
+		/// </summary>
+		/// <param name="argVID"></param>
+		/// <param name="argPID"></param>
+		/// <returns></returns>
+		public virtual bool WaitForIdle(int argVID, int argPID)
+		{
+			return false;
+		}
+
 		#endregion
 
 		#region 私有函数

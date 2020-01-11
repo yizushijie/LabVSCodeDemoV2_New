@@ -16,58 +16,46 @@ namespace Harry.LabTools.LabCommType
 		/// 使用的串口类
 		/// </summary>
 		private SerialPort defaultSerialPort = new SerialPort();
-
 		/// <summary>
 		/// 设备信息
 		/// </summary>
 		private string defaultSerialInfo = string.Empty;
-
 		/// <summary>
 		/// 超时时间，单位是ms
 		/// </summary>
 		private int defaultSerialTimeout = 200;
-
 		/// <summary>
 		/// 是不是复合命令
 		/// </summary>
 		private bool defaultSerialMultiCMD = false;
-
 		/// <summary>
 		/// 信息提示
 		/// </summary>
 		private string defaultSerialMsg = string.Empty;
-
 		/// <summary>
 		/// 工作状态
 		/// </summary>
 		private CCOMM_STATE defaultSerialSTATE = CCOMM_STATE.STATE_IDLE;
-
 		/// <summary>
 		/// 串口参数
 		/// </summary>
 		private CCommSerialParam defaultSerialParam = new CCommSerialParam();
-
 		/// <summary>
 		/// 使用的时间
 		/// </summary>
 		private TimeSpan defaultSerialUsedTime;
-
-
         /// <summary>
         /// 设备连接状态 true---连接，false---断开
         /// </summary>
         private bool defaultConnected = false;
-
 		/// <summary>
 		/// 设备是否发生变化,TRUE---发生变化，FALSE---未变化
 		/// </summary>
 		private bool defaultChanged = false;
-
 		/// <summary>
 		/// 是否显示全部参数
 		/// </summary>
 		private bool defaultFullParam = true;
-
 		/// <summary>
 		/// 每包传输数据的字节数
 		/// </summary>
@@ -119,7 +107,6 @@ namespace Harry.LabTools.LabCommType
 						
 					}
 				}
-				//if ((value==string.Empty)||(value==string.Empty))
 				if(string.IsNullOrEmpty(value))
 				{
 					this.defaultSerialPort.PortName = "COM1";
@@ -183,7 +170,7 @@ namespace Harry.LabTools.LabCommType
 		/// <summary>
 		/// 
 		/// </summary>
-		public override bool mIsMultiAddr
+		public override bool mMultiAddr
 		{
 			get
 			{
@@ -194,7 +181,7 @@ namespace Harry.LabTools.LabCommType
 		/// <summary>
 		/// 是不是复合命令
 		/// </summary>
-		public override bool mIsMultiCMD
+		public override bool mMultiCMD
 		{
 			get
 			{
@@ -210,7 +197,7 @@ namespace Harry.LabTools.LabCommType
 		/// <summary>
 		/// 端口是否打开
 		/// </summary>
-		public override bool mIsOpen
+		public override bool mOpen
 		{
 			get
 			{
@@ -262,7 +249,7 @@ namespace Harry.LabTools.LabCommType
         /// <summary>
         /// 设备连接状态
         /// </summary>
-        public override bool mIsConnected
+        public override bool mConnected
         {
             get
             {
@@ -273,7 +260,7 @@ namespace Harry.LabTools.LabCommType
 		/// <summary>
 		/// 
 		/// </summary>
-		public override bool mIsChanged
+		public override bool mChanged
 		{
 			get
 			{
@@ -288,7 +275,7 @@ namespace Harry.LabTools.LabCommType
 		/// <summary>
 		/// 
 		/// </summary>
-		public override bool mIsFullParam
+		public override bool mFullParam
 		{
 			get
 			{
@@ -332,23 +319,6 @@ namespace Harry.LabTools.LabCommType
 				{
 					this.defaultSerialParam = new CCommSerialParam();
 				}
-				//this.defaultSerialParam.mName = this.defaultSerialPort.PortName;
-				//this.defaultSerialParam.mBaudRate = this.defaultSerialPort.BaudRate.ToString();
-				//this.defaultSerialParam.mDataBits = this.defaultSerialPort.DataBits.ToString();
-				//this.defaultSerialParam.mStopBits = this.defaultSerialPort.StopBits.ToString();
-				//if (this.defaultSerialPort.Parity == System.IO.Ports.Parity.Odd)
-				//{
-				//	this.defaultSerialParam.mParity = "ODD";
-				//}
-				//else if (this.defaultSerialPort.Parity == System.IO.Ports.Parity.Even)
-				//{
-				//	this.defaultSerialParam.mParity = "EVEN";
-				//}
-				//else
-				//{
-				//	this.defaultSerialParam.mParity =  "NONE";
-				//}
-				
 				return this.defaultSerialParam;
 			}
 			set
@@ -362,31 +332,26 @@ namespace Harry.LabTools.LabCommType
 					if (value!=null)
 					{
 						this.defaultSerialParam.AnalyseParam(value.mName, value.mBaudRate, value.mStopBits, value.mDataBits, value.mParity);
-						
 						//---波特率
 						if (this.defaultSerialPort.BaudRate != int.Parse(this.defaultSerialParam.mBaudRate))
 						{
 							this.defaultSerialPort.BaudRate = int.Parse(this.defaultSerialParam.mBaudRate);
 						}
-
 						//---停止位
 						if (this.defaultSerialPort.StopBits != this.GetStopBits(this.defaultSerialParam.mStopBits))
 						{
 							this.defaultSerialPort.StopBits = this.GetStopBits(this.defaultSerialParam.mStopBits);
 						}
-
 						//---数据位
 						if (this.defaultSerialPort.DataBits != int.Parse(this.defaultSerialParam.mDataBits))
 						{
 							this.defaultSerialPort.DataBits = int.Parse(this.defaultSerialParam.mDataBits);
 						}
-
 						//---校验位
 						if (this.defaultSerialPort.Parity != this.GetParityBits(this.defaultSerialParam.mParity))
 						{
 							this.defaultSerialPort.Parity = this.GetParityBits(this.defaultSerialParam.mParity);
-						}
-						
+						}						
 					}
                 }
 				else

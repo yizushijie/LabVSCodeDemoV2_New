@@ -161,22 +161,22 @@ namespace Harry.LabTools.LabCommType
 		/// <summary>
 		/// 设备是否处于连接状态
 		/// </summary>
-		/// <returns></returns>
-		bool IsAttached();
+		/// <returns>true---连接，false---失败</returns>
+		bool DetectDevice();
 
 		/// <summary>
 		/// 设备是否处于连接状态
 		/// </summary>
 		/// <param name="argName"></param>
 		/// <returns></returns>
-		bool IsAttached(string argName);
+		bool DetectDevice(string argName);
 
 		/// <summary>
 		/// 设备是否处于连接状态
 		/// </summary>
 		/// <param name="argIndex"></param>
 		/// <returns></returns>
-		bool IsAttached(int argIndex);
+		bool DetectDevice(int argIndex);
 
 		/// <summary>
 		/// 设备是否处于连接状态
@@ -184,6 +184,35 @@ namespace Harry.LabTools.LabCommType
 		/// <param name="argVID"></param>
 		/// <param name="argPID"></param>
 		/// <returns></returns>
-		bool IsAttached(int argVID, int argPID);
+		bool DetectDevice(int argVID, int argPID);
+
+		/// <summary>
+		/// 等待设备空闲
+		/// </summary>
+		/// <returns></returns>
+		bool WaitForIdle();
+
+		/// <summary>
+		/// 等待设备空闲
+		/// </summary>
+		/// <param name="argName"></param>
+		/// <returns></returns>
+		bool WaitForIdle(string argName);
+
+		/// <summary>
+		/// 等待设备空闲
+		/// </summary>
+		/// <param name="argIndex"></param>
+		/// <returns></returns>
+		bool WaitForIdle(int argIndex);
+
+		/// <summary>
+		/// 等待设备空闲
+		/// </summary>
+		/// <param name="argVID"></param>
+		/// <param name="argPID"></param>
+		/// <returns></returns>
+		bool WaitForIdle(int argVID, int argPID);
+		
 	}
 }

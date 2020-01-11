@@ -890,7 +890,7 @@ namespace LabMcuForm
 			{
 				return;
 			}
-			if (this.defaultCComm.mIsOpen==false)
+			if (this.defaultCComm.mOpen==false)
 			{
 				CMessageBoxPlus.Show(this, "通讯端口初始化异常!", "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;

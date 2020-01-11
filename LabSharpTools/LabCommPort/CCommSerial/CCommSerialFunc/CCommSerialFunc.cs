@@ -17,6 +17,12 @@ namespace Harry.LabTools.LabCommType
 		/// </summary>
 		private bool defaultLastRecePass = true;
 
+		/// <summary>
+		/// 是否注册过了接收事件,用于避免事件被多次重复注册，导致的多次调用
+		/// true---已经注册，false---未注册
+		/// </summary>
+		private bool defaultHaveEventDataReceivedState = false;
+
 		#endregion
 
 		#region 属性定义
@@ -350,8 +356,12 @@ namespace Harry.LabTools.LabCommType
                             {
                                 if (this.defaultSerialPort!=null)
                                 {
-                                    //---注销事件接收函数
-                                    this.defaultSerialPort.DataReceived -= new SerialDataReceivedEventHandler(this.EventDataReceivedHandler);
+									//---注销事件接收函数
+									if (this.defaultHaveEventDataReceivedState==true)
+									{
+										this.defaultSerialPort.DataReceived -= new SerialDataReceivedEventHandler(this.EventDataReceivedHandler);
+										this.defaultHaveEventDataReceivedState = false;
+									}                                   
                                     //---释放资源
                                     this.defaultSerialPort.Dispose();
                                 }
@@ -783,7 +793,11 @@ namespace Harry.LabTools.LabCommType
                             this.defaultConnected = true;
                             this.defaultSerialMsg = "端口：" + this.mName + "打开成功!";
 							//---注册事件接收函数
-							this.defaultSerialPort.DataReceived += new SerialDataReceivedEventHandler(this.EventDataReceivedHandler);
+							if (this.defaultHaveEventDataReceivedState==false)
+							{
+								this.defaultSerialPort.DataReceived += new SerialDataReceivedEventHandler(this.EventDataReceivedHandler);
+								this.defaultHaveEventDataReceivedState = true;
+							}							
 							_return = 0;
 						}
 					}
@@ -889,8 +903,12 @@ namespace Harry.LabTools.LabCommType
                         this.defaultConnected = false;
                         _return = 0;
                         this.defaultSerialMsg = "端口:" + this.mName.ToString() + "关闭成功!";
-                        //---注销事件接收函数
-                        this.defaultSerialPort.DataReceived -= new SerialDataReceivedEventHandler(this.EventDataReceivedHandler);
+						//---注销事件接收函数
+						if (this.defaultHaveEventDataReceivedState == true)
+						{
+							this.defaultSerialPort.DataReceived -= new SerialDataReceivedEventHandler(this.EventDataReceivedHandler);
+							this.defaultHaveEventDataReceivedState = false;
+						}
                         //---释放端口使用的资源
                         this.defaultSerialPort.Dispose();
                     }
@@ -948,14 +966,21 @@ namespace Harry.LabTools.LabCommType
             {
                 try
                 {
+					//---等待端口空闲
+					this.WaitForIdle(argName);
+					//---关闭端口
                     this.defaultSerialPort.Close();
                     if (this.defaultSerialPort.IsOpen == false)
                     {
                         this.defaultConnected = false;
                         _return = 0;
                         this.defaultSerialMsg = "端口:" + this.mName.ToString() + "关闭成功!";
-                        //---注销事件接收函数
-                        this.defaultSerialPort.DataReceived -= new SerialDataReceivedEventHandler(this.EventDataReceivedHandler);
+						//---注销事件接收函数
+						if (this.defaultHaveEventDataReceivedState == true)
+						{
+							this.defaultSerialPort.DataReceived -= new SerialDataReceivedEventHandler(this.EventDataReceivedHandler);
+							this.defaultHaveEventDataReceivedState = false;
+						}						
                         //---释放端口使用的资源
                         this.defaultSerialPort.Dispose();
                     }
@@ -995,7 +1020,7 @@ namespace Harry.LabTools.LabCommType
 		/// 设备是否处于连接状态
 		/// </summary>
 		/// <returns></returns>
-		public override bool IsAttached()
+		public override bool DetectDevice()
 		{
             if (this.defaultSerialPort == null)
             {
@@ -1012,7 +1037,7 @@ namespace Harry.LabTools.LabCommType
 		/// </summary>
 		/// <param name="argName"></param>
 		/// <returns></returns>
-		public override bool IsAttached(string argName)
+		public override bool DetectDevice(string argName)
 		{
             if (this.defaultSerialPort == null)
             {
@@ -1033,14 +1058,75 @@ namespace Harry.LabTools.LabCommType
 		/// </summary>
 		/// <param name="argIndex"></param>
 		/// <returns></returns>
-		public override bool IsAttached(int argIndex)
+		public override bool DetectDevice(int argIndex)
 		{
             string argName = "COM" + argIndex.ToString();
-            return this.IsAttached(argName);
+            return this.DetectDevice(argName);
         }
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public override bool WaitForIdle()
+		{
+			bool _return = false;
+			//---当前端口必须处于打开状态
+			while (this.DetectDevice())
+			{
+				//---检查端口状态必须是空闲或者错误状态，才能退出操作
+				if ((this.defaultSerialSTATE == CCOMM_STATE.STATE_IDLE) || (this.defaultSerialSTATE == CCOMM_STATE.STATE_ERROR))
+				{
+					_return = true;
+					break;
+				}
+				else
+				{
+					//---响应其他事件
+					Application.DoEvents();
+				}
+			}
+			return _return;
+		}
+
+		/// <summary>
+		/// 等待设备空闲
+		/// </summary>
+		/// <returns></returns>
+		public override bool WaitForIdle(string argName)
+		{
+			bool _return = false;
+			//---当前端口必须处于打开状态
+			while (this.DetectDevice(argName))
+			{
+				//---检查端口状态必须是空闲或者错误状态，才能退出操作
+				if ((this.defaultSerialSTATE == CCOMM_STATE.STATE_IDLE)||(this.defaultSerialSTATE==CCOMM_STATE.STATE_ERROR))
+				{
+					_return = true;
+					break;
+				}
+				else
+				{
+					//---响应其他事件
+					Application.DoEvents();
+				}
+			}
+			return _return;
+		}
+
+		/// <summary>
+		/// 等待空闲
+		/// </summary>
+		/// <param name="argIndex"></param>
+		/// <returns></returns>
+		public override bool WaitForIdle(int argIndex)
+		{
+			string argName = "COM" + argIndex.ToString();
+			return this.WaitForIdle(argName);
+		}
+
 		#endregion
-		
+
 		#region 私有函数
 
 		#endregion

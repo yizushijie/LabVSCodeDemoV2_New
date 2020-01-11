@@ -47,7 +47,7 @@ namespace Harry.LabTools.LabCommType
 			if (cCommBase!=null)
 			{
 				//---参数的分析
-				base.AnalyseParam(cCommBase.mPerPackageMaxSize, cCommBase.mSerialParam, cCommBase.mUSBParam, cCommBase.mIsMultiAddr);
+				base.AnalyseParam(cCommBase.mPerPackageMaxSize, cCommBase.mSerialParam, cCommBase.mUSBParam, cCommBase.mMultiAddr);
 			}			
 		}
 
@@ -232,7 +232,7 @@ namespace Harry.LabTools.LabCommType
 					}
 					if (this.defaultSerialReceData.mCRCMode != CCOMM_CRC.CRC_NONE)
 					{
-						if (this.defaultSerialReceData.mCRCResult != crcVal)
+						if (this.defaultSerialReceData.mCRCVal != crcVal)
 						{
 							this.defaultSerialMsg += "接收数据发生CRC校验错误！";
 							_return = 3;
@@ -240,8 +240,7 @@ namespace Harry.LabTools.LabCommType
 					}
 				}
 			}
-
-			//---工作状态是忙碌
+			//---工作状态是空闲
 			this.defaultSerialSTATE = CCOMM_STATE.STATE_IDLE;
 			//---清空接收缓存区
 			this.defaultSerialPort.DiscardInBuffer();
@@ -408,7 +407,7 @@ namespace Harry.LabTools.LabCommType
 					}
 					if (this.defaultSerialReceData.mCRCMode != CCOMM_CRC.CRC_NONE)
 					{
-						if (this.defaultSerialReceData.mCRCResult != crcVal)
+						if (this.defaultSerialReceData.mCRCVal != crcVal)
 						{
 							this.defaultSerialMsg += "接收数据发生CRC校验错误！";
 							_return = 3;
@@ -514,6 +513,7 @@ namespace Harry.LabTools.LabCommType
 			bool _return = false;
 			//---获取当前设备的端口
 			string[] argNames = SerialPort.GetPortNames();
+			//---获取端口的信息
 			string[] argInfo = SystemHardware.GetSerialPort();
 			if ((argNames==null)||(argNames.Length==0))
 			{

@@ -411,7 +411,7 @@ namespace Harry.LabTools.LabCommType
 		/// <summary>
 		/// 是不是多地址通讯，false---不是，true---是
 		/// </summary>
-		bool mIsMultiAddr
+		bool mMultiAddr
 		{
 			get;
 		}
@@ -419,7 +419,7 @@ namespace Harry.LabTools.LabCommType
 		/// <summary>
 		/// 是不是复合命令，比如主命令加子命令,仅仅针对接收有效
 		/// </summary>
-		bool mIsMultiCMD
+		bool mMultiCMD
 		{
 			get;
 			set;
@@ -428,13 +428,13 @@ namespace Harry.LabTools.LabCommType
 		/// <summary>
 		/// 通讯端口是够打开，false---关闭，true---打开
 		/// </summary>
-		bool mIsOpen
+		bool mOpen
 		{
 			get;
 		}
 
 		/// <summary>
-		/// 通讯过程中消息信息
+		/// 通讯过程中消息信息，主要是log信息
 		/// </summary>
 		string mLogMsg
 		{
@@ -460,7 +460,7 @@ namespace Harry.LabTools.LabCommType
         /// <summary>
         /// 设备连接状态
         /// </summary>
-        bool mIsConnected
+        bool mConnected
         {
             get;
         }
@@ -468,7 +468,7 @@ namespace Harry.LabTools.LabCommType
 		/// <summary>
 		/// 设备是否发生变化
 		/// </summary>
-		bool mIsChanged
+		bool mChanged
 		{
 			get;
 			set;
@@ -477,7 +477,7 @@ namespace Harry.LabTools.LabCommType
 		/// <summary>
 		/// 是否显示全部全部配置参数
 		/// </summary>
-		bool mIsFullParam
+		bool mFullParam
 		{
 			get;
 			set;
@@ -522,8 +522,10 @@ namespace Harry.LabTools.LabCommType
 
 		#endregion
 
+		#region 初始化函数
+
 		/// <summary>
-		/// 
+		/// 初始化串口通讯参数
 		/// </summary>
 		/// <param name="serialParam"></param>
 		/// <param name="msg"></param>
@@ -531,7 +533,7 @@ namespace Harry.LabTools.LabCommType
 		int Init(CCommSerialParam serialParam, RichTextBox msg = null);
 
 		/// <summary>
-		/// 
+		/// 初始化串口通讯参数
 		/// </summary>
 		/// <param name="serialParam"></param>
 		/// <param name="msg"></param>
@@ -539,7 +541,7 @@ namespace Harry.LabTools.LabCommType
 		int Init(CCommSerialParam serialParam, CCOMM_CRC rxCRC, CCOMM_CRC txCRC, RichTextBox msg = null);
 
 		/// <summary>
-		/// 
+		/// 初始化usb参数
 		/// </summary>
 		/// <param name="usbParam"></param>
 		/// <param name="msg"></param>
@@ -547,7 +549,7 @@ namespace Harry.LabTools.LabCommType
 		int Init(CCommUSBParam usbParam, RichTextBox msg = null);
 
 		/// <summary>
-		/// 
+		/// 初始化usb参数
 		/// </summary>
 		/// <param name="usbParam"></param>
 		/// <param name="rxCRC"></param>
@@ -556,5 +558,6 @@ namespace Harry.LabTools.LabCommType
 		/// <returns></returns>
 		int Init(CCommUSBParam usbParam, CCOMM_CRC rxCRC, CCOMM_CRC txCRC, RichTextBox msg = null);
 
+		#endregion
 	}
 }

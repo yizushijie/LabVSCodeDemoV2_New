@@ -32,7 +32,7 @@ namespace Harry.LabTools.LabCommType
 		/// <summary>
 		/// CRC的结果
 		/// </summary>
-		private UInt32 defaultCRCResult = 0;
+		private UInt32 defaultCRCVal = 0;
 
 		/// <summary>
 		/// 数据的长度
@@ -65,9 +65,9 @@ namespace Harry.LabTools.LabCommType
 		private int defaultID = 0x00;
 
 		/// <summary>
-		/// 结果标志位
+		/// 结果标志位，0---数据合格，其他失效
 		/// </summary>
-		private int defaultFlagResult = -1;
+		private int defaultOkFlag = -1;
 
 		/// <summary>
 		/// 数据命令的偏移
@@ -114,15 +114,15 @@ namespace Harry.LabTools.LabCommType
 		/// <summary>
 		/// 校验结果属性为读写属性
 		/// </summary>
-		public UInt32 mCRCResult
+		public UInt32 mCRCVal
 		{
 			get
 			{
-				return this.defaultCRCResult;
+				return this.defaultCRCVal;
 			}
 			set
 			{
-				this.defaultCRCResult = value;
+				this.defaultCRCVal = value;
 			}
 		}
 
@@ -217,17 +217,17 @@ namespace Harry.LabTools.LabCommType
 		}
 
 		/// <summary>
-		/// 数据结果属性为读写属性
+		/// 数据结果属性为读写属性，0---数据合格，其他失效
 		/// </summary>
-		public virtual int mFlagResult
+		public virtual int mOkFlag
 		{
 			get
 			{
-				return this.defaultFlagResult;
+				return this.defaultOkFlag;
 			}
 			set
 			{
-				this.defaultFlagResult=value;
+				this.defaultOkFlag=value;
 			}
 		}
 

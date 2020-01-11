@@ -35,7 +35,7 @@ namespace Harry.LabTools.LabCommType
 		{
 			get
 			{
-				return this.cCommSerial.mCCOMM.mIsChanged;
+				return this.cCommSerial.mCCOMM.mChanged;
 			}
 		}
 

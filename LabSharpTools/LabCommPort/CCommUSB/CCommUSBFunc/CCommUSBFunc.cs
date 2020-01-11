@@ -222,7 +222,7 @@ namespace Harry.LabTools.LabCommType
 		/// 设备是否处于连接状态
 		/// </summary>
 		/// <returns></returns>
-		public override bool IsAttached()
+		public override bool DetectDevice()
 		{
 			return false;
 		}
@@ -232,7 +232,7 @@ namespace Harry.LabTools.LabCommType
 		/// </summary>
 		/// <param name="argName"></param>
 		/// <returns></returns>
-		public override bool IsAttached(string argName)
+		public override bool DetectDevice(string argName)
 		{
 			return false;
 		}
@@ -242,7 +242,7 @@ namespace Harry.LabTools.LabCommType
 		/// </summary>
 		/// <param name="argIndex"></param>
 		/// <returns></returns>
-		public override bool IsAttached(int argIndex)
+		public override bool DetectDevice(int argIndex)
 		{
 			return false;
 		}
@@ -253,7 +253,7 @@ namespace Harry.LabTools.LabCommType
 		/// <param name="argVID"></param>
 		/// <param name="argPID"></param>
 		/// <returns></returns>
-		public override bool IsAttached(int argVID, int argPID)
+		public override bool DetectDevice(int argVID, int argPID)
 		{
 			return false;
 		}
